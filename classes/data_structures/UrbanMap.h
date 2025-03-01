@@ -5,9 +5,9 @@
 #ifndef URBANMAP_H
 #define URBANMAP_H
 
-#include "Edge.h"
-#include "Vertex.h"
 
+#include "Vertex.h"
+#include <vector>
 
 /**
  * @class UrbanMap
@@ -101,6 +101,113 @@ protected:
      * @brief Auxiliary function to set the "path" field to create a spanning tree.
      */
 };
+
+template <class T>
+int UrbanMap<T>::getNumLocations() const {
+    return locationSet.size();
+}
+
+template <class T>
+std::vector<Vertex<T> *> UrbanMap<T>::getLocationSet() const {
+    return locationSet;
+}
+
+/*
+ * Auxiliary function to find a vertex with a given content.
+ */
+template <class T>
+Vertex<T> * UrbanMap<T>::findLocation(const T &in) const {
+    for (auto v : locationSet)
+        if (v->getInfo() == in)
+            return v;
+    return nullptr;
+}
+
+/*
+ * Finds the index of the vertex with a given content.
+ */
+template <class T>
+int UrbanMap<T>::findLocationIdx(const T &in) const {
+    for (unsigned i = 0; i < locationSet.size(); i++)
+        if (locationSet[i]->getInfo() == in)
+            return i;
+    return -1;
+}
+/*
+ *  Adds a vertex with a given content or info (in) to a graph (this).
+ *  Returns true if successful, and false if a vertex with that content already exists.
+ */
+template <class T>
+bool UrbanMap<T>::addLocation(const T &in) {
+    if (findLocation(in) != nullptr)
+        return false;
+    locationSet.push_back(new Vertex<T>(in));
+    return true;
+}
+
+/*
+ *  Removes a vertex with a given content (in) from a graph (this), and
+ *  all outgoing and incoming edges.
+ *  Returns true if successful, and false if such vertex does not exist.
+ */
+template <class T>
+bool UrbanMap<T>::removeLocation(const T &in) {
+    for (auto it = locationSet.begin(); it != locationSet.end(); it++) {
+        if ((*it)->getInfo() == in) {
+            auto v = *it;
+            v->removeOutgoingEdges();
+            for (auto u : locationSet) {
+                u->removeEdge(v->getInfo());
+            }
+            locationSet.erase(it);
+            delete v;
+            return true;
+        }
+    }
+    return false;
+}
+
+/*
+ * Adds an edge to a graph (this), given the contents of the source and
+ * destination vertices and the edge weight (w).
+ * Returns true if successful, and false if the source or destination vertex does not exist.
+ */
+template <class T>
+bool UrbanMap<T>::addRoad(const T &sourc, const T &dest, double w) {
+    auto v1 = findVertex(sourc);
+    auto v2 = findVertex(dest);
+    if (v1 == nullptr || v2 == nullptr)
+        return false;
+    v1->addEdge(v2, w);
+    return true;
+}
+
+/*
+ * Removes an edge from a graph (this).
+ * The edge is identified by the source (sourc) and destination (dest) contents.
+ * Returns true if successful, and false if such edge does not exist.
+ */
+template <class T>
+bool UrbanMap<T>::removeRoad(const T &sourc, const T &dest) {
+    Vertex<T> * srcVertex = findLocation(sourc);
+    if (srcVertex == nullptr) {
+        return false;
+    }
+    return srcVertex->removeEdge(dest);
+}
+
+template <class T>
+bool UrbanMap<T>::addBidirectionalRoad(const T &sourc, const T &dest, double w) {
+    auto v1 = findLocation(sourc);
+    auto v2 = findLocation(dest);
+    if (v1 == nullptr || v2 == nullptr)
+        return false;
+    auto e1 = v1->addEdge(v2, w);
+    auto e2 = v2->addEdge(v1, w);
+    e1->setReverse(e2);
+    e2->setReverse(e1);
+    return true;
+}
 
 #endif //URBANMAP_H
 

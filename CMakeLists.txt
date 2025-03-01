@@ -7,4 +7,11 @@ set( CMAKE_BUILD_TYPE_TMP "${CMAKE_BUILD_TYPE}" )
 set( CMAKE_BUILD_TYPE "Release" )
 
 add_executable(Individual-Route-Planning-Tool main.cpp
+        classes/data_structures/Edge.h
+        classes/data_structures/MutablePriorityQueu.h
+        classes/data_structures/UrbanMap.h
+        classes/data_structures/Vertex.h
+        classes/DataParser.cpp
+        classes/Menu.cpp
+        classes/Menu.h
 )

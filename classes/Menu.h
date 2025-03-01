@@ -8,7 +8,13 @@
 
 
 class Menu {
+    public:
+        Menu();
+        void init();
+        static void end();
 
+    private:
+        void chooseOption();
 };
 
 
