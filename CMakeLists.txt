@@ -14,4 +14,5 @@ add_executable(Individual-Route-Planning-Tool main.cpp
         classes/DataParser.cpp
         classes/Menu.cpp
         classes/Menu.h
+        classes/Location.h
 )

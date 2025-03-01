@@ -9,6 +9,8 @@
 #include <vector>
 #include "MutablePriorityQueu.h"
 
+//Modificar esta classe , especialmente construtor
+
 template <class T>
 class Vertex {
 public:
@@ -18,7 +20,6 @@ public:
     T getInfo() const;
     std::vector<Edge<T> *> getAdj() const;
     bool isVisited() const;
-    bool isProcessing() const;
     unsigned int getIndegree() const;
     double getDist() const;
     Edge<T> *getPath() const;
@@ -28,12 +29,8 @@ public:
 
     void setInfo(T info);
     void setVisited(bool visited);
-    void setProcessing(bool processing);
 
-    int getLow() const;
-    void setLow(int value);
-    int getNum() const;
-    void setNum(int value);
+
 
     void setCode(std::string code);
     std::string getCode() const;
@@ -55,8 +52,6 @@ protected:
 
     // auxiliary fields
     bool visited = false; // used by DFS, BFS, Prim ...
-    bool processing = false; // used by isDAG (in addition to the visited attribute)
-    int low = -1, num = -1; // used by SCC Tarjan
     unsigned int indegree; // used by topsort
     double dist = 0;
     Edge<T> *path = nullptr;
@@ -129,25 +124,7 @@ T Vertex<T>::getInfo() const {
     return this->info;
 }
 
-template <class T>
-int Vertex<T>::getLow() const {
-    return this->low;
-}
 
-template <class T>
-void Vertex<T>::setLow(int value) {
-    this->low = value;
-}
-
-template <class T>
-int Vertex<T>::getNum() const {
-    return this->num;
-}
-
-template <class T>
-void Vertex<T>::setNum(int value) {
-    this->num = value;
-}
 
 template <class T>
 std::vector<Edge<T>*> Vertex<T>::getAdj() const {
@@ -159,10 +136,7 @@ bool Vertex<T>::isVisited() const {
     return this->visited;
 }
 
-template <class T>
-bool Vertex<T>::isProcessing() const {
-    return this->processing;
-}
+
 
 template <class T>
 unsigned int Vertex<T>::getIndegree() const {
@@ -204,10 +178,7 @@ void Vertex<T>::setVisited(bool visited) {
     this->visited = visited;
 }
 
-template <class T>
-void Vertex<T>::setProcessing(bool processing) {
-    this->processing = processing;
-}
+
 
 template <class T>
 void Vertex<T>::setIndegree(unsigned int indegree) {

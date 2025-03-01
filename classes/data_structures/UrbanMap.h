@@ -8,6 +8,7 @@
 
 #include "Vertex.h"
 #include <vector>
+#include "Location.h"
 
 /**
  * @class UrbanMap
@@ -87,9 +88,8 @@ public:
 protected:
     std::vector<Vertex<T> *> locationSet;    ///< Set of locations (vertices)
 
-    double ** distMatrix = nullptr;   ///< Distance matrix for Floyd-Warshall
-    int **pathMatrix = nullptr;   ///< Path matrix for Floyd-Warshall
-
+    //hash set for efficient find of Vertex
+    Location::LocationSet location_set_;
     /**
      * @brief Finds the index of a location with the given content.
      * @param in The content to search for.
@@ -208,6 +208,9 @@ bool UrbanMap<T>::addBidirectionalRoad(const T &sourc, const T &dest, double w) 
     e2->setReverse(e1);
     return true;
 }
+
+
+
 
 #endif //URBANMAP_H
 

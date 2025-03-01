@@ -5,7 +5,7 @@
 #ifndef EDGE_H
 #define EDGE_H
 
-#include "UrbanMap.h"
+
 #include "Vertex.h"
 
 template <class T>
