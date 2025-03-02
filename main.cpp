@@ -4,7 +4,10 @@
 
 
 #include <cstdio>
+#include "classes/Menu.h"
 
 int main(){
-    printf("Hello World\n");
+    Menu menu;
+    menu.init();
+    return 0;
 }

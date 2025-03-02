@@ -6,7 +6,7 @@
 #include <iostream>
 
 Menu::Menu() {
-    std::cout << "\t\t\n\n" << " Bem-vindo!\n";
+    std::cout << "\t\t\n\n" << "Bem-vindo!\n";
 }
 
 
@@ -17,11 +17,11 @@ void Menu::init() {
         std::cout<<"Que tipo de plano de viagem deseja fazer hoje?"<<"\n"
                     <<"[1] Realizar uma das operações "<<"\n" <<"[2] Sair do programa "<<"\n";
         std::cin>>input;
-        switch (input) {
-            case "1":
+        switch (stoi(input)) {
+            case 1:
                 chooseOption();
                 break;
-            case "2":
+            case 2:
                 return;
             default:
                 std::cout<<"Input inválido"<<std::endl;
@@ -32,5 +32,5 @@ void Menu::init() {
 }
 
 void Menu::chooseOption() {
-    std::string option;
+
 }

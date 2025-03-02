@@ -6,7 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <unordered_set>
-#include "Location.h"
+#include "data_structures/Location.h"
 #include "data_structures/UrbanMap.h"
 
 
@@ -27,8 +27,7 @@ void createLocations(UrbanMap<T> *urban_map) {
         parking = std::stoi(tmp);
         //create Location using unordered map
         Location location = Location(name,Code,ID,parking);
-
-        urban_map->addLocation(Code);
+        urban_map->addLocation(Code,parking);
     }
 }
 
@@ -44,18 +43,24 @@ void createRoads(UrbanMap<T>* urban_map) {
         std::getline(iss,code1,',');
         std::getline(iss,code2,',');
         std::getline(iss,tmp,',');
+        if (tmp == "X") {
+            tmp = -1; //meaning that you cannot drive in this road
+        }
         driving = std::stoi(tmp);
         std::getline(iss,tmp,',');
         walking = std::stoi(tmp);
-        urban_map->addRoad(code1,code2,driving);
+        urban_map->addRoad(code1,code2,driving,walking);
     }
 }
 
 
 template <typename T>
-UrbanMap<T>* createUrbanMap() {
+UrbanMap<T> createUrbanMap() {
 
     UrbanMap<T> urbanMap;
     createLocations(&urbanMap);
+    createRoads(&urbanMap);
+
+    return urbanMap;
 }
 

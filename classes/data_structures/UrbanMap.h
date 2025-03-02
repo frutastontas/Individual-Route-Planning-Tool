@@ -6,9 +6,288 @@
 #define URBANMAP_H
 
 
-#include "Vertex.h"
+
 #include <vector>
 #include "Location.h"
+#include "MutablePriorityQueu.h"
+
+template <class T>
+class Edge;
+
+/////////////////////////Vertex/////////////////////////////////////////
+
+template <class T>
+class Vertex {
+public:
+    Vertex(T in, int parking);
+    bool operator<(Vertex<T> & vertex) const; // // required by MutablePriorityQueue
+
+    T getInfo() const;
+    std::vector<Edge<T> *> getAdj() const;
+    bool isVisited() const;
+    unsigned int getIndegree() const;
+    double getDist() const;
+    Edge<T> *getPath() const;
+    std::vector<Edge<T> *> getIncoming() const;
+
+    int hasParking();
+
+    void setInfo(T info);
+    void setVisited(bool visited);
+
+
+    void setCode(std::string code);
+    std::string getCode() const;
+
+    void setIndegree(unsigned int indegree);
+    void setDist(double dist);
+    void setPath(Edge<T> *path);
+
+    void setParking(int p);
+
+    Edge<T> * addEdge(Vertex<T> *dest, double w);
+    bool removeEdge(T in);
+    void removeOutgoingEdges();
+
+    friend class MutablePriorityQueue<Vertex>;
+protected:
+    T info;                // Code of the Node
+    std::vector<Edge<T> *> adj;  // outgoing edges
+
+    // auxiliary fields
+    bool visited = false; // used by DFS, BFS, Prim ...
+    unsigned int indegree; // used by topsort
+    double dist = 0;
+    Edge<T> *path = nullptr;
+    std::vector<Edge<T> *> incoming; // incoming edges
+    int parking;
+    int queueIndex = 0; 		// required by MutablePriorityQueue and UFDS
+
+    void deleteEdge(Edge<T> *edge);
+};
+
+template <class T>
+Vertex<T>::Vertex(T in, int parking): info(in), parking(parking) {}
+/*
+ * Auxiliary function to add an outgoing edge to a vertex (this),
+ * with a given destination vertex (d) and edge weight (w).
+ */
+template <class T>
+Edge<T> * Vertex<T>::addEdge(Vertex<T> *d, double w) {
+    auto newEdge = new Edge<T>(this, d, w);
+    adj.push_back(newEdge);
+    d->incoming.push_back(newEdge);
+    return newEdge;
+}
+
+/*
+ * Auxiliary function to remove an outgoing edge (with a given destination (d))
+ * from a vertex (this).
+ * Returns true if successful, and false if such edge does not exist.
+ */
+template <class T>
+bool Vertex<T>::removeEdge(T in) {
+    bool removedEdge = false;
+    auto it = adj.begin();
+    while (it != adj.end()) {
+        Edge<T> *edge = *it;
+        Vertex<T> *dest = edge->getDest();
+        if (dest->getInfo() == in) {
+            it = adj.erase(it);
+            deleteEdge(edge);
+            removedEdge = true; // allows for multiple edges to connect the same pair of vertices (multigraph)
+        }
+        else {
+            it++;
+        }
+    }
+    return removedEdge;
+}
+
+/*
+ * Auxiliary function to remove an outgoing edge of a vertex.
+ */
+template <class T>
+void Vertex<T>::removeOutgoingEdges() {
+    auto it = adj.begin();
+    while (it != adj.end()) {
+        Edge<T> *edge = *it;
+        it = adj.erase(it);
+        deleteEdge(edge);
+    }
+}
+
+template <class T>
+bool Vertex<T>::operator<(Vertex<T> & vertex) const {
+    return this->dist < vertex.dist;
+}
+
+template <class T>
+T Vertex<T>::getInfo() const {
+    return this->info;
+}
+
+template <class T>
+std::vector<Edge<T>*> Vertex<T>::getAdj() const {
+    return this->adj;
+}
+
+template <class T>
+bool Vertex<T>::isVisited() const {
+    return this->visited;
+}
+
+template <class T>
+unsigned int Vertex<T>::getIndegree() const {
+    return this->indegree;
+}
+
+template <class T>
+double Vertex<T>::getDist() const {
+    return this->dist;
+}
+
+template <class T>
+Edge<T> *Vertex<T>::getPath() const {
+    return this->path;
+}
+
+template <class T>
+std::vector<Edge<T> *> Vertex<T>::getIncoming() const {
+    return this->incoming;
+}
+
+template <class T>
+int Vertex<T>::hasParking() {
+    return this->parking;
+}
+
+template <class T>
+void Vertex<T>::setInfo(T in) {
+    this->info = in;
+}
+
+template <class T>
+void Vertex<T>::setVisited(bool visited) {
+    this->visited = visited;
+}
+
+
+
+template <class T>
+void Vertex<T>::setIndegree(unsigned int indegree) {
+    this->indegree = indegree;
+}
+
+template <class T>
+void Vertex<T>::setDist(double dist) {
+    this->dist = dist;
+}
+
+template <class T>
+void Vertex<T>::setPath(Edge<T> *path) {
+    this->path = path;
+}
+template <class T>
+void Vertex<T>::deleteEdge(Edge<T> *edge) {
+    Vertex<T> *dest = edge->getDest();
+    // Remove the corresponding edge from the incoming list
+    auto it = dest->incoming.begin();
+    while (it != dest->incoming.end()) {
+        if ((*it)->getOrig()->getInfo() == info) {
+            it = dest->incoming.erase(it);
+        }
+        else {
+            it++;
+        }
+    }
+    delete edge;
+}
+
+
+///////////////////////////Edge////////////////////////////////////////////////////
+
+template <class T>
+class Edge {
+public:
+    Edge(Vertex<T> *orig, Vertex<T> *dest, double driving, double walking);
+
+    Vertex<T> * getDest() const;
+    double getDriving() const;
+    double getWalking() const;
+    bool isSelected() const;
+    Vertex<T> * getOrig() const;
+    Edge<T> *getReverse() const;
+
+
+    void setSelected(bool selected);
+    void setReverse(Edge<T> *reverse);
+
+protected:
+    Vertex<T> * dest; // destination vertex
+    double driving; // edge weight when driving
+    double walking; // edge weight for walking
+
+    // auxiliary fields
+    bool selected = false;
+
+    // used for bidirectional edges
+    Vertex<T> *orig;
+    Edge<T> *reverse = nullptr;
+
+};
+
+template <class T>
+Edge<T>::Edge(Vertex<T> *orig, Vertex<T> *dest, double driving, double walking): orig(orig), dest(dest), driving(driving), walking(walking){}
+
+template <class T>
+Vertex<T> * Edge<T>::getDest() const {
+    return this->dest;
+}
+
+template <class T>
+double Edge<T>::getDriving() const {
+    return this->driving;
+}
+
+template<class T>
+double Edge<T>::getWalking() const {
+    return this->walking;
+}
+
+
+template <class T>
+Vertex<T> * Edge<T>::getOrig() const {
+    return this->orig;
+}
+
+template <class T>
+Edge<T> *Edge<T>::getReverse() const {
+    return this->reverse;
+}
+
+template <class T>
+bool Edge<T>::isSelected() const {
+    return this->selected;
+}
+
+template <class T>
+void Edge<T>::setSelected(bool selected) {
+    this->selected = selected;
+}
+
+template <class T>
+void Edge<T>::setReverse(Edge<T> *reverse) {
+    this->reverse = reverse;
+}
+
+
+
+
+///////////////////Graph//////////////////////////////////////////////
+
+
+
 
 /**
  * @class UrbanMap
@@ -38,7 +317,7 @@ public:
      * @param in The content of the location.
      * @return True if successful, false if a location with that content already exists.
      */
-    bool addLocation(const T &in);
+    bool addLocation(const T &in, const int parking);
 
     /**
      * @brief Removes a location (vertex) from the urban map.
@@ -54,7 +333,7 @@ public:
      * @param w The weight (distance) of the road.
      * @return True if successful, false if either location does not exist.
      */
-    bool addRoad(const T &source, const T &dest, double w);
+    bool addRoad(const T &source, const T &dest, double driving, double walking);
 
     /**
      * @brief Removes a road (edge) between two locations.
@@ -71,7 +350,7 @@ public:
      * @param w The weight (distance) of the road.
      * @return True if successful, false if either location does not exist.
      */
-    bool addBidirectionalRoad(const T &source, const T &dest, double w);
+    bool addBidirectionalRoad(const T &source, const T &dest, double driving, double walking);
 
     /**
      * @brief Gets the number of locations (vertices) in the urban map.
@@ -88,7 +367,7 @@ public:
 protected:
     std::vector<Vertex<T> *> locationSet;    ///< Set of locations (vertices)
 
-    //hash set for efficient find of Vertex
+    //hash set for efficient find of Vertex (to implement usage)
     Location::LocationSet location_set_;
     /**
      * @brief Finds the index of a location with the given content.
@@ -138,10 +417,10 @@ int UrbanMap<T>::findLocationIdx(const T &in) const {
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
 template <class T>
-bool UrbanMap<T>::addLocation(const T &in) {
+bool UrbanMap<T>::addLocation(const T &in, const int parking) {
     if (findLocation(in) != nullptr)
         return false;
-    locationSet.push_back(new Vertex<T>(in));
+    locationSet.push_back(new Vertex<T>(in,parking));
     return true;
 }
 
@@ -173,12 +452,12 @@ bool UrbanMap<T>::removeLocation(const T &in) {
  * Returns true if successful, and false if the source or destination vertex does not exist.
  */
 template <class T>
-bool UrbanMap<T>::addRoad(const T &sourc, const T &dest, double w) {
+bool UrbanMap<T>::addRoad(const T &sourc, const T &dest, double driving, double walking) {
     auto v1 = findVertex(sourc);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
         return false;
-    v1->addEdge(v2, w);
+    v1->addEdge(v2, driving, walking);
     return true;
 }
 
@@ -197,13 +476,13 @@ bool UrbanMap<T>::removeRoad(const T &sourc, const T &dest) {
 }
 
 template <class T>
-bool UrbanMap<T>::addBidirectionalRoad(const T &sourc, const T &dest, double w) {
+bool UrbanMap<T>::addBidirectionalRoad(const T &sourc, const T &dest, double driving, double walking) {
     auto v1 = findLocation(sourc);
     auto v2 = findLocation(dest);
     if (v1 == nullptr || v2 == nullptr)
         return false;
-    auto e1 = v1->addEdge(v2, w);
-    auto e2 = v2->addEdge(v1, w);
+    auto e1 = v1->addEdge(v2, driving, walking);
+    auto e2 = v2->addEdge(v1, driving, walking);
     e1->setReverse(e2);
     e2->setReverse(e1);
     return true;
