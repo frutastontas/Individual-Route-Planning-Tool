@@ -36,8 +36,7 @@ public:
     void setVisited(bool visited);
 
 
-    void setCode(std::string code);
-    std::string getCode() const;
+
 
     void setIndegree(unsigned int indegree);
     void setDist(double dist);
@@ -45,7 +44,7 @@ public:
 
     void setParking(int p);
 
-    Edge<T> * addEdge(Vertex<T> *dest, double w);
+    Edge<T> * addEdge(Vertex<T> *dest, double driving, double walking);
     bool removeEdge(T in);
     void removeOutgoingEdges();
 
@@ -73,8 +72,8 @@ Vertex<T>::Vertex(T in, int parking): info(in), parking(parking) {}
  * with a given destination vertex (d) and edge weight (w).
  */
 template <class T>
-Edge<T> * Vertex<T>::addEdge(Vertex<T> *d, double w) {
-    auto newEdge = new Edge<T>(this, d, w);
+Edge<T> * Vertex<T>::addEdge(Vertex<T> *d, double driving, double walking) {
+    auto newEdge = new Edge<T>(this, d, driving, walking);
     adj.push_back(newEdge);
     d->incoming.push_back(newEdge);
     return newEdge;
@@ -300,10 +299,6 @@ void Edge<T>::setReverse(Edge<T> *reverse) {
 template <class T>
 class UrbanMap {
 public:
-    /**
-     * @brief Destructor for UrbanMap.
-     */
-    ~UrbanMap();
 
     /**
      * @brief Finds a location (vertex) with the given content.
@@ -364,11 +359,20 @@ public:
      */
     std::vector<Vertex<T> *> getLocationSet() const;
 
+
+    bool DrivingModeEnabled() const;    /** if true then we use the driving weight, false we use the walking*/
+
+    void setDrivingMode(bool mode);
+
+
+
 protected:
     std::vector<Vertex<T> *> locationSet;    ///< Set of locations (vertices)
 
     //hash set for efficient find of Vertex (to implement usage)
     Location::LocationSet location_set_;
+
+    bool drivingMode = false;
     /**
      * @brief Finds the index of a location with the given content.
      * @param in The content to search for.
@@ -488,7 +492,15 @@ bool UrbanMap<T>::addBidirectionalRoad(const T &sourc, const T &dest, double dri
     return true;
 }
 
+template <class T>
+bool UrbanMap<T>::DrivingModeEnabled() const {
+    return drivingMode;
+}
 
+template <class T>
+void UrbanMap<T>::setDrivingMode(bool mode) {
+    drivingMode = mode;
+}
 
 
 #endif //URBANMAP_H
