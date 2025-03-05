@@ -6,6 +6,7 @@
 #define LOCATION_H
 
 #include <string>
+#include <unordered_set>
 //usar como intermédio para depois criar vértice
 
 

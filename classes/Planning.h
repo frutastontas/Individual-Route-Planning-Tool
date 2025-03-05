@@ -9,5 +9,6 @@
 
 void dijkstra(UrbanMap<std::string> * g, const int &origin);
 
+std::vector<int> getPath(UrbanMap<std::string> * g, const std::string &origin, const std::string &dest);
 
 #endif //ROUTEPLANNING_H

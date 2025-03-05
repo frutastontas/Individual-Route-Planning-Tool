@@ -38,7 +38,7 @@ void createLocations(UrbanMap<T> *urban_map) {
         parking = std::stoi(tmp);
         //create Location using unordered map
         Location location = Location(name,Code,ID,parking);
-        urban_map->addLocation(Code,parking);
+        urban_map->addLocation(Code,ID,parking);
     }
 }
 

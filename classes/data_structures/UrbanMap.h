@@ -19,7 +19,7 @@ class Edge;
 template <class T>
 class Vertex {
 public:
-    Vertex(T in, int parking);
+    Vertex(T in, int ID,int parking);
     bool operator<(Vertex<T> & vertex) const; // // required by MutablePriorityQueue
 
     T getInfo() const;
@@ -35,7 +35,7 @@ public:
     void setInfo(T info);
     void setVisited(bool visited);
 
-
+    int getID();
 
 
     void setIndegree(unsigned int indegree);
@@ -51,6 +51,7 @@ public:
     friend class MutablePriorityQueue<Vertex>;
 protected:
     T info;                // Code of the Node
+    int ID;                // id of the node
     std::vector<Edge<T> *> adj;  // outgoing edges
 
     // auxiliary fields
@@ -66,7 +67,7 @@ protected:
 };
 
 template <class T>
-Vertex<T>::Vertex(T in, int parking): info(in), parking(parking) {}
+Vertex<T>::Vertex(T in, int ID,int parking): info(in), parking(parking), ID(ID) {}
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
  * with a given destination vertex (d) and edge weight (w).
@@ -139,6 +140,11 @@ bool Vertex<T>::isVisited() const {
 template <class T>
 unsigned int Vertex<T>::getIndegree() const {
     return this->indegree;
+}
+
+template <class T>
+int Vertex<T>::getID() {
+    return this->ID;
 }
 
 template <class T>
@@ -312,7 +318,7 @@ public:
      * @param in The content of the location.
      * @return True if successful, false if a location with that content already exists.
      */
-    bool addLocation(const T &in, const int parking);
+    bool addLocation(const T &in, const int ID,const int parking);
 
     /**
      * @brief Removes a location (vertex) from the urban map.
@@ -421,10 +427,10 @@ int UrbanMap<T>::findLocationIdx(const T &in) const {
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
 template <class T>
-bool UrbanMap<T>::addLocation(const T &in, const int parking) {
+bool UrbanMap<T>::addLocation(const T &in, const int ID,const int parking) {
     if (findLocation(in) != nullptr)
         return false;
-    locationSet.push_back(new Vertex<T>(in,parking));
+    locationSet.push_back(new Vertex<T>(in,ID,parking));
     return true;
 }
 

@@ -5,6 +5,7 @@
 #include "Menu.h"
 #include <iostream>
 #include "DataParser.h"
+#include "Planning.h"
 
 Menu::Menu() {
     std::cout << "\t\t\n\n" << "Bem-vindo!\n";
@@ -34,12 +35,16 @@ void Menu::init() {
 
 void Menu::chooseOption() {
     UrbanMap<std::string> urban_map = createUrbanMap<std::string>();
+    int src;
+    int dest;
+    std::cin>>src >> dest;
+    auto Lsrc = urban_map.getLocationSet()[src-1];
+    auto Ldest = urban_map.getLocationSet()[dest-1];
+    dijkstra(&urban_map, src);
+    auto Lset = getPath(&urban_map, Lsrc->getInfo(), Ldest->getInfo());
 
-
-    auto v =urban_map.getLocationSet();
-    for (int i=0; i<10; i++) {
-        auto u = v[i];
-        std::cout<<u->getInfo()<<" "<< i+1<<std::endl;
+    for (int i = 0; i < Lset.size(); i++) {
+        std::cout<<Lset[i]<<" ";
     }
-
+    std::cout << Ldest->getDist();
 }
