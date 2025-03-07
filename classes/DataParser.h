@@ -26,10 +26,11 @@ void createLocations(UrbanMap<T> *urban_map) {
     std::ifstream is;
     std::string name, Code, line,tmp;
     int ID, parking;
-    is.open("../data/Locations.csv");
+    is.open("../data/LocationsTest.csv");
     getline(is, line);
     while (getline(is, line)) {
         std::stringstream iss(line);
+
         std::getline(iss,name,',');
         std::getline(iss,tmp,',');
         ID = std::stoi(tmp);
@@ -45,7 +46,7 @@ void createLocations(UrbanMap<T> *urban_map) {
 template <typename T>
 void createRoads(UrbanMap<T>* urban_map) {
     std::ifstream is;
-    is.open("../data/Distances.csv");
+    is.open("../data/DistancesTest.csv");
     std::string code1, code2, line, tmp;
     int driving, walking;
     getline(is, line);

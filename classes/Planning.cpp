@@ -3,13 +3,22 @@
 //
 
 #include "Planning.h"
+#include <iostream>
 #include <algorithm>
 
-bool relax(Edge<std::string> *edge) {
-    if (edge->getDest()->getDist() > edge->getDriving() + edge->getOrig()->getDist()) { //For now this only works for driving have to change
-        edge->getDest()->setDist(edge->getDriving()+ edge->getOrig()->getDist());
-        edge->getDest()->setPath(edge);
-        return true;
+bool relax(Edge<std::string> *edge, bool Drivemode) {
+    if (Drivemode) {
+        if (edge->getDest()->getDist() > edge->getDriving() + edge->getOrig()->getDist()) {
+            edge->getDest()->setDist(edge->getDriving()+ edge->getOrig()->getDist());
+            edge->getDest()->setPath(edge);
+            return true;
+        }
+    }else {
+        if (edge->getDest()->getDist() > edge->getWalking() + edge->getOrig()->getDist()) {
+            edge->getDest()->setDist(edge->getWalking()+ edge->getOrig()->getDist());
+            edge->getDest()->setPath(edge);
+            return true;
+        }
     }
     return false;
 }
@@ -24,14 +33,14 @@ void dijkstra(UrbanMap<std::string>* g, const int &origin) {
     s->setDist(0);
     MutablePriorityQueue<Vertex<std::string>> pq;
     for (auto v : g->getLocationSet()) {
-        if (!v->isVisited())    //this makes it so if the intermediary node was visited in a previous djkstra it's not included
-            pq.insert(v);
+        pq.insert(v);
     }
 
     while (!pq.empty()) {
         auto u = pq.extractMin();
+        if (u->isVisited())continue;    //if this vertex was visited in a past djkstra will not be included again
         for (auto e : u->getAdj()) {
-            if (relax(e))
+            if (relax(e,g->DrivingModeEnabled()))
                 pq.decreaseKey(e->getDest());
         }
     }
@@ -47,8 +56,6 @@ std::vector<int> getPath(UrbanMap<std::string> * g, const std::string &origin, c
         res.push_back(tmp->getID());
         cur = tmp->getPath();
     }
-    g->findLocation(origin)->setVisited(false);
-    g->findLocation(dest)->setVisited(false);
     std::reverse(res.begin(), res.end());
     return res;
 }

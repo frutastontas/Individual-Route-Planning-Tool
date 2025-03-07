@@ -9,7 +9,6 @@ set( CMAKE_BUILD_TYPE "Release" )
 add_executable(Individual-Route-Planning-Tool main.cpp
         classes/data_structures/MutablePriorityQueu.h
         classes/data_structures/UrbanMap.h
-        classes/DataParser.cpp
         classes/Menu.cpp
         classes/Menu.h
         classes/data_structures/Location.h

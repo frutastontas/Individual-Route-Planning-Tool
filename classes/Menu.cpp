@@ -35,6 +35,7 @@ void Menu::init() {
 
 void Menu::chooseOption() {
     UrbanMap<std::string> urban_map = createUrbanMap<std::string>();
+    urban_map.setDrivingMode(true);
     int src;
     int dest;
     std::cin>>src >> dest;
@@ -42,9 +43,16 @@ void Menu::chooseOption() {
     auto Ldest = urban_map.getLocationSet()[dest-1];
     dijkstra(&urban_map, src);
     auto Lset = getPath(&urban_map, Lsrc->getInfo(), Ldest->getInfo());
-
+    Lsrc->setVisited(false);
     for (int i = 0; i < Lset.size(); i++) {
         std::cout<<Lset[i]<<" ";
     }
-    std::cout << Ldest->getDist();
+    std::cout << Ldest->getDist() << std::endl;
+
+    dijkstra(&urban_map, src);
+    auto Lalt = getPath(&urban_map, Lsrc->getInfo(), Ldest->getInfo());
+    for (int i = 0; i < Lalt.size(); i++) {
+        std::cout<<Lalt[i]<<" ";
+    }
+    std::cout << Ldest->getDist() << std::endl;
 }
