@@ -13,4 +13,6 @@ std::vector<int> getPath(UrbanMap<std::string> * g, const std::string &origin, c
 
 void case1(UrbanMap<std::string> g);
 
+void case2(UrbanMap<std::string> g);
+
 #endif //ROUTEPLANNING_H

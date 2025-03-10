@@ -110,4 +110,32 @@ void case1(UrbanMap<std::string> urban_map) {
     out.close();
 }
 
+void case2(UrbanMap<std::string> urban_map) { //this is a hardcode solution for now
+    int src;
+    int dest;
+    std::cin>>src >> dest;
+    auto Lsrc = urban_map.getLocationSet()[src-1];
+    auto Ldest = urban_map.getLocationSet()[dest-1];
+    int avoid_nodes;
+    int number_of_nodes;
+    std::cin>>number_of_nodes;
+    while (number_of_nodes >0) {    //this loop will avoid certain nodes
+        std::cin>>avoid_nodes;
+        urban_map.getLocationSet()[avoid_nodes-1]->setVisited(true);
+        number_of_nodes--;
+    }
+
+    dijkstra(&urban_map, src);
+    auto Lset = getPath(&urban_map, Lsrc->getInfo(), Ldest->getInfo());
+    Lsrc->setVisited(false);
+    if (Ldest->getPath() == nullptr) {
+        std::cout<<"none"<<std::endl;
+    }else {
+        for (int i = 0; i < Lset.size(); i++) {
+            std::cout<<Lset[i]<<" ";
+        }
+        std::cout << Ldest->getDist() << std::endl;
+    }
+}
+
 

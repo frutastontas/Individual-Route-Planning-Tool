@@ -36,5 +36,5 @@ void Menu::init() {
 void Menu::chooseOption() {
     UrbanMap<std::string> urban_map = createUrbanMap<std::string>();
     urban_map.setDrivingMode(true);
-    case1(urban_map);
+    case2(urban_map);
 }
