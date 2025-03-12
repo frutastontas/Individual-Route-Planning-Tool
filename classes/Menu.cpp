@@ -35,6 +35,7 @@ void Menu::init() {
 
 void Menu::chooseOption() {
     UrbanMap<std::string> urban_map = createUrbanMap<std::string>();
+    UrbanMap<std::string> urban_map_copy = urban_map; //this is a copy to reset urban_map after each use of a case
     urban_map.setDrivingMode(true);
-    case2(urban_map);
+    case2(&urban_map);
 }
