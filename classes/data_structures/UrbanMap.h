@@ -233,7 +233,7 @@ protected:
     double driving; // edge weight when driving
     double walking; // edge weight for walking
 
-    // auxiliary fields
+    // auxiliary fields (will be used as a boolean to ckeck if the edge is deactivated)
     bool selected = false;
 
     // used for bidirectional edges

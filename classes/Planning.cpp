@@ -72,7 +72,7 @@ std::vector<int> getPath(UrbanMap<std::string> * g, const std::string &origin, c
 
 
 
-void case1(UrbanMap<std::string> urban_map) {
+void case1(UrbanMap<std::string>* urban_map) {
     std::ofstream out(outputDir + "output1.txt");
     if (!out) {
         std::cerr << "Error: Could not open output file!"<<" "<< strerror(errno) << ")" << std::endl;
@@ -81,10 +81,10 @@ void case1(UrbanMap<std::string> urban_map) {
     int src;
     int dest;
     std::cin>>src >> dest;
-    auto Lsrc = urban_map.getLocationSet()[src-1];
-    auto Ldest = urban_map.getLocationSet()[dest-1];
-    dijkstra(&urban_map, src);
-    auto Lset = getPath(&urban_map, Lsrc->getInfo(), Ldest->getInfo());
+    auto Lsrc = urban_map->getLocationSet()[src-1];
+    auto Ldest = urban_map->getLocationSet()[dest-1];
+    dijkstra(urban_map, src);
+    auto Lset = getPath(urban_map, Lsrc->getInfo(), Ldest->getInfo());
     Lsrc->setVisited(false);
     if (Ldest->getPath() == nullptr) {
         out<<"none"<<std::endl;
@@ -96,8 +96,8 @@ void case1(UrbanMap<std::string> urban_map) {
     }
 
 
-    dijkstra(&urban_map, src);
-    auto Lalt = getPath(&urban_map, Lsrc->getInfo(), Ldest->getInfo());
+    dijkstra(urban_map, src);
+    auto Lalt = getPath(urban_map, Lsrc->getInfo(), Ldest->getInfo());
 
     if (Ldest->getPath() == nullptr) {
         out<<"none"<<std::endl;
@@ -110,23 +110,23 @@ void case1(UrbanMap<std::string> urban_map) {
     out.close();
 }
 
-void case2(UrbanMap<std::string> urban_map) { //this is a hardcode solution for now
+void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for now
     int src;
     int dest;
     std::cin>>src >> dest;
-    auto Lsrc = urban_map.getLocationSet()[src-1];
-    auto Ldest = urban_map.getLocationSet()[dest-1];
+    auto Lsrc = urban_map->getLocationSet()[src-1];
+    auto Ldest = urban_map->getLocationSet()[dest-1];
     int avoid_nodes;
     int number_of_nodes;
     std::cin>>number_of_nodes;
     while (number_of_nodes >0) {    //this loop will avoid certain nodes
         std::cin>>avoid_nodes;
-        urban_map.getLocationSet()[avoid_nodes-1]->setVisited(true);
+        urban_map->getLocationSet()[avoid_nodes-1]->setVisited(true);
         number_of_nodes--;
     }
 
-    dijkstra(&urban_map, src);
-    auto Lset = getPath(&urban_map, Lsrc->getInfo(), Ldest->getInfo());
+    dijkstra(urban_map, src);
+    auto Lset = getPath(urban_map, Lsrc->getInfo(), Ldest->getInfo());
     Lsrc->setVisited(false);
     if (Ldest->getPath() == nullptr) {
         std::cout<<"none"<<std::endl;
