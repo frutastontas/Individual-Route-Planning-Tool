@@ -122,26 +122,32 @@ void case1(UrbanMap<std::string>* urban_map) {
     auto Lsrc = urban_map->getLocationSet()[src-1];
     auto Ldest = urban_map->getLocationSet()[dest-1];
     dijkstra(urban_map, src);
+
     auto Lset = getPath(urban_map, Lsrc->getInfo(), Ldest->getInfo());
-    Lsrc->setVisited(false);
+
+    Lsrc->setVisited(false);    //simply to reset for next iteration of dijkstra
+
+    out<<"Source:"<<src<<std::endl;
+    out<<"Destination:"<<dest<<std::endl;
+    out<<"BestDrivingRoute:";
     if (Ldest->getPath() == nullptr) {
         out<<"none"<<std::endl;
     }else {
         for (int i = 0; i < Lset.size(); i++) {
-            out<<Lset[i]<<" ";
+            out<<Lset[i]<<",";
         }
-        out << Ldest->getDist() << std::endl;
+        out <<" "<< Ldest->getDist() << std::endl;
     }
 
 
     dijkstra(urban_map, src);
     auto Lalt = getPath(urban_map, Lsrc->getInfo(), Ldest->getInfo());
-
+    out<<"AlternativeDrivingRoute:";
     if (Ldest->getPath() == nullptr) {
         out<<"none"<<std::endl;
     }else {
         for (int i = 0; i < Lalt.size(); i++) {
-            out<<Lalt[i]<<" ";
+            out<<Lalt[i]<<",";
         }
         out << Ldest->getDist() << std::endl;
     }
