@@ -170,17 +170,73 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
         number_of_nodes--;
     }
 
-    dijkstra(urban_map, src);
-    auto Lset = getPath(urban_map, Lsrc->getInfo(), Ldest->getInfo());
-    Lsrc->setVisited(false);
-    if (Ldest->getPath() == nullptr) {
-        std::cout<<"none"<<std::endl;
-    }else {
-        for (int i = 0; i < Lset.size(); i++) {
-            std::cout<<Lset[i]<<" ";
+    std::vector<std::pair<int,int>> test_vector;
+    //test_vector.push_back(std::make_pair(3,6));
+    //test_vector.push_back(std::make_pair(6,7)); //test cases
+
+    for (auto p : test_vector) {
+        auto orig = urban_map->getLocationSet()[p.first-1];
+        auto dest = urban_map->getLocationSet()[p.second-1];
+        for (auto e :orig->getAdj()) {
+            if (e->getDest()->getInfo() == dest->getInfo()) {
+                e->setSelected(true);
+                std::cout << "Edge eleminated"<<std::endl;
+                break;
+            }
         }
-        std::cout << Ldest->getDist() << std::endl;
+        for (auto e :dest->getAdj()) {
+            if (e->getDest()->getInfo() == orig->getInfo()) {
+                e->setSelected(true);
+                std::cout << "Edge eleminated"<<std::endl;
+                break;
+            }
+        }
     }
+
+    int includenode;
+    std::cout<<"IncludeNode: ";
+    std::cin>>includenode;
+
+    if (includenode == -1) {
+        dijkstra(urban_map, src);
+        auto Lset = getPath(urban_map, Lsrc->getInfo(), Ldest->getInfo());
+        Lsrc->setVisited(false);
+        if (Ldest->getPath() == nullptr) {
+            std::cout<<"none"<<std::endl;
+        }else {
+            for (int i = 0; i < Lset.size(); i++) {
+                std::cout<<Lset[i]<<",";
+            }
+            std::cout << Ldest->getDist() << std::endl;
+        }
+    }else {
+        auto VertexInclude = urban_map->getLocationSet()[includenode-1];
+        dijkstra(urban_map, src);   //primeiro dijkstra
+        auto Lset = getPath(urban_map, Lsrc->getInfo(), VertexInclude->getInfo());  //encontrar caminho do src ate o include
+        Lsrc->setVisited(false);
+        int totaldistance = 0;
+        if (Ldest->getPath() == nullptr) {
+            std::cout<<"none"<<std::endl;
+        }else {
+            for (int i = 0; i < Lset.size(); i++) {
+                std::cout<<Lset[i]<<",";
+            }
+            totaldistance += VertexInclude->getDist();
+        }
+
+        dijkstra(urban_map, includenode);
+        Lset = getPath(urban_map, VertexInclude->getInfo(), Ldest->getInfo());
+        if (Ldest->getPath() == nullptr) {
+            std::cout<<"none"<<std::endl;
+        }else {
+            for (int i = 1; i < Lset.size(); i++) { //needs to start from zero to not repeat the included
+                std::cout<<Lset[i]<<",";
+            }
+            totaldistance += Ldest->getDist();
+        }
+        std::cout<<totaldistance<<std::endl;
+    }
+
 }
 
 
