@@ -370,13 +370,17 @@ public:
 
     void setDrivingMode(bool mode);
 
-
+    void setParkingNode(int id);
+    std::vector<int> getParkingNodes() const;
 
 protected:
     std::vector<Vertex<T> *> locationSet;    ///< Set of locations (vertices)
 
     //hash set for efficient find of Vertex (to implement usage)
     Location::LocationSet location_set_;
+
+    //vector with the ids of all the nodes that have available parking
+    std::vector<int> parkingNodes;
 
     bool drivingMode = false;
     /**
@@ -506,6 +510,16 @@ bool UrbanMap<T>::DrivingModeEnabled() const {
 template <class T>
 void UrbanMap<T>::setDrivingMode(bool mode) {
     drivingMode = mode;
+}
+
+template <class T>
+void UrbanMap<T>::setParkingNode(int id) {
+    this->parkingNodes.push_back(id);
+}
+
+template <class T>
+std::vector<int> UrbanMap<T>::getParkingNodes() const {
+    return this->parkingNodes;
 }
 
 

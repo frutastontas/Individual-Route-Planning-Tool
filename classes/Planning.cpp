@@ -161,6 +161,8 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
     std::cin>>src >> dest;
     auto Lsrc = urban_map->getLocationSet()[src-1];
     auto Ldest = urban_map->getLocationSet()[dest-1];
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
     int avoid_nodes;
     int number_of_nodes;
     std::cin>>number_of_nodes;
@@ -192,7 +194,7 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
             }
         }
     }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////
     int includenode;
     std::cout<<"IncludeNode: ";
     std::cin>>includenode;
@@ -224,7 +226,7 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
             totaldistance += VertexInclude->getDist();
         }
 
-        dijkstra(urban_map, includenode);
+        dijkstra(urban_map, includenode);       //segundo dijkstra do nó incluido para o destino
         Lset = getPath(urban_map, VertexInclude->getInfo(), Ldest->getInfo());
         if (Ldest->getPath() == nullptr) {
             std::cout<<"none"<<std::endl;
@@ -235,6 +237,61 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
             totaldistance += Ldest->getDist();
         }
         std::cout<<totaldistance<<std::endl;
+    }
+
+}
+
+
+void case3(UrbanMap<std::string>* urban_map) {
+
+    int src;
+    int dest;
+    std::cin>>src >> dest;
+    auto Lsrc = urban_map->getLocationSet()[src-1];
+    auto Ldest = urban_map->getLocationSet()[dest-1];
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    int avoid_nodes;
+    int number_of_nodes;
+    std::cin>>number_of_nodes;
+    while (number_of_nodes >0) {    //this loop will avoid certain nodes
+        std::cin>>avoid_nodes;
+        urban_map->getLocationSet()[avoid_nodes-1]->setVisited(true);
+        number_of_nodes--;
+    }
+    std::vector<std::pair<int,int>> test_vector;
+    //test_vector.push_back(std::make_pair(3,6));
+    //test_vector.push_back(std::make_pair(6,7)); //test cases
+
+    for (auto p : test_vector) {
+        auto orig = urban_map->getLocationSet()[p.first-1];
+        auto dest = urban_map->getLocationSet()[p.second-1];
+        for (auto e :orig->getAdj()) {
+            if (e->getDest()->getInfo() == dest->getInfo()) {
+                e->setSelected(true);
+                std::cout << "Edge eleminated"<<std::endl;
+                break;
+            }
+        }
+        for (auto e :dest->getAdj()) {
+            if (e->getDest()->getInfo() == orig->getInfo()) {
+                e->setSelected(true);
+                std::cout << "Edge eleminated"<<std::endl;
+                break;
+            }
+        }
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    int parkingNodeID;    //will display the ID of the node where the car will be parked
+    int bestTotaltime = INT_MAX;
+    dijkstra(urban_map, src);
+    for (auto i : urban_map->getParkingNodes()) {
+        urban_map->setDrivingMode(true);
+        Vertex<std::string>* parkingNode = urban_map->getLocationSet()[i];
+        int distDriving = parkingNode->getDist();
+        urban_map->setDrivingMode(false);
+        // now do a dijkstra from the parking node to the dest and make sure it does not pass the maxWalk time
+
     }
 
 }
