@@ -107,8 +107,20 @@ std::vector<int> getPath(UrbanMap<std::string> * g, const std::string &origin, c
     return res;
 }
 
-
-
+/**
+ * @brief computes the top-2 best routes to take from the source node to the destination on a specific mode
+ *
+ * This function uses two dijkstras, the first one to compute the best route, and the second one executes
+ * after the intermediary nodes of the first were labelled, so that it does not include them in the dijkstra.
+ *
+ * @param urban_map is a pointer to the UrbanMap graph containing locations and connections.
+ *
+ * @note This function outputs to an output1.txt where the results can be seen.
+ *
+ * @complexity Does two dijkstras each one with complexity **O((V+E)logV)**
+ * and also does two getPaths() with complexity **O(V)**
+ * This results in a final complexity of **O((V+E)logV)**
+*/
 void case1(UrbanMap<std::string>* urban_map) {
     std::ofstream out(outputDir + "output1.txt");
     if (!out) {
@@ -154,6 +166,9 @@ void case1(UrbanMap<std::string>* urban_map) {
     out.close();
 }
 
+/**
+ *
+*/
 void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for now
     Case2Data case2_data;
     int src;
@@ -241,7 +256,9 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
 
 }
 
-
+/**
+ *
+*/
 void case3(UrbanMap<std::string>* urban_map) {
 
     int src;
