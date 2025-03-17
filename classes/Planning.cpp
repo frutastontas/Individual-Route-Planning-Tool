@@ -182,14 +182,15 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
     int number_of_nodes;
     std::cin>>number_of_nodes;
     while (number_of_nodes >0) {    //this loop will avoid certain nodes
+        std::cout<<"Please input the number of nodes to avoid:"<<std::endl;
         std::cin>>avoid_nodes;
         urban_map->getLocationSet()[avoid_nodes-1]->setVisited(true);
         number_of_nodes--;
     }
 
     std::vector<std::pair<int,int>> test_vector;
-    //test_vector.push_back(std::make_pair(3,6));
-    //test_vector.push_back(std::make_pair(6,7)); //test cases
+    //test_vector.push_back(std::make_pair(3,2));
+    //test_vector.push_back(std::make_pair(7,8)); //test cases
 
     for (auto p : test_vector) {
         auto orig = urban_map->getLocationSet()[p.first-1];
@@ -256,6 +257,25 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
 
 }
 
+
+
+
+
+std::vector<int> getPathEconomic(UrbanMap<std::string> * g, const std::string &origin, const std::string &dest) {
+    std::vector<int> res;
+    res.push_back(g->findLocation(dest)->getID());
+    Edge<std::string>* cur = g->findLocation(dest)->getPath();
+    while (cur) {
+        auto tmp = cur->getOrig();
+        res.push_back(tmp->getID());
+        cur = tmp->getPath();
+    }
+    std::reverse(res.begin(), res.end());
+    return res;
+}
+
+
+
 /**
  *
 */
@@ -268,6 +288,7 @@ void case3(UrbanMap<std::string>* urban_map) {
     auto Ldest = urban_map->getLocationSet()[dest-1];
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
+    ///
     int avoid_nodes;
     int number_of_nodes;
     std::cin>>number_of_nodes;
@@ -299,18 +320,52 @@ void case3(UrbanMap<std::string>* urban_map) {
         }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    ///
     int parkingNodeID;    //will display the ID of the node where the car will be parked
     int bestTotaltime = INT_MAX;
-    dijkstra(urban_map, src);
+    int maxWalkingtime = 18;
+    std::vector<int> bestDrivingRoute;
+    std::vector<int> bestWalkingRoute;
+
     for (auto i : urban_map->getParkingNodes()) {
+        std::cout<<i<<std::endl;
         urban_map->setDrivingMode(true);
-        Vertex<std::string>* parkingNode = urban_map->getLocationSet()[i];
+
+        dijkstra(urban_map, src);
+
+        Vertex<std::string>* parkingNode = urban_map->getLocationSet()[i-1];
+
+        auto driverouteTMP = getPathEconomic(urban_map, Lsrc->getInfo(), parkingNode->getInfo());
         int distDriving = parkingNode->getDist();
+
         urban_map->setDrivingMode(false);
+
+
         // now do a dijkstra from the parking node to the dest and make sure it does not pass the maxWalk time
+        dijkstra(urban_map, i);
+        int walktime =Ldest->getDist();
+        auto walkrouteTMP = getPathEconomic(urban_map, parkingNode->getInfo(), Ldest->getInfo());
 
+        if (walktime <= maxWalkingtime) {
+            int finaldistance = distDriving+walktime;
+            if (finaldistance < bestTotaltime) {
+                bestTotaltime = finaldistance;
+                parkingNodeID =  i;
+                bestDrivingRoute = driverouteTMP;
+                bestWalkingRoute = walkrouteTMP;
+            }
+        }
     }
-
+    std::cout<<bestTotaltime<<std::endl;
+    std::cout<<parkingNodeID<<std::endl;
+    for (auto i : bestDrivingRoute) {
+        std::cout<<i<<",";
+    }
+    std::cout<<std::endl;
+    for (auto i : bestWalkingRoute) {
+        std::cout<<i<<",";
+    }
+    std::cout<<std::endl;
 }
 
 
