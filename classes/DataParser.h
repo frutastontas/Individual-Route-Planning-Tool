@@ -26,7 +26,7 @@ void createLocations(UrbanMap<T> *urban_map) {
     std::ifstream is;
     std::string name, Code, line,tmp;
     int ID, parking;
-    is.open("../data/LocationsTest.csv");
+    is.open("../data/LocationsTest_updated.csv");
     getline(is, line);
     while (getline(is, line)) {
         std::stringstream iss(line);
@@ -38,7 +38,9 @@ void createLocations(UrbanMap<T> *urban_map) {
         std::getline(iss,tmp,',');
         parking = std::stoi(tmp);
         //create Location using unordered map
-        Location location = Location(name,Code,ID,parking);
+        if (parking == 1) {
+            urban_map->setParkingNode(ID);
+        }
         urban_map->addLocation(Code,ID,parking);
     }
 }
@@ -46,7 +48,7 @@ void createLocations(UrbanMap<T> *urban_map) {
 template <typename T>
 void createRoads(UrbanMap<T>* urban_map) {
     std::ifstream is;
-    is.open("../data/DistancesTest.csv");
+    is.open("../data/DistancesTest_updated.csv");
     std::string code1, code2, line, tmp;
     int driving, walking;
     getline(is, line);
