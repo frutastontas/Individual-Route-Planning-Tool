@@ -169,7 +169,7 @@ Case2Data getCase2() {
             for (int i = 0; i < edges.size(); i++) {
                 data2.avoid_edges[i] = edges[i];
             }
-        }
+        }//
         else if (n == 5) data2.include_node = stoi(value);
         else break;
         n++;
