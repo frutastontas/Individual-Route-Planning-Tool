@@ -434,8 +434,10 @@ void case3(UrbanMap<std::string>* urban_map) {
     std::cout<<std::endl;
 }
 
-
-
+/**
+ * 
+ * @param routeOptions vector of struct that houses information of a specific route to the destination
+ */
 void estimation(std::vector<RouteOption> &routeOptions) {
     if (routeOptions.empty()) {
         std::cout << "Message: No valid alternative routes found." << std::endl;
