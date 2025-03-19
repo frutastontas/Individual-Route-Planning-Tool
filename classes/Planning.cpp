@@ -119,7 +119,7 @@ std::vector<int> getPath(UrbanMap<std::string> * g, const std::string &origin, c
  * @note This function outputs to an output1.txt where the results can be seen.
  *
  * @complexity Does two dijkstras each one with complexity **O((V+E)logV)**
- * and also does two getPaths() with complexity **O(V)**
+ * and also does two getPath() with complexity **O(V)**
  * This results in a final complexity of **O((V+E)logV)**
 */
 void case1(UrbanMap<std::string>* urban_map) {
@@ -168,7 +168,26 @@ void case1(UrbanMap<std::string>* urban_map) {
 }
 
 /**
+ * @brief computes the best route that avoids certain segments, locations(vertex) and may
+ * include a certain node in the path. Each node is deactivated using a boolean value *isVisited*
+ * and if that value is true the dijkstra won't include that node in the path. Same thing goes for the
+ * segments that also use a boolean value *isSelected*.
  *
+ * This function uses one dijkstra if there is no Node to include, or uses two dijkstras, one from the source
+ * to compute the distance to the node to include, and another starting from the included node to the destination.
+ *
+ * @param urban_map is a pointer to the UrbanMap graph containing locations and connections.
+ *
+ * @note This function outputs to an output2.txt where the results can be seen.
+ *
+ * @complexity Does two dijkstras each one with complexity **O((V+E)logV)**
+ * or does only one dijkstra with the same complexity,
+ * and also uses function getPath() with complexity **O(V)**
+ * To deactivate the nodes it takes a traversal on a vector with ids **O(n)**
+ * To deactivate the segments it takes a traversal on a vector with pairs of ids
+ * and for the origin and destination it finds in the adjacency list the other node
+ * of the segment, so the complexity is **O(n*|E|)**
+ * This results in a final complexity of **O((V+E)logV), because the dijkstra dominates the complexity**
 */
 void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for now
     Case2Data case2_data;
@@ -234,7 +253,7 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
         auto Lset = getPath(urban_map, Lsrc->getInfo(), VertexInclude->getInfo());  //encontrar caminho do src ate o include
         Lsrc->setVisited(false);
         int totaldistance = 0;
-        if (Ldest->getPath() == nullptr) {
+        if (VertexInclude->getPath() == nullptr) {
             std::cout<<"none"<<std::endl;
         }else {
             for (int i = 0; i < Lset.size(); i++) {
@@ -278,7 +297,24 @@ std::vector<int> getPathEconomic(UrbanMap<std::string> * g, const std::string &o
 
 
 /**
+ * @brief This function combines both walking and driving. First we do a dijkstra from the source to a node in the
+ * parkingNodes vector of the graph, wich has all the ids of the nodes that have parking. Then we do a dijkstra from
+ * that parking node to the destination using walking distances, making sure that the resulting walking time
+ * does not exceed the maximum. We do this for every parking node and we get the best overall time.
  *
+ *
+ * @param urban_map is a pointer to the UrbanMap graph containing locations and connections.
+ *
+ * @note This function outputs to an output3.txt where the results can be seen.
+ *
+ * @complexity Does two dijkstras each one with complexity **O((V+E)logV)**
+ * for each node in the parkingNodes vector of the graph, this results in **O(V(V+E)logV)**,
+ * and also uses function getPath() with complexity **O(V)**
+ * To deactivate the nodes it takes a traversal on a vector with ids **O(n)**
+ * To deactivate the segments it takes a traversal on a vector with pairs of ids
+ * and for the origin and destination it finds in the adjacency list the other node
+ * of the segment, so the complexity is **O(n*|E|)**
+ * This results in a final complexity of **O(V(V+E)logV)**
 */
 void case3(UrbanMap<std::string>* urban_map) {
 
@@ -323,7 +359,8 @@ void case3(UrbanMap<std::string>* urban_map) {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ///
     int parkingNodeID;    //will display the ID of the node where the car will be parked
-    int bestTotaltime = INT_MAX;
+    int bestDrivingTime = INT_MAX;
+    int bestWalkingTime = 0;    //this is to prevent overflow
     int maxWalkingtime = 18;
     std::vector<int> bestDrivingRoute;
     std::vector<int> bestWalkingRoute;
@@ -349,15 +386,23 @@ void case3(UrbanMap<std::string>* urban_map) {
 
         if (walktime <= maxWalkingtime) {
             int finaldistance = distDriving+walktime;
-            if (finaldistance < bestTotaltime) {
-                bestTotaltime = finaldistance;
+            if (finaldistance < bestDrivingTime+bestWalkingTime) {
+                bestDrivingTime = distDriving;  //update the best driving time
+                bestWalkingTime = walktime;     //update the best walking time
                 parkingNodeID =  i;
                 bestDrivingRoute = driverouteTMP;
                 bestWalkingRoute = walkrouteTMP;
+            }else if (finaldistance == bestDrivingTime+bestWalkingTime) { //if equal than select the one with the best walking time(most)
+                if (walktime>bestWalkingTime) {
+                    bestDrivingTime = distDriving;  //update the best driving time
+                    bestWalkingTime = walktime;     //update the best walking time
+                    parkingNodeID =  i;
+                    bestDrivingRoute = driverouteTMP;
+                    bestWalkingRoute = walkrouteTMP;
+                }
             }
         }
     }
-    std::cout<<bestTotaltime<<std::endl;
     std::cout<<parkingNodeID<<std::endl;
     for (auto i : bestDrivingRoute) {
         std::cout<<i<<",";
