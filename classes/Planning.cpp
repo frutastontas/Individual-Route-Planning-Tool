@@ -286,7 +286,34 @@ std::vector<int> getPathEconomic(UrbanMap<std::string> * g, const std::string &o
     return res;
 }
 
+/**
+ * @brief this sruct will be used for case4, where we estimate other paths, by finding the two other best options
+ * and displaying them. This will store the specific parking node that the route includes, and also the routes taken.
+ */
+struct RouteOption {
+    int parkingNodeID;
+    int drivingTime;
+    int walkingTime;
+    std::vector<int> drivingRoute;
+    std::vector<int> walkingRoute;
 
+    // Define a comparison operator for sorting
+    bool operator<(const RouteOption& other) const {
+        int totalTime = drivingTime + walkingTime;
+        int otherTotalTime = other.drivingTime + other.walkingTime;
+
+        // Primary sorting criterion: lowest total time
+        if (totalTime != otherTotalTime) {
+            return totalTime < otherTotalTime;
+        }
+
+        // Secondary criterion: favoring more walking time
+        return walkingTime > other.walkingTime;
+    }
+};
+
+
+void estimation(std::vector<RouteOption> &routeOptions);
 
 /**
  * @brief This function combines both walking and driving. First we do a dijkstra from the source to a node in the
@@ -343,12 +370,13 @@ void case3(UrbanMap<std::string>* urban_map) {
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ///
-    int parkingNodeID;    //will display the ID of the node where the car will be parked
+    int parkingNodeID =  NULL;    //will display the ID of the node where the car will be parked
     int bestDrivingTime = INT_MAX;
     int bestWalkingTime = 0;    //this is to prevent overflow
-    int maxWalkingtime = 18;
+    int maxWalkingtime = case3_data.maxWalkTime;
     std::vector<int> bestDrivingRoute;
     std::vector<int> bestWalkingRoute;
+    std::vector<RouteOption> routeOptions;  //list all the available options
 
     for (auto i : urban_map->getParkingNodes()) {
         urban_map->setDrivingMode(true);
@@ -367,6 +395,9 @@ void case3(UrbanMap<std::string>* urban_map) {
         dijkstra(urban_map, i);
         int walktime =Ldest->getDist();
         auto walkrouteTMP = getPathEconomic(urban_map, parkingNode->getInfo(), Ldest->getInfo());
+
+        routeOptions.push_back
+            ({i,distDriving,walktime, driverouteTMP,walkrouteTMP});
 
         if (walktime <= maxWalkingtime) {
             int finaldistance = distDriving+walktime;
@@ -387,6 +418,11 @@ void case3(UrbanMap<std::string>* urban_map) {
             }
         }
     }
+    if (parkingNodeID == NULL) {
+        std::cout<<"Message:No possible route with max. walking time of "<<maxWalkingtime<<" minutes."<<std::endl;
+        estimation(routeOptions);
+        return;
+    }
     std::cout<<parkingNodeID<<std::endl;
     for (auto i : bestDrivingRoute) {
         std::cout<<i<<",";
@@ -397,5 +433,49 @@ void case3(UrbanMap<std::string>* urban_map) {
     }
     std::cout<<std::endl;
 }
+
+/**
+ * 
+ * @param routeOptions vector of struct that houses information of a specific route to the destination
+ */
+void estimation(std::vector<RouteOption> &routeOptions) {
+    if (routeOptions.empty()) {
+        std::cout << "Message: No valid alternative routes found." << std::endl;
+        return;
+    }
+
+    // Sort based on the custom comparator in RouteOption
+    std::sort(routeOptions.begin(), routeOptions.end());
+
+    // Get the top two options
+    int numOptions = std::min(2, (int)routeOptions.size());
+
+    for (int i = 0; i < numOptions; ++i) {
+        const auto& option = routeOptions[i];
+
+        // Driving Route
+        std::cout << "DrivingRoute" << i + 1 << ":";
+        for (size_t j = 0; j < option.drivingRoute.size(); ++j) {
+            std::cout << option.drivingRoute[j];
+            if (j < option.drivingRoute.size() - 1) std::cout << ",";
+        }
+        std::cout << "(" << option.drivingTime << ")\n";
+
+        // Parking Node
+        std::cout << "ParkingNode" << i + 1 << ":" << option.parkingNodeID << "\n";
+
+        // Walking Route
+        std::cout << "WalkingRoute" << i + 1 << ":";
+        for (size_t j = 0; j < option.walkingRoute.size(); ++j) {
+            std::cout << option.walkingRoute[j];
+            if (j < option.walkingRoute.size() - 1) std::cout << ",";
+        }
+        std::cout << "(" << option.walkingTime << ")\n";
+
+        // Total Time
+        std::cout << "TotalTime" << i + 1 << ":" << (option.drivingTime + option.walkingTime) << "\n";
+    }
+}
+
 
 
