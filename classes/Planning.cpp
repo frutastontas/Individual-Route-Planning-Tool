@@ -11,6 +11,9 @@
 #include <fstream>
 #include <climits>
 
+#include "DataParser.h"
+#include "data_structures/cases.h"
+
 const std::string outputDir = "C:/Users/joaop/Desktop/DA_proj1/Individual-Route-Planning-Tool/classes/output/";
 
 bool relax(Edge<std::string> *edge, bool Drivemode) {
@@ -128,10 +131,10 @@ void case1(UrbanMap<std::string>* urban_map) {
         std::cerr << "Error: Could not open output file!"<<" "<< strerror(errno) << ")" << std::endl;
         return ;
     }
-    Case1Data case1_data;
-    int src;
-    int dest;
-    std::cin>>src >> dest;
+    Case1Data case1_data = getCase1();
+    urban_map->setDrivingMode(case1_data.driving);
+    int src = case1_data.src;
+    int dest = case1_data.dest;
     auto Lsrc = urban_map->getLocationSet()[src-1];
     auto Ldest = urban_map->getLocationSet()[dest-1];
     dijkstra(urban_map, src);
@@ -149,7 +152,7 @@ void case1(UrbanMap<std::string>* urban_map) {
         for (int i = 0; i < Lset.size(); i++) {
             out<<Lset[i]<<",";
         }
-        out <<" "<< Ldest->getDist() << std::endl;
+        out <<"("<< Ldest->getDist()<<")"<< std::endl;
     }
 
 
@@ -162,7 +165,7 @@ void case1(UrbanMap<std::string>* urban_map) {
         for (int i = 0; i < Lalt.size(); i++) {
             out<<Lalt[i]<<",";
         }
-        out << Ldest->getDist() << std::endl;
+        out << "("<<Ldest->getDist()<<")" << std::endl;
     }
     out.close();
 }
@@ -190,50 +193,39 @@ void case1(UrbanMap<std::string>* urban_map) {
  * This results in a final complexity of **O((V+E)logV), because the dijkstra dominates the complexity**
 */
 void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for now
-    Case2Data case2_data;
-    int src;
-    int dest;
-    std::cin>>src >> dest;
+    Case2Data case2_data = getCase2();
+
+    int src = case2_data.src;
+    int dest = case2_data.dest;
     auto Lsrc = urban_map->getLocationSet()[src-1];
     auto Ldest = urban_map->getLocationSet()[dest-1];
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
-    int avoid_nodes;
-    int number_of_nodes;
-    std::cin>>number_of_nodes;
-    while (number_of_nodes >0) {    //this loop will avoid certain nodes
-        std::cout<<"Please input the number of nodes to avoid:"<<std::endl;
-        std::cin>>avoid_nodes;
-        urban_map->getLocationSet()[avoid_nodes-1]->setVisited(true);
-        number_of_nodes--;
+    std::vector<int> avoid_nodes = case2_data.avoid_nodes;
+    for (auto a : avoid_nodes) {    //this loop will avoid certain nodes
+        urban_map->getLocationSet()[a-1]->setVisited(true);
     }
 
-    std::vector<std::pair<int,int>> test_vector;
-    //test_vector.push_back(std::make_pair(3,2));
-    //test_vector.push_back(std::make_pair(7,8)); //test cases
+    std::vector<std::pair<int,int>> avoidEdges = case2_data.avoid_edges;
 
-    for (auto p : test_vector) {
+    for (auto p : avoidEdges) {
         auto orig = urban_map->getLocationSet()[p.first-1];
         auto dest = urban_map->getLocationSet()[p.second-1];
         for (auto e :orig->getAdj()) {
             if (e->getDest()->getInfo() == dest->getInfo()) {
                 e->setSelected(true);
-                std::cout << "Edge eleminated"<<std::endl;
                 break;
             }
         }
         for (auto e :dest->getAdj()) {
             if (e->getDest()->getInfo() == orig->getInfo()) {
                 e->setSelected(true);
-                std::cout << "Edge eleminated"<<std::endl;
                 break;
             }
         }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////
-    int includenode;
-    std::cout<<"IncludeNode: ";
-    std::cin>>includenode;
+    int includenode = case2_data.include_node;
 
     if (includenode == -1) {
         dijkstra(urban_map, src);
@@ -245,7 +237,7 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
             for (int i = 0; i < Lset.size(); i++) {
                 std::cout<<Lset[i]<<",";
             }
-            std::cout << Ldest->getDist() << std::endl;
+            std::cout <<"("<<Ldest->getDist()<< ")"<< std::endl;
         }
     }else {
         auto VertexInclude = urban_map->getLocationSet()[includenode-1];
@@ -272,7 +264,7 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
             }
             totaldistance += Ldest->getDist();
         }
-        std::cout<<totaldistance<<std::endl;
+        std::cout<<"("<<totaldistance<<")"<<std::endl;
     }
 
 }
@@ -317,41 +309,34 @@ std::vector<int> getPathEconomic(UrbanMap<std::string> * g, const std::string &o
  * This results in a final complexity of **O(V(V+E)logV)**
 */
 void case3(UrbanMap<std::string>* urban_map) {
-
-    int src;
-    int dest;
-    std::cin>>src >> dest;
+    Case3Data case3_data = getCase3();
+    int src = case3_data.src;
+    int dest = case3_data.dest;
     auto Lsrc = urban_map->getLocationSet()[src-1];
     auto Ldest = urban_map->getLocationSet()[dest-1];
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
     ///
-    int avoid_nodes;
-    int number_of_nodes;
-    std::cin>>number_of_nodes;
-    while (number_of_nodes >0) {    //this loop will avoid certain nodes
-        std::cin>>avoid_nodes;
-        urban_map->getLocationSet()[avoid_nodes-1]->setVisited(true);
-        number_of_nodes--;
-    }
-    std::vector<std::pair<int,int>> test_vector;
-    //test_vector.push_back(std::make_pair(3,6));
-    //test_vector.push_back(std::make_pair(6,7)); //test cases
 
-    for (auto p : test_vector) {
+    std::vector<int> avoid_nodes = case3_data.avoid_nodes;
+    for (auto a : avoid_nodes) {    //this loop will avoid certain nodes
+        urban_map->getLocationSet()[a-1]->setVisited(true);
+    }
+
+    std::vector<std::pair<int,int>> avoidEdges = case3_data.avoid_edges;
+
+    for (auto p : avoidEdges) {
         auto orig = urban_map->getLocationSet()[p.first-1];
         auto dest = urban_map->getLocationSet()[p.second-1];
         for (auto e :orig->getAdj()) {
             if (e->getDest()->getInfo() == dest->getInfo()) {
                 e->setSelected(true);
-                std::cout << "Edge eleminated"<<std::endl;
                 break;
             }
         }
         for (auto e :dest->getAdj()) {
             if (e->getDest()->getInfo() == orig->getInfo()) {
                 e->setSelected(true);
-                std::cout << "Edge eleminated"<<std::endl;
                 break;
             }
         }
@@ -366,7 +351,6 @@ void case3(UrbanMap<std::string>* urban_map) {
     std::vector<int> bestWalkingRoute;
 
     for (auto i : urban_map->getParkingNodes()) {
-        std::cout<<i<<std::endl;
         urban_map->setDrivingMode(true);
 
         dijkstra(urban_map, src);

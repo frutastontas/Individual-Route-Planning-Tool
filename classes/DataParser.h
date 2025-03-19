@@ -81,11 +81,11 @@ UrbanMap<T> createUrbanMap() {
     return urbanMap;
 }
 
-Case1Data getCase1() {
+inline Case1Data getCase1() {
     // Input: mode, src, dest >> Data structure: data1
     Case1Data data1; // Create structure to store data
 
-    std::ifstream input1("input.txt"); // Open file
+    std::ifstream input1("C:/Users/joaop/Desktop/DA_proj1/Individual-Route-Planning-Tool/classes/input/input1.txt"); // Open file
     std::string line; // Line to be read
 
     // Error opening file
@@ -102,7 +102,8 @@ Case1Data getCase1() {
 
         if (n == 0) {
             if (value == "driving") data1.driving = true;
-            data1.driving = false;
+            else
+                data1.driving = false;
         }
         else if (n == 1) data1.src = stoi(value);
         else if (n == 2) data1.dest = stoi(value);
@@ -115,93 +116,99 @@ Case1Data getCase1() {
     return data1;
 }
 
-Case2Data getCase2() {
-    // Input: mode, src, dest >> Data structure: data1
-    Case2Data data2; // Create structure to store data
+inline Case2Data getCase2() {
+    Case2Data data2;  // Criar estrutura para armazenar os dados
 
-    std::ifstream input2("input.txt"); // Open file
-    std::string line; // Line to be read
-
-    // Error opening file
+    std::ifstream input2("C:/Users/joaop/Desktop/DA_proj1/Individual-Route-Planning-Tool/classes/input/input1.txt");
     if (!input2) {
         std::cerr << "Error opening file!" << std::endl;
+        return data2;  // Retorna estrutura vazia se não conseguir abrir o ficheiro
     }
 
-    // Reading the file (Case 2: mode, src, dest, avoid_nodes, avoid_edges, include)
+    std::string line;
     int n = 0;
-    while (std::getline(input2, line)) { // n < 6
 
+    while (std::getline(input2, line)) {
         size_t pos = line.find(':');
-        std::string value = line.substr(pos + 1); // Read ':' onwards
+        if (pos == std::string::npos) continue;  // Ignorar linhas inválidas
+
+        std::string value = line.substr(pos + 1);
+        while (!value.empty() && (value.front() == ' ' || value.front() == '\t')) {
+            value.erase(value.begin());  // Remover espaços no início
+        }
 
         if (n == 0) {
-            if (value == "driving") data2.driving = true;
-            data2.driving = false;
+            data2.driving = (value == "driving");
         }
-        else if (n == 1) data2.src = stoi(value);
-        else if (n == 2) data2.dest = stoi(value);
+        else if (n == 1) {
+            data2.src = std::stoi(value);
+        }
+        else if (n == 2) {
+            data2.dest = std::stoi(value);
+        }
         else if (n == 3) {
-            // ' ', or list of int: 1,2,3,4 >> vector<int>
-            std::vector<int> nodes;
             std::stringstream ss(value);
             std::string token;
             while (std::getline(ss, token, ',')) {
-                nodes.push_back(std::stoi(token));
-            }
-            for (int i = 0; i < nodes.size(); i++) {
-                data2.avoid_nodes[i] = nodes[i];
+                data2.avoid_nodes.push_back(std::stoi(token));
             }
         }
         else if (n == 4) {
-            // ' ', or list of pairs: (1,2),(3,4) >> vector< pair<int, int> >
-            std::vector< std::pair<int, int>> edges;
             std::stringstream ss(value);
             std::string token;
-
-            while (std::getline(ss, token, ')')) { // (int,int
+            while (std::getline(ss, token, ')')) {
                 size_t start = token.find('(');
-                std::string pair = token.substr(start + 1); // int,int
-                std::stringstream pairStream(pair);
-                std::string n1, n2;
+                if (start != std::string::npos) {
+                    std::string pair = token.substr(start + 1);
+                    std::stringstream pairStream(pair);
+                    std::string n1, n2;
 
-                if (std::getline(pairStream, n1, ',') and std::getline(pairStream, n2, ',')) {
-                    edges.emplace_back(std::stoi(n1), std::stoi(n2)); // store as int
+                    if (std::getline(pairStream, n1, ',') && std::getline(pairStream, n2, ',')) {
+                        data2.avoid_edges.emplace_back(std::stoi(n1), std::stoi(n2));
+                    }
                 }
             }
-            for (int i = 0; i < edges.size(); i++) {
-                data2.avoid_edges[i] = edges[i];
+        }
+        else if (n == 5) {
+            if (!value.empty()) {
+                data2.include_node = std::stoi(value);
+            } else {
+                data2.include_node = -1;  // Definir um valor padrão caso esteja vazio
             }
-        }//
-        else if (n == 5) data2.include_node = stoi(value);
-        else break;
+        }
+        else {
+            break;
+        }
+
         n++;
     }
 
-    input2.close(); // Close file
-
+    input2.close();
     return data2;
 }
 
-Case3Data getCase3() {
-    // Input: mode, src, dest >> Data structure: data1
-    Case3Data data3; // Create structure to store data
+inline Case3Data getCase3() {
+    Case3Data data3;  // Criar estrutura para armazenar os dados
 
-    std::ifstream input3("input.txt"); // Open file
-    std::string line; // Line to be read
-
-    // Error opening file
+    std::ifstream input3("C:/Users/joaop/Desktop/DA_proj1/Individual-Route-Planning-Tool/classes/input/input1.txt");  // Abrir ficheiro
     if (!input3) {
         std::cerr << "Error opening file!" << std::endl;
+        return data3;  // Retorna estrutura vazia
     }
 
-    // Reading the file (Case 3: mode, src, dest, max, avoid_nodes, avoid_edges)
+    std::string line;
     int n = 0;
-    while (std::getline(input3, line)) { // n < 6
 
+    while (std::getline(input3, line)) {
         size_t pos = line.find(':');
-        std::string value = line.substr(pos + 1); // Read ':' onwards
+        if (pos == std::string::npos) continue;  // Ignorar linhas inválidas
 
-        if (n == 0) { // Mode
+        std::string value = line.substr(pos + 1);
+        while (!value.empty() && (value.front() == ' ' || value.front() == '\t')) {
+            value.erase(value.begin());  // Remover espaços extras
+        }
+
+        if (n == 0) {  // Mode
             if (value == "driving-walking") {
                 data3.drivingwalking = true;
                 data3.driving = false;
@@ -212,53 +219,56 @@ Case3Data getCase3() {
                 data3.driving = true;
                 data3.walking = false;
             }
-            else { // walking
+            else {  // walking
                 data3.drivingwalking = false;
                 data3.driving = false;
                 data3.walking = true;
             }
         }
-        else if (n == 1) data3.src = stoi(value); // Source
-        else if (n == 2) data3.dest = stoi(value); // Destination
-        else if (n == 3) data3.maxWalkTime = stoi(value); // MaxWalkTime
-        else if (n == 4) { // AvoidNodes
-            // ' ', or list of int: 1,2,3,4 >> vector<int>
-            std::vector<int> nodes;
-            std::stringstream ss(value);
-            std::string token;
-            while (std::getline(ss, token, ',')) {
-                nodes.push_back(std::stoi(token));
-            }
-            for (int i = 0; i < nodes.size(); i++) {
-                data3.avoid_nodes[i] = nodes[i];
-            }
+        else if (n == 1) {
+            data3.src = std::stoi(value);
         }
-        else if (n == 5) { // AvoidSegments
-            // ' ', or list of pairs: (1,2),(3,4) >> vector< pair<int, int> >
-            std::vector< std::pair<int, int>> edges;
-            std::stringstream ss(value);
-            std::string token;
-
-            while (std::getline(ss, token, ')')) { // (int,int
-                size_t start = token.find('(');
-                std::string pair = token.substr(start + 1); // int,int
-                std::stringstream pairStream(pair);
-                std::string n1, n2;
-
-                if (std::getline(pairStream, n1, ',') and std::getline(pairStream, n2, ',')) {
-                    edges.emplace_back(std::stoi(n1), std::stoi(n2)); // store as int
+        else if (n == 2) {
+            data3.dest = std::stoi(value);
+        }
+        else if (n == 3) {
+            data3.maxWalkTime = std::stoi(value);
+        }
+        else if (n == 4) {  // AvoidNodes
+            if (!value.empty()) {
+                std::stringstream ss(value);
+                std::string token;
+                while (std::getline(ss, token, ',')) {
+                    data3.avoid_nodes.push_back(std::stoi(token));
                 }
             }
-            for (int i = 0; i < edges.size(); i++) {
-                data3.avoid_edges[i] = edges[i];
+        }
+        else if (n == 5) {  // AvoidSegments
+            if (!value.empty()) {
+                std::stringstream ss(value);
+                std::string token;
+                while (std::getline(ss, token, ')')) {
+                    size_t start = token.find('(');
+                    if (start != std::string::npos) {
+                        std::string pair = token.substr(start + 1);
+                        std::stringstream pairStream(pair);
+                        std::string n1, n2;
+
+                        if (std::getline(pairStream, n1, ',') && std::getline(pairStream, n2, ',')) {
+                            data3.avoid_edges.emplace_back(std::stoi(n1), std::stoi(n2));
+                        }
+                    }
+                }
             }
         }
-        else break;
+        else {
+            break;
+        }
+
         n++;
     }
 
-    input3.close(); // Close file
-
+    input3.close();
     return data3;
 }
 
