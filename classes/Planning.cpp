@@ -9,6 +9,7 @@
 #include <cerrno>
 #include <cstring>
 #include <fstream>
+#include <climits>
 
 const std::string outputDir = "C:/Users/joaop/Desktop/DA_proj1/Individual-Route-Planning-Tool/classes/output/";
 
