@@ -126,10 +126,10 @@ std::vector<int> getPath(UrbanMap<std::string> * g, const std::string &origin, c
  * This results in a final complexity of **O((V+E)logV)**
 */
 void case1(UrbanMap<std::string>* urban_map) {
-    std::ofstream out(outputDir + "output1.txt");
+    std::ofstream out( "../output/output1.txt");
     if (!out) {
         std::cerr << "Error: Could not open output file!"<<" "<< strerror(errno) << ")" << std::endl;
-        return ;
+        return;
     }
     Case1Data case1_data = getCase1();
     urban_map->setDrivingMode(case1_data.driving);
@@ -192,11 +192,18 @@ void case1(UrbanMap<std::string>* urban_map) {
  * of the segment, so the complexity is **O(n*|E|)**
  * This results in a final complexity of **O((V+E)logV), because the dijkstra dominates the complexity**
 */
-void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for now
+void case2(UrbanMap<std::string>* urban_map) {
+    std::ofstream out( "../output/output1.txt");
+    if (!out) {
+        std::cerr << "Error: Could not open output file!"<<" "<< strerror(errno) << ")" << std::endl;
+        return;
+    }
     Case2Data case2_data = getCase2();
 
     int src = case2_data.src;
     int dest = case2_data.dest;
+    out<<"Source:"<<src<<std::endl;
+    out<<"Destination:"<<dest<<std::endl;
     auto Lsrc = urban_map->getLocationSet()[src-1];
     auto Ldest = urban_map->getLocationSet()[dest-1];
 
@@ -225,6 +232,8 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
         }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////
+    ///
+    out<<"RestrictedDrivingRoute:";
     int includenode = case2_data.include_node;
 
     if (includenode == -1) {
@@ -232,12 +241,12 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
         auto Lset = getPath(urban_map, Lsrc->getInfo(), Ldest->getInfo());
         Lsrc->setVisited(false);
         if (Ldest->getPath() == nullptr) {
-            std::cout<<"none"<<std::endl;
+            out<<"none"<<std::endl;
         }else {
             for (int i = 0; i < Lset.size(); i++) {
-                std::cout<<Lset[i]<<",";
+                out<<Lset[i]<<",";
             }
-            std::cout <<"("<<Ldest->getDist()<< ")"<< std::endl;
+            out <<"("<<Ldest->getDist()<< ")"<< std::endl;
         }
     }else {
         auto VertexInclude = urban_map->getLocationSet()[includenode-1];
@@ -246,10 +255,10 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
         Lsrc->setVisited(false);
         int totaldistance = 0;
         if (VertexInclude->getPath() == nullptr) {
-            std::cout<<"none"<<std::endl;
+            out<<"none"<<std::endl;
         }else {
             for (int i = 0; i < Lset.size(); i++) {
-                std::cout<<Lset[i]<<",";
+                out<<Lset[i]<<",";
             }
             totaldistance += VertexInclude->getDist();
         }
@@ -257,22 +266,22 @@ void case2(UrbanMap<std::string>* urban_map) { //this is a hardcode solution for
         dijkstra(urban_map, includenode);       //segundo dijkstra do nó incluido para o destino
         Lset = getPath(urban_map, VertexInclude->getInfo(), Ldest->getInfo());
         if (Ldest->getPath() == nullptr) {
-            std::cout<<"none"<<std::endl;
+            out<<"none"<<std::endl;
         }else {
             for (int i = 1; i < Lset.size(); i++) { //needs to start from zero to not repeat the included
-                std::cout<<Lset[i]<<",";
+                out<<Lset[i]<<",";
             }
             totaldistance += Ldest->getDist();
         }
-        std::cout<<"("<<totaldistance<<")"<<std::endl;
+        out<<"("<<totaldistance<<")"<<std::endl;
     }
-
+    out.close();
 }
 
 
 
 
-
+//Variation that does not deactivate any nodes
 std::vector<int> getPathEconomic(UrbanMap<std::string> * g, const std::string &origin, const std::string &dest) {
     std::vector<int> res;
     res.push_back(g->findLocation(dest)->getID());
@@ -336,9 +345,16 @@ void estimation(std::vector<RouteOption> &routeOptions);
  * This results in a final complexity of **O(V(V+E)logV)**
 */
 void case3(UrbanMap<std::string>* urban_map) {
+    std::ofstream out( "../output/output1.txt");
+    if (!out) {
+        std::cerr << "Error: Could not open output file!"<<" "<< strerror(errno) << ")" << std::endl;
+        return;
+    }
     Case3Data case3_data = getCase3();
     int src = case3_data.src;
     int dest = case3_data.dest;
+    out<<"Source: "<<src<<std::endl;
+    out<<"Destination: "<<dest<<std::endl;
     auto Lsrc = urban_map->getLocationSet()[src-1];
     auto Ldest = urban_map->getLocationSet()[dest-1];
 
@@ -419,19 +435,37 @@ void case3(UrbanMap<std::string>* urban_map) {
         }
     }
     if (parkingNodeID == NULL) {
-        std::cout<<"Message:No possible route with max. walking time of "<<maxWalkingtime<<" minutes."<<std::endl;
+        out << "DrivingRoute:" << std::endl;
+        out << "ParkingNode:" << std::endl;
+        out << "WalkingRoute:" << std::endl;
+        out << "TotalTime:" << std::endl;
+        out << "Message:No possible route with max. walking time of " << maxWalkingtime << " minutes." << std::endl;
+        out.close();
         estimation(routeOptions);
         return;
     }
-    std::cout<<parkingNodeID<<std::endl;
-    for (auto i : bestDrivingRoute) {
-        std::cout<<i<<",";
+    // Driving Route
+    out << "DrivingRoute:";
+    for (size_t i = 0; i < bestDrivingRoute.size(); ++i) {
+        out << bestDrivingRoute[i];
+        if (i < bestDrivingRoute.size() - 1) out << ",";
     }
-    std::cout<<std::endl;
-    for (auto i : bestWalkingRoute) {
-        std::cout<<i<<",";
+    out << "(" << bestDrivingTime << ")" << std::endl;
+
+    // Parking Node
+    out << "ParkingNode:" << parkingNodeID << std::endl;
+
+    // Walking Route
+    out << "WalkingRoute:";
+    for (size_t i = 0; i < bestWalkingRoute.size(); ++i) {
+        out << bestWalkingRoute[i];
+        if (i < bestWalkingRoute.size() - 1) out << ",";
     }
-    std::cout<<std::endl;
+    out << "(" << bestWalkingTime << ")" << std::endl;
+
+    // Total Time
+    out << "TotalTime:" << (bestDrivingTime + bestWalkingTime) << std::endl;
+    out.close();
 }
 
 /**
@@ -440,7 +474,20 @@ void case3(UrbanMap<std::string>* urban_map) {
  */
 void estimation(std::vector<RouteOption> &routeOptions) {
     if (routeOptions.empty()) {
-        std::cout << "Message: No valid alternative routes found." << std::endl;
+        std::ofstream out("../output/estimation.txt");
+        if (!out) {
+            std::cerr << "Error: Could not open output file! (" << strerror(errno) << ")" << std::endl;
+            return;
+        }
+
+        out << "Message: No valid alternative routes found." << std::endl;
+        out.close();
+        return;
+    }
+
+    std::ofstream out("../output/estimation.txt");
+    if (!out) {
+        std::cerr << "Error: Could not open output file! (" << strerror(errno) << ")" << std::endl;
         return;
     }
 
@@ -454,28 +501,31 @@ void estimation(std::vector<RouteOption> &routeOptions) {
         const auto& option = routeOptions[i];
 
         // Driving Route
-        std::cout << "DrivingRoute" << i + 1 << ":";
+        out << "DrivingRoute" << i + 1 << ":";
         for (size_t j = 0; j < option.drivingRoute.size(); ++j) {
-            std::cout << option.drivingRoute[j];
-            if (j < option.drivingRoute.size() - 1) std::cout << ",";
+            out << option.drivingRoute[j];
+            if (j < option.drivingRoute.size() - 1) out << ",";
         }
-        std::cout << "(" << option.drivingTime << ")\n";
+        out << "(" << option.drivingTime << ")\n";
 
         // Parking Node
-        std::cout << "ParkingNode" << i + 1 << ":" << option.parkingNodeID << "\n";
+        out << "ParkingNode" << i + 1 << ":" << option.parkingNodeID << "\n";
 
         // Walking Route
-        std::cout << "WalkingRoute" << i + 1 << ":";
+        out << "WalkingRoute" << i + 1 << ":";
         for (size_t j = 0; j < option.walkingRoute.size(); ++j) {
-            std::cout << option.walkingRoute[j];
-            if (j < option.walkingRoute.size() - 1) std::cout << ",";
+            out << option.walkingRoute[j];
+            if (j < option.walkingRoute.size() - 1) out << ",";
         }
-        std::cout << "(" << option.walkingTime << ")\n";
+        out << "(" << option.walkingTime << ")\n";
 
         // Total Time
-        std::cout << "TotalTime" << i + 1 << ":" << (option.drivingTime + option.walkingTime) << "\n";
+        out << "TotalTime" << i + 1 << ":" << (option.drivingTime + option.walkingTime) << "\n";
     }
+
+    out.close();
 }
+
 
 
 

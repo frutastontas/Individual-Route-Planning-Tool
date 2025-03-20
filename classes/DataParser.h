@@ -85,7 +85,7 @@ inline Case1Data getCase1() {
     // Input: mode, src, dest >> Data structure: data1
     Case1Data data1; // Create structure to store data
 
-    std::ifstream input1("C:/Users/joaop/Desktop/DA_proj1/Individual-Route-Planning-Tool/classes/input/input1.txt"); // Open file
+    std::ifstream input1("../input/input1.txt"); // Open file
     std::string line; // Line to be read
 
     // Error opening file
@@ -119,7 +119,7 @@ inline Case1Data getCase1() {
 inline Case2Data getCase2() {
     Case2Data data2;  // Criar estrutura para armazenar os dados
 
-    std::ifstream input2("C:/Users/joaop/Desktop/DA_proj1/Individual-Route-Planning-Tool/classes/input/input1.txt");
+    std::ifstream input2("../input/input1.txt");
     if (!input2) {
         std::cerr << "Error opening file!" << std::endl;
         return data2;  // Retorna estrutura vazia se não conseguir abrir o ficheiro
@@ -190,7 +190,7 @@ inline Case2Data getCase2() {
 inline Case3Data getCase3() {
     Case3Data data3;  // Criar estrutura para armazenar os dados
 
-    std::ifstream input3("C:/Users/joaop/Desktop/DA_proj1/Individual-Route-Planning-Tool/classes/input/input1.txt");  // Abrir ficheiro
+    std::ifstream input3("../input/input1.txt");  // Abrir ficheiro
     if (!input3) {
         std::cerr << "Error opening file!" << std::endl;
         return data3;  // Retorna estrutura vazia
