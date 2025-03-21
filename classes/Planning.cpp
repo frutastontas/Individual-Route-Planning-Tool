@@ -322,13 +322,14 @@ struct RouteOption {
 };
 
 
-void estimation(std::vector<RouteOption> &routeOptions);
+void estimation(std::vector<RouteOption> &routeOptions,int src, int dest);
 
 /**
  * @brief This function combines both walking and driving. First we do a dijkstra from the source to a node in the
  * parkingNodes vector of the graph, wich has all the ids of the nodes that have parking. Then we do a dijkstra from
  * that parking node to the destination using walking distances, making sure that the resulting walking time
  * does not exceed the maximum. We do this for every parking node and we get the best overall time.
+ * In case two paths have the same total time, we select the one with more walking time to be more economic.
  *
  *
  * @param urban_map is a pointer to the UrbanMap graph containing locations and connections.
@@ -441,7 +442,7 @@ void case3(UrbanMap<std::string>* urban_map) {
         out << "TotalTime:" << std::endl;
         out << "Message:No possible route with max. walking time of " << maxWalkingtime << " minutes." << std::endl;
         out.close();
-        estimation(routeOptions);
+        estimation(routeOptions, src,dest);
         return;
     }
     // Driving Route
@@ -469,10 +470,14 @@ void case3(UrbanMap<std::string>* urban_map) {
 }
 
 /**
+ * @brief This function will select the best two options that combine driving and walking, passing through
+ * a parking node. It will sort a vector that houses structs **RouteOption** that store previously computed
+ * routes of case 3. This estimation will only appear if there is no path from case 3. It selects the best
+ * two and puts them in the file.
  * 
  * @param routeOptions vector of struct that houses information of a specific route to the destination
  */
-void estimation(std::vector<RouteOption> &routeOptions) {
+void estimation(std::vector<RouteOption> &routeOptions, int src, int dest) {
     if (routeOptions.empty()) {
         std::ofstream out("../output/estimation.txt");
         if (!out) {
@@ -490,7 +495,8 @@ void estimation(std::vector<RouteOption> &routeOptions) {
         std::cerr << "Error: Could not open output file! (" << strerror(errno) << ")" << std::endl;
         return;
     }
-
+    out<<"Source:"<<src<<std::endl;
+    out<<"Destination:"<<dest<<std::endl;
     // Sort based on the custom comparator in RouteOption
     std::sort(routeOptions.begin(), routeOptions.end());
 
@@ -522,7 +528,6 @@ void estimation(std::vector<RouteOption> &routeOptions) {
         // Total Time
         out << "TotalTime" << i + 1 << ":" << (option.drivingTime + option.walkingTime) << "\n";
     }
-
     out.close();
 }
 
