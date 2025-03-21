@@ -373,6 +373,8 @@ public:
     void setParkingNode(int id);
     std::vector<int> getParkingNodes() const;
 
+    void resetGraph();
+
 protected:
     std::vector<Vertex<T> *> locationSet;    ///< Set of locations (vertices)
 
@@ -520,6 +522,16 @@ void UrbanMap<T>::setParkingNode(int id) {
 template <class T>
 std::vector<int> UrbanMap<T>::getParkingNodes() const {
     return this->parkingNodes;
+}
+
+template<class T>
+void UrbanMap<T>::resetGraph() {
+    for (auto v : locationSet) {
+        v->setVisited(false);
+        for (auto e : v->getAdj()) {
+            e->setSelected(false);
+        }
+    }
 }
 
 

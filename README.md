@@ -13,4 +13,6 @@
     First, the class now has a member field of bool type *drivingMode* that indicates
     if the graph is going to use driving distances or walking distances when computing
     the shortest paths.
+    Also received a member function that resets all the vertices and respective edges
+    , when it comes to their boolean values after doing one of the cases.
     
