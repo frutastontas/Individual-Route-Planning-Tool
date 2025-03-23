@@ -9,7 +9,6 @@
 #include <sstream>
 #include <unordered_set>
 #include <climits>
-#include "data_structures/Location.h"
 #include "data_structures/UrbanMap.h"
 #include "data_structures/cases.h"
 
