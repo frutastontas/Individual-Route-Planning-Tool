@@ -4,38 +4,80 @@
 
 #include "Menu.h"
 #include <iostream>
+#include <fstream>
 #include "DataParser.h"
 #include "Planning.h"
 
 Menu::Menu() {
-    std::cout << "\t\t\n\n" << "Bem-vindo!\n";
+    // Constructor implementation
 }
 
-
 void Menu::init() {
+    chooseOption();
+}
 
-    while (1) {
-        std::string input;
-        std::cout<<"Que tipo de plano de viagem deseja fazer hoje?"<<"\n"
-                    <<"[1] Realizar uma das operaçoes"<<"\n" <<"[2] Sair do programa "<<"\n";
-        std::cin>>input;
-        switch (stoi(input)) {
-            case 1:
-                chooseOption();
-                break;
-            case 2:
-                return;
-            default:
-                std::cout<<"Input inválido"<<std::endl;
-                std::cin.clear();
-                std::cin.ignore(INT_MAX, '\n');
-        }
-    }
+void Menu::end() {
+    // Static end function implementation
 }
 
 void Menu::chooseOption() {
-    UrbanMap<std::string> urban_map = createUrbanMap<std::string>();
-    UrbanMap<std::string> urban_map_copy = urban_map; //this is a copy to reset urban_map after each use of a case
-    urban_map.setDrivingMode(true);
-    case3(&urban_map);
+    int option;
+    std::cout << "Choose an option:\n";
+    std::cout << "1. Option 1\n";
+    std::cout << "2. Option 2\n";
+    std::cout << "3. Option 3\n";
+    std::cin >> option;
+
+    switch (option) {
+        case 1:
+            handleOption1();
+            break;
+        case 2:
+            handleOption2();
+            break;
+        case 3:
+            handleOption3();
+            break;
+        default:
+            std::cout << "Invalid option. Please try again.\n";
+            chooseOption();
+            break;
+    }
+}
+
+void Menu::handleOption1() {
+    std::string source;
+    std::cout << "Enter source ID: ";
+    std::cin >> source;
+    writeToFile("input1.txt", source);
+    resetGraph();
+}
+
+void Menu::handleOption2() {
+    std::string source;
+    std::cout << "Enter source ID: ";
+    std::cin >> source;
+    writeToFile("input2.txt", source);
+    resetGraph();
+}
+
+void Menu::handleOption3() {
+    std::string source;
+    std::cout << "Enter source ID: ";
+    std::cin >> source;
+    writeToFile("input3.txt", source);
+    resetGraph();
+}
+
+void Menu::writeToFile(const std::string& filename, const std::string& content) {
+    std::ofstream outFile(filename);
+    if (outFile.is_open()) {
+        outFile << content;
+        outFile.close();
+    } else {
+        std::cerr << "Unable to open file " << filename << "\n";
+    }
+}
+
+void Menu::resetGraph() {
 }

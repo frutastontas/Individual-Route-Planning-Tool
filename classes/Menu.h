@@ -5,7 +5,7 @@
 #ifndef MENU_H
 #define MENU_H
 
-
+#include <string>
 
 class Menu {
     public:
@@ -15,8 +15,11 @@ class Menu {
 
     private:
         void chooseOption();
+        void handleOption1();
+        void handleOption2();
+        void handleOption3();
+        void writeToFile(const std::string& filename, const std::string& content);
+        void resetGraph();
 };
-
-
 
 #endif //MENU_H
