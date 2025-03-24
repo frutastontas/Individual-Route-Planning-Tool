@@ -6,18 +6,20 @@
 #define MENU_H
 
 #include <string>
+#include "data_structures/UrbanMap.h"
 
 class Menu {
     public:
         Menu();
         void init();
         static void end();
+        void readOutputFile();
 
     private:
         void chooseOption();
-        void handleOption1();
-        void handleOption2();
-        void handleOption3();
+        void handleOption1(UrbanMap<std::string>* urban_map);
+        void handleOption2(UrbanMap<std::string>* urban_map);
+        void handleOption3(UrbanMap<std::string>* urban_map);
         void writeToFile(const std::string& filename, const std::string& content);
         void resetGraph();
 };

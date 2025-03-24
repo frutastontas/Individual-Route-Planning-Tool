@@ -95,7 +95,6 @@ inline Case1Data getCase1() {
     // Reading the file (Case 1: mode, src, dest)
     int n = 0;
     while (std::getline(input1, line)) { // n < 3
-
         size_t pos = line.find(':');
         std::string value = line.substr(pos + 1); // Read ':' onwards
 
