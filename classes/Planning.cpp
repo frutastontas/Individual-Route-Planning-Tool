@@ -347,6 +347,10 @@ void estimation(std::vector<RouteOption> &routeOptions,int src, int dest);
  * and for the origin and destination it finds in the adjacency list the other node
  * of the segment, so the complexity is **O(n*|E|)**
  * This results in a final complexity of **O(V(V+E)logV)**
+ *
+ * When it comes to spacial complexity, since we compute each route to the parking node and then
+ * to the destination and we compute the path and save it on a vector, this results in @complexity
+ * **O(n)**.
 */
 void case3(UrbanMap<std::string>* urban_map) {
     std::ofstream out( "../output/output1.txt");
