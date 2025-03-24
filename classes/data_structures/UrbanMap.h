@@ -8,7 +8,6 @@
 
 
 #include <vector>
-#include "Location.h"
 #include "MutablePriorityQueu.h"
 
 template <class T>
@@ -379,7 +378,6 @@ protected:
     std::vector<Vertex<T> *> locationSet;    ///< Set of locations (vertices)
 
     //hash set for efficient find of Vertex (to implement usage)
-    Location::LocationSet location_set_;
 
     //vector with the ids of all the nodes that have available parking
     std::vector<int> parkingNodes;

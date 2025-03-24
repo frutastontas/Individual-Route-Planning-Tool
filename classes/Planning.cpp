@@ -14,8 +14,6 @@
 #include "DataParser.h"
 #include "data_structures/cases.h"
 
-const std::string outputDir = "C:/Users/joaop/Desktop/DA_proj1/Individual-Route-Planning-Tool/classes/output/";
-
 bool relax(Edge<std::string> *edge, bool Drivemode) {
     if (Drivemode) {
         if (edge->getDest()->getDist() > edge->getDriving() + edge->getOrig()->getDist()) {
@@ -150,7 +148,8 @@ void case1(UrbanMap<std::string>* urban_map) {
         out<<"none"<<std::endl;
     }else {
         for (int i = 0; i < Lset.size(); i++) {
-            out<<Lset[i]<<",";
+            out<<Lset[i];
+            if (i< Lset.size()-1) out<<",";
         }
         out <<"("<< Ldest->getDist()<<")"<< std::endl;
     }
@@ -163,7 +162,8 @@ void case1(UrbanMap<std::string>* urban_map) {
         out<<"none"<<std::endl;
     }else {
         for (int i = 0; i < Lalt.size(); i++) {
-            out<<Lalt[i]<<",";
+            out<<Lalt[i];
+            if (i<Lalt.size()-1) out<<",";
         }
         out << "("<<Ldest->getDist()<<")" << std::endl;
     }
@@ -244,7 +244,8 @@ void case2(UrbanMap<std::string>* urban_map) {
             out<<"none"<<std::endl;
         }else {
             for (int i = 0; i < Lset.size(); i++) {
-                out<<Lset[i]<<",";
+                out<<Lset[i];
+                if (i<Lset.size()-1) out<<",";
             }
             out <<"("<<Ldest->getDist()<< ")"<< std::endl;
         }
@@ -258,7 +259,8 @@ void case2(UrbanMap<std::string>* urban_map) {
             out<<"none"<<std::endl;
         }else {
             for (int i = 0; i < Lset.size(); i++) {
-                out<<Lset[i]<<",";
+                out<<Lset[i];
+                if (i<Lset.size()-1) out<<",";
             }
             totaldistance += VertexInclude->getDist();
         }
@@ -269,7 +271,8 @@ void case2(UrbanMap<std::string>* urban_map) {
             out<<"none"<<std::endl;
         }else {
             for (int i = 1; i < Lset.size(); i++) { //needs to start from zero to not repeat the included
-                out<<Lset[i]<<",";
+                out<<Lset[i];
+                if (i<Lset.size()-1) out<<",";
             }
             totaldistance += Ldest->getDist();
         }
@@ -405,6 +408,9 @@ void case3(UrbanMap<std::string>* urban_map) {
         auto driverouteTMP = getPathEconomic(urban_map, Lsrc->getInfo(), parkingNode->getInfo());
         int distDriving = parkingNode->getDist();
 
+        if (distDriving == INT_MAX) {
+            continue;
+        }
         urban_map->setDrivingMode(false);
 
 
@@ -475,7 +481,10 @@ void case3(UrbanMap<std::string>* urban_map) {
  * routes of case 3. This estimation will only appear if there is no path from case 3. It selects the best
  * two and puts them in the file.
  * 
- * @param routeOptions vector of struct that houses information of a specific route to the destination
+ * @param routeOptions vector of struct that houses information of a specific route to the destination.
+ *
+ * @complexity The complexity is dominated by the sorting step since everything else is a constant
+ * time operation. This results in complexity **O(nlog(n))**.
  */
 void estimation(std::vector<RouteOption> &routeOptions, int src, int dest) {
     if (routeOptions.empty()) {

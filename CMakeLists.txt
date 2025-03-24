@@ -11,7 +11,6 @@ add_executable(Individual-Route-Planning-Tool main.cpp
         classes/data_structures/UrbanMap.h
         classes/Menu.cpp
         classes/Menu.h
-        classes/data_structures/Location.h
         classes/Planning.cpp
         classes/Planning.h
 )
