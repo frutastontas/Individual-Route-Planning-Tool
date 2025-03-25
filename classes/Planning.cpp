@@ -14,6 +14,21 @@
 #include "DataParser.h"
 #include "data_structures/cases.h"
 
+
+/**
+ * @brief Performs edge relaxation for a graph algorithm.
+ *
+ * This function updates the distance of the destination node of the given edge
+ * if a shorter path is found using either driving or walking mode.
+ *
+ * @tparam T The type of the data stored in the graph nodes (e.g., std::string).
+ * @param edge A pointer to the edge that is being relaxed.
+ * @param Drivemode A boolean flag indicating the mode of transportation.
+ *                  - If true, driving time is used.
+ *                  - If false, walking time is used.
+ *
+ * @return True if the relaxation was successful (i.e., the distance was updated), false otherwise.
+ */
 bool relax(Edge<std::string> *edge, bool Drivemode) {
     if (Drivemode) {
         if (edge->getDest()->getDist() > edge->getDriving() + edge->getOrig()->getDist()) {
@@ -110,7 +125,7 @@ std::vector<int> getPath(UrbanMap<std::string> * g, const std::string &origin, c
 }
 
 /**
- * @brief computes the top-2 best routes to take from the source node to the destination on a specific mode
+ * @brief computes the top-2 best routes to take from the source node to the destination on a specific mode.
  *
  * This function uses two dijkstras, the first one to compute the best route, and the second one executes
  * after the intermediary nodes of the first were labelled, so that it does not include them in the dijkstra.
@@ -171,7 +186,7 @@ void case1(UrbanMap<std::string>* urban_map) {
 }
 
 /**
- * @brief computes the best route that avoids certain segments, locations(vertex) and may
+ * @brief Computes the best route that avoids certain segments, locations(vertex) and may
  * include a certain node in the path. Each node is deactivated using a boolean value *isVisited*
  * and if that value is true the dijkstra won't include that node in the path. Same thing goes for the
  * segments that also use a boolean value *isSelected*.
@@ -181,7 +196,7 @@ void case1(UrbanMap<std::string>* urban_map) {
  *
  * @param urban_map is a pointer to the UrbanMap graph containing locations and connections.
  *
- * @note This function outputs to an output2.txt where the results can be seen.
+ * @note This function outputs to an output1.txt where the results can be seen.
  *
  * @complexity Does two dijkstras each one with complexity **O((V+E)logV)**
  * or does only one dijkstra with the same complexity,
@@ -337,7 +352,7 @@ void estimation(std::vector<RouteOption> &routeOptions,int src, int dest);
  *
  * @param urban_map is a pointer to the UrbanMap graph containing locations and connections.
  *
- * @note This function outputs to an output3.txt where the results can be seen.
+ * @note This function outputs to an output1.txt where the results can be seen.
  *
  * @complexity Does two dijkstras each one with complexity **O((V+E)logV)**
  * for each node in the parkingNodes vector of the graph, this results in **O(V(V+E)logV)**,

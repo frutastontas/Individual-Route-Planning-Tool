@@ -10,9 +10,9 @@ void \mbox{\hyperlink{_planning_8h_ae2e0e759108ef41e869dd46f4742151c}{dijkstra}}
 std\+::vector$<$ int $>$ \mbox{\hyperlink{_planning_8h_a2d0b80f4eddcbcf2ab5534fa29bba6d5}{get\+Path}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}g, const std\+::string \&origin, const std\+::string \&dest)
 \begin{DoxyCompactList}\small\item\em Retrieves the shortest path from an origin to a destination in an \doxylink{class_urban_map}{Urban\+Map}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{_planning_8h_a64a02bcebb9a65eec66909ee45245349}{case1}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}urban\+\_\+map)
-\begin{DoxyCompactList}\small\item\em computes the top-\/2 best routes to take from the source node to the destination on a specific mode \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em computes the top-\/2 best routes to take from the source node to the destination on a specific mode. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{_planning_8h_a2c0333fc34fc57bd91bd6f078843dd2f}{case2}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}urban\+\_\+map)
-\begin{DoxyCompactList}\small\item\em computes the best route that avoids certain segments, locations(vertex) and may include a certain node in the path. Each node is deactivated using a boolean value {\itshape is\+Visited} and if that value is true the dijkstra won\textquotesingle{}t include that node in the path. Same thing goes for the segments that also use a boolean value {\itshape is\+Selected}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Computes the best route that avoids certain segments, locations(vertex) and may include a certain node in the path. Each node is deactivated using a boolean value {\itshape is\+Visited} and if that value is true the dijkstra won\textquotesingle{}t include that node in the path. Same thing goes for the segments that also use a boolean value {\itshape is\+Selected}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{_planning_8h_aa7f4a2a19efe9c5718b1fe4164e4fe62}{case3}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}urban\+\_\+map)
 \begin{DoxyCompactList}\small\item\em This function combines both walking and driving. First we do a dijkstra from the source to a node in the parking\+Nodes vector of the graph, wich has all the ids of the nodes that have parking. Then we do a dijkstra from that parking node to the destination using walking distances, making sure that the resulting walking time does not exceed the maximum. We do this for every parking node and we get the best overall time. In case two paths have the same total time, we select the one with more walking time to be more economic. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -26,7 +26,7 @@ void case1 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urb
 
 
 
-computes the top-\/2 best routes to take from the source node to the destination on a specific mode 
+computes the top-\/2 best routes to take from the source node to the destination on a specific mode. 
 
 This function uses two dijkstras, the first one to compute the best route, and the second one executes after the intermediary nodes of the first were labelled, so that it does not include them in the dijkstra.
 
@@ -46,7 +46,7 @@ void case2 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urb
 
 
 
-computes the best route that avoids certain segments, locations(vertex) and may include a certain node in the path. Each node is deactivated using a boolean value {\itshape is\+Visited} and if that value is true the dijkstra won\textquotesingle{}t include that node in the path. Same thing goes for the segments that also use a boolean value {\itshape is\+Selected}. 
+Computes the best route that avoids certain segments, locations(vertex) and may include a certain node in the path. Each node is deactivated using a boolean value {\itshape is\+Visited} and if that value is true the dijkstra won\textquotesingle{}t include that node in the path. Same thing goes for the segments that also use a boolean value {\itshape is\+Selected}. 
 
 This function uses one dijkstra if there is no Node to include, or uses two dijkstras, one from the source to compute the distance to the node to include, and another starting from the included node to the destination.
 
@@ -56,7 +56,7 @@ This function uses one dijkstra if there is no Node to include, or uses two dijk
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
-This function outputs to an output2.\+txt where the results can be seen.
+This function outputs to an output1.\+txt where the results can be seen.
 \end{DoxyNote}
 @complexity Does two dijkstras each one with complexity {\bfseries{O((V+E)logV)}} or does only one dijkstra with the same complexity, and also uses function \doxylink{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5}{get\+Path()} with complexity {\bfseries{O(\+V)}} To deactivate the nodes it takes a traversal on a vector with ids {\bfseries{O(n)}} To deactivate the segments it takes a traversal on a vector with pairs of ids and for the origin and destination it finds in the adjacency list the other node of the segment, so the complexity is {\bfseries{O(n\texorpdfstring{$\ast$}{*}\texorpdfstring{$\vert$}{|}\+E\texorpdfstring{$\vert$}{|})}} This results in a final complexity of {\bfseries{O((V+E)logV), because the dijkstra dominates the complexity}} \Hypertarget{_planning_8h_aa7f4a2a19efe9c5718b1fe4164e4fe62}\index{Planning.h@{Planning.h}!case3@{case3}}
 \index{case3@{case3}!Planning.h@{Planning.h}}
@@ -74,7 +74,7 @@ This function combines both walking and driving. First we do a dijkstra from the
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
-This function outputs to an output3.\+txt where the results can be seen.
+This function outputs to an output1.\+txt where the results can be seen.
 \end{DoxyNote}
 @complexity Does two dijkstras each one with complexity {\bfseries{O((V+E)logV)}} for each node in the parking\+Nodes vector of the graph, this results in {\bfseries{O(V(V+E)logV)}}, and also uses function \doxylink{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5}{get\+Path()} with complexity {\bfseries{O(\+V)}} To deactivate the nodes it takes a traversal on a vector with ids {\bfseries{O(n)}} To deactivate the segments it takes a traversal on a vector with pairs of ids and for the origin and destination it finds in the adjacency list the other node of the segment, so the complexity is {\bfseries{O(n\texorpdfstring{$\ast$}{*}\texorpdfstring{$\vert$}{|}\+E\texorpdfstring{$\vert$}{|})}} This results in a final complexity of {\bfseries{O(V(V+E)logV)}}
 

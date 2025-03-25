@@ -128,6 +128,7 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad01e87095b832831d39596ca6e4b8875" id="r_ad01e87095b832831d39596ca6e4b8875"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad01e87095b832831d39596ca6e4b8875">relax</a> (<a class="el" href="class_edge.html">Edge</a>&lt; std::string &gt; *edge, bool Drivemode)</td></tr>
+<tr class="memdesc:ad01e87095b832831d39596ca6e4b8875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs edge relaxation for a graph algorithm.  <br /></td></tr>
 <tr class="separator:ad01e87095b832831d39596ca6e4b8875"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2e0e759108ef41e869dd46f4742151c" id="r_ae2e0e759108ef41e869dd46f4742151c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae2e0e759108ef41e869dd46f4742151c">dijkstra</a> (<a class="el" href="class_urban_map.html">UrbanMap</a>&lt; std::string &gt; *g, const int &amp;origin)</td></tr>
 <tr class="memdesc:ae2e0e759108ef41e869dd46f4742151c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements Dijkstra's shortest path algorithm on an <a class="el" href="class_urban_map.html" title="Represents an urban map as a graph structure.">UrbanMap</a>.  <br /></td></tr>
@@ -136,10 +137,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2d0b80f4eddcbcf2ab5534fa29bba6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the shortest path from an origin to a destination in an <a class="el" href="class_urban_map.html" title="Represents an urban map as a graph structure.">UrbanMap</a>.  <br /></td></tr>
 <tr class="separator:a2d0b80f4eddcbcf2ab5534fa29bba6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64a02bcebb9a65eec66909ee45245349" id="r_a64a02bcebb9a65eec66909ee45245349"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64a02bcebb9a65eec66909ee45245349">case1</a> (<a class="el" href="class_urban_map.html">UrbanMap</a>&lt; std::string &gt; *urban_map)</td></tr>
-<tr class="memdesc:a64a02bcebb9a65eec66909ee45245349"><td class="mdescLeft">&#160;</td><td class="mdescRight">computes the top-2 best routes to take from the source node to the destination on a specific mode  <br /></td></tr>
+<tr class="memdesc:a64a02bcebb9a65eec66909ee45245349"><td class="mdescLeft">&#160;</td><td class="mdescRight">computes the top-2 best routes to take from the source node to the destination on a specific mode.  <br /></td></tr>
 <tr class="separator:a64a02bcebb9a65eec66909ee45245349"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c0333fc34fc57bd91bd6f078843dd2f" id="r_a2c0333fc34fc57bd91bd6f078843dd2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c0333fc34fc57bd91bd6f078843dd2f">case2</a> (<a class="el" href="class_urban_map.html">UrbanMap</a>&lt; std::string &gt; *urban_map)</td></tr>
-<tr class="memdesc:a2c0333fc34fc57bd91bd6f078843dd2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">computes the best route that avoids certain segments, locations(vertex) and may include a certain node in the path. Each node is deactivated using a boolean value <em>isVisited</em> and if that value is true the dijkstra won't include that node in the path. Same thing goes for the segments that also use a boolean value <em>isSelected</em>.  <br /></td></tr>
+<tr class="memdesc:a2c0333fc34fc57bd91bd6f078843dd2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the best route that avoids certain segments, locations(vertex) and may include a certain node in the path. Each node is deactivated using a boolean value <em>isVisited</em> and if that value is true the dijkstra won't include that node in the path. Same thing goes for the segments that also use a boolean value <em>isSelected</em>.  <br /></td></tr>
 <tr class="separator:a2c0333fc34fc57bd91bd6f078843dd2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc4216b94b8cbc066ddaeb777e0c4527" id="r_acc4216b94b8cbc066ddaeb777e0c4527"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc4216b94b8cbc066ddaeb777e0c4527">getPathEconomic</a> (<a class="el" href="class_urban_map.html">UrbanMap</a>&lt; std::string &gt; *g, const std::string &amp;origin, const std::string &amp;dest)</td></tr>
 <tr class="separator:acc4216b94b8cbc066ddaeb777e0c4527"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,7 +167,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>computes the top-2 best routes to take from the source node to the destination on a specific mode </p>
+<p>computes the top-2 best routes to take from the source node to the destination on a specific mode. </p>
 <p>This function uses two dijkstras, the first one to compute the best route, and the second one executes after the intermediary nodes of the first were labelled, so that it does not include them in the dijkstra.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -194,7 +195,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>computes the best route that avoids certain segments, locations(vertex) and may include a certain node in the path. Each node is deactivated using a boolean value <em>isVisited</em> and if that value is true the dijkstra won't include that node in the path. Same thing goes for the segments that also use a boolean value <em>isSelected</em>. </p>
+<p>Computes the best route that avoids certain segments, locations(vertex) and may include a certain node in the path. Each node is deactivated using a boolean value <em>isVisited</em> and if that value is true the dijkstra won't include that node in the path. Same thing goes for the segments that also use a boolean value <em>isSelected</em>. </p>
 <p>This function uses one dijkstra if there is no Node to include, or uses two dijkstras, one from the source to compute the distance to the node to include, and another starting from the included node to the destination.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -202,7 +203,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function outputs to an output2.txt where the results can be seen.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function outputs to an output1.txt where the results can be seen.</dd></dl>
 <p>@complexity Does two dijkstras each one with complexity <b>O((V+E)logV)</b> or does only one dijkstra with the same complexity, and also uses function <a class="el" href="#a2d0b80f4eddcbcf2ab5534fa29bba6d5" title="Retrieves the shortest path from an origin to a destination in an UrbanMap.">getPath()</a> with complexity <b>O(V)</b> To deactivate the nodes it takes a traversal on a vector with ids <b>O(n)</b> To deactivate the segments it takes a traversal on a vector with pairs of ids and for the origin and destination it finds in the adjacency list the other node of the segment, so the complexity is <b>O(n*|E|)</b> This results in a final complexity of <b>O((V+E)logV), because the dijkstra dominates the complexity</b> </p>
 
 </div>
@@ -229,7 +230,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function outputs to an output3.txt where the results can be seen.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function outputs to an output1.txt where the results can be seen.</dd></dl>
 <p>@complexity Does two dijkstras each one with complexity <b>O((V+E)logV)</b> for each node in the parkingNodes vector of the graph, this results in <b>O(V(V+E)logV)</b>, and also uses function <a class="el" href="#a2d0b80f4eddcbcf2ab5534fa29bba6d5" title="Retrieves the shortest path from an origin to a destination in an UrbanMap.">getPath()</a> with complexity <b>O(V)</b> To deactivate the nodes it takes a traversal on a vector with ids <b>O(n)</b> To deactivate the segments it takes a traversal on a vector with pairs of ids and for the origin and destination it finds in the adjacency list the other node of the segment, so the complexity is <b>O(n*|E|)</b> This results in a final complexity of <b>O(V(V+E)logV)</b></p>
 <p>When it comes to spacial complexity, since we compute each route to the parking node and then to the destination and we compute the path and save it on a vector, this results in @complexity <b>O(n)</b>. </p>
 
@@ -397,6 +398,27 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Performs edge relaxation for a graph algorithm. </p>
+<p>This function updates the distance of the destination node of the given edge if a shorter path is found using either driving or walking mode.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of the data stored in the graph nodes (e.g., std::string). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">edge</td><td>A pointer to the edge that is being relaxed. </td></tr>
+    <tr><td class="paramname">Drivemode</td><td>A boolean flag indicating the mode of transportation.<ul>
+<li>If true, driving time is used.</li>
+<li>If false, walking time is used.</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the relaxation was successful (i.e., the distance was updated), false otherwise. </dd></dl>
 
 </div>
 </div>
