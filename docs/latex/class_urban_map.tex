@@ -1,0 +1,303 @@
+\doxysection{Urban\+Map\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_urban_map}{}\label{class_urban_map}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+
+
+Represents an urban map as a graph structure.  
+
+
+
+
+{\ttfamily \#include $<$Urban\+Map.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_urban_map_abb9edb93c769a1cc72369539b2318eff}{find\+Location}} (const T \&in) const
+\begin{DoxyCompactList}\small\item\em Finds a location (vertex) with the given content. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_urban_map_a58cac4b81659a1dd3a045f8dd5c7d5b8}{add\+Location}} (const T \&in, const int ID, const int parking)
+\begin{DoxyCompactList}\small\item\em Adds a location (vertex) to the urban map. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_urban_map_a19b9be4922bb7bd41c7cb06d8cce0de0}{remove\+Location}} (const T \&in)
+\begin{DoxyCompactList}\small\item\em Removes a location (vertex) from the urban map. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_urban_map_a9e97f4477a77a647565f0a2170f2ee73}{add\+Road}} (const T \&source, const T \&dest, double driving, double walking)
+\begin{DoxyCompactList}\small\item\em Adds a road (edge) between two locations. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_urban_map_ad18ef9e8975d94d56b026651fef10a47}{remove\+Road}} (const T \&source, const T \&dest)
+\begin{DoxyCompactList}\small\item\em Removes a road (edge) between two locations. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_urban_map_a2bbec6718a3fa3d4741bbe2eb9e43a45}{add\+Bidirectional\+Road}} (const T \&source, const T \&dest, double driving, double walking)
+\begin{DoxyCompactList}\small\item\em Adds a bidirectional road (edge) between two locations. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_urban_map_acc22b8d25f70c094b073465e71edefd1}{get\+Num\+Locations}} () const
+\begin{DoxyCompactList}\small\item\em Gets the number of locations (vertices) in the urban map. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_urban_map_a13f717fb13dbe9d2a7f4c2681076f915}{get\+Location\+Set}} () const
+\begin{DoxyCompactList}\small\item\em Gets the set of locations (vertices) in the urban map. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_urban_map_af057e7bb5305f6967afdca530fdc0a33}{Driving\+Mode\+Enabled}} () const
+\item 
+void \mbox{\hyperlink{class_urban_map_aa6319558e3eb1c240a4d801d27b6312c}{set\+Driving\+Mode}} (bool mode)
+\item 
+void \mbox{\hyperlink{class_urban_map_adc77f8ac95cd4ae4177fabecc60d10c2}{set\+Parking\+Node}} (int id)
+\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{class_urban_map_a9873dc0fcf7544c7f8139c94b7aaa80d}{get\+Parking\+Nodes}} () const
+\item 
+void \mbox{\hyperlink{class_urban_map_a727198914722992a54722fb1173c555f}{reset\+Graph}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_urban_map_a267a468a4cd5ee315a43b8b6741705fc}{find\+Location\+Idx}} (const T \&in) const
+\begin{DoxyCompactList}\small\item\em Finds the index of a location with the given content. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_urban_map_ae64913c531a3e5e2516277c80adfb747}{location\+Set}}
+\begin{DoxyCompactList}\small\item\em Set of locations (vertices) \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{class_urban_map_a198f44ab78fd4758f96022e5a637a77b}{parking\+Nodes}}
+\item 
+bool \mbox{\hyperlink{class_urban_map_a22486b3d89a639aae5be7dff794bf3eb}{driving\+Mode}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\newline
+class Urban\+Map$<$ T $>$}
+Represents an urban map as a graph structure. 
+
+This class models locations as vertices and roads as edges, supporting various operations such as adding and removing locations and roads, and managing connectivity. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_urban_map_a2bbec6718a3fa3d4741bbe2eb9e43a45}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!addBidirectionalRoad@{addBidirectionalRoad}}
+\index{addBidirectionalRoad@{addBidirectionalRoad}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{addBidirectionalRoad()}{addBidirectionalRoad()}}
+{\footnotesize\ttfamily \label{class_urban_map_a2bbec6718a3fa3d4741bbe2eb9e43a45} 
+template$<$class T$>$ \\
+bool \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::add\+Bidirectional\+Road (\begin{DoxyParamCaption}\item[{const T \&}]{source}{, }\item[{const T \&}]{dest}{, }\item[{double}]{driving}{, }\item[{double}]{walking}{}\end{DoxyParamCaption})}
+
+
+
+Adds a bidirectional road (edge) between two locations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The content of the first location. \\
+\hline
+{\em dest} & The content of the second location. \\
+\hline
+{\em w} & The weight (distance) of the road. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false if either location does not exist. 
+\end{DoxyReturn}
+\Hypertarget{class_urban_map_a58cac4b81659a1dd3a045f8dd5c7d5b8}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!addLocation@{addLocation}}
+\index{addLocation@{addLocation}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{addLocation()}{addLocation()}}
+{\footnotesize\ttfamily \label{class_urban_map_a58cac4b81659a1dd3a045f8dd5c7d5b8} 
+template$<$class T$>$ \\
+bool \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::add\+Location (\begin{DoxyParamCaption}\item[{const T \&}]{in}{, }\item[{const int}]{ID}{, }\item[{const int}]{parking}{}\end{DoxyParamCaption})}
+
+
+
+Adds a location (vertex) to the urban map. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & The content of the location. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false if a location with that content already exists. 
+\end{DoxyReturn}
+\Hypertarget{class_urban_map_a9e97f4477a77a647565f0a2170f2ee73}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!addRoad@{addRoad}}
+\index{addRoad@{addRoad}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{addRoad()}{addRoad()}}
+{\footnotesize\ttfamily \label{class_urban_map_a9e97f4477a77a647565f0a2170f2ee73} 
+template$<$class T$>$ \\
+bool \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::add\+Road (\begin{DoxyParamCaption}\item[{const T \&}]{source}{, }\item[{const T \&}]{dest}{, }\item[{double}]{driving}{, }\item[{double}]{walking}{}\end{DoxyParamCaption})}
+
+
+
+Adds a road (edge) between two locations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The content of the source location. \\
+\hline
+{\em dest} & The content of the destination location. \\
+\hline
+{\em w} & The weight (distance) of the road. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false if either location does not exist. 
+\end{DoxyReturn}
+\Hypertarget{class_urban_map_af057e7bb5305f6967afdca530fdc0a33}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!DrivingModeEnabled@{DrivingModeEnabled}}
+\index{DrivingModeEnabled@{DrivingModeEnabled}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{DrivingModeEnabled()}{DrivingModeEnabled()}}
+{\footnotesize\ttfamily \label{class_urban_map_af057e7bb5305f6967afdca530fdc0a33} 
+template$<$class T$>$ \\
+bool \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::\+Driving\+Mode\+Enabled (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_urban_map_abb9edb93c769a1cc72369539b2318eff}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!findLocation@{findLocation}}
+\index{findLocation@{findLocation}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{findLocation()}{findLocation()}}
+{\footnotesize\ttfamily \label{class_urban_map_abb9edb93c769a1cc72369539b2318eff} 
+template$<$class T$>$ \\
+\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::find\+Location (\begin{DoxyParamCaption}\item[{const T \&}]{in}{}\end{DoxyParamCaption}) const}
+
+
+
+Finds a location (vertex) with the given content. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & The content to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the vertex if found, otherwise nullptr. 
+\end{DoxyReturn}
+\Hypertarget{class_urban_map_a267a468a4cd5ee315a43b8b6741705fc}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!findLocationIdx@{findLocationIdx}}
+\index{findLocationIdx@{findLocationIdx}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{findLocationIdx()}{findLocationIdx()}}
+{\footnotesize\ttfamily \label{class_urban_map_a267a468a4cd5ee315a43b8b6741705fc} 
+template$<$class T$>$ \\
+int \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::find\+Location\+Idx (\begin{DoxyParamCaption}\item[{const T \&}]{in}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Finds the index of a location with the given content. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & The content to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the location if found, otherwise -\/1. 
+\end{DoxyReturn}
+\Hypertarget{class_urban_map_a13f717fb13dbe9d2a7f4c2681076f915}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!getLocationSet@{getLocationSet}}
+\index{getLocationSet@{getLocationSet}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getLocationSet()}{getLocationSet()}}
+{\footnotesize\ttfamily \label{class_urban_map_a13f717fb13dbe9d2a7f4c2681076f915} 
+template$<$class T$>$ \\
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::get\+Location\+Set (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the set of locations (vertices) in the urban map. 
+
+\begin{DoxyReturn}{Returns}
+A vector of pointers to the locations. 
+\end{DoxyReturn}
+\Hypertarget{class_urban_map_acc22b8d25f70c094b073465e71edefd1}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!getNumLocations@{getNumLocations}}
+\index{getNumLocations@{getNumLocations}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getNumLocations()}{getNumLocations()}}
+{\footnotesize\ttfamily \label{class_urban_map_acc22b8d25f70c094b073465e71edefd1} 
+template$<$class T$>$ \\
+int \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::get\+Num\+Locations (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the number of locations (vertices) in the urban map. 
+
+\begin{DoxyReturn}{Returns}
+The number of locations. 
+\end{DoxyReturn}
+\Hypertarget{class_urban_map_a9873dc0fcf7544c7f8139c94b7aaa80d}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!getParkingNodes@{getParkingNodes}}
+\index{getParkingNodes@{getParkingNodes}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getParkingNodes()}{getParkingNodes()}}
+{\footnotesize\ttfamily \label{class_urban_map_a9873dc0fcf7544c7f8139c94b7aaa80d} 
+template$<$class T$>$ \\
+std\+::vector$<$ int $>$ \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::get\+Parking\+Nodes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_urban_map_a19b9be4922bb7bd41c7cb06d8cce0de0}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!removeLocation@{removeLocation}}
+\index{removeLocation@{removeLocation}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{removeLocation()}{removeLocation()}}
+{\footnotesize\ttfamily \label{class_urban_map_a19b9be4922bb7bd41c7cb06d8cce0de0} 
+template$<$class T$>$ \\
+bool \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::remove\+Location (\begin{DoxyParamCaption}\item[{const T \&}]{in}{}\end{DoxyParamCaption})}
+
+
+
+Removes a location (vertex) from the urban map. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & The content of the location to remove. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_urban_map_ad18ef9e8975d94d56b026651fef10a47}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!removeRoad@{removeRoad}}
+\index{removeRoad@{removeRoad}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{removeRoad()}{removeRoad()}}
+{\footnotesize\ttfamily \label{class_urban_map_ad18ef9e8975d94d56b026651fef10a47} 
+template$<$class T$>$ \\
+bool \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::remove\+Road (\begin{DoxyParamCaption}\item[{const T \&}]{source}{, }\item[{const T \&}]{dest}{}\end{DoxyParamCaption})}
+
+
+
+Removes a road (edge) between two locations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The content of the source location. \\
+\hline
+{\em dest} & The content of the destination location. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_urban_map_a727198914722992a54722fb1173c555f}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!resetGraph@{resetGraph}}
+\index{resetGraph@{resetGraph}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{resetGraph()}{resetGraph()}}
+{\footnotesize\ttfamily \label{class_urban_map_a727198914722992a54722fb1173c555f} 
+template$<$class T$>$ \\
+void \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::reset\+Graph (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_urban_map_aa6319558e3eb1c240a4d801d27b6312c}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!setDrivingMode@{setDrivingMode}}
+\index{setDrivingMode@{setDrivingMode}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setDrivingMode()}{setDrivingMode()}}
+{\footnotesize\ttfamily \label{class_urban_map_aa6319558e3eb1c240a4d801d27b6312c} 
+template$<$class T$>$ \\
+void \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::set\+Driving\+Mode (\begin{DoxyParamCaption}\item[{bool}]{mode}{}\end{DoxyParamCaption})}
+
+if true then we use the driving weight, false we use the walking \Hypertarget{class_urban_map_adc77f8ac95cd4ae4177fabecc60d10c2}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!setParkingNode@{setParkingNode}}
+\index{setParkingNode@{setParkingNode}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setParkingNode()}{setParkingNode()}}
+{\footnotesize\ttfamily \label{class_urban_map_adc77f8ac95cd4ae4177fabecc60d10c2} 
+template$<$class T$>$ \\
+void \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::set\+Parking\+Node (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_urban_map_a22486b3d89a639aae5be7dff794bf3eb}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!drivingMode@{drivingMode}}
+\index{drivingMode@{drivingMode}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{drivingMode}{drivingMode}}
+{\footnotesize\ttfamily \label{class_urban_map_a22486b3d89a639aae5be7dff794bf3eb} 
+template$<$class T$>$ \\
+bool \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::driving\+Mode = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_urban_map_ae64913c531a3e5e2516277c80adfb747}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!locationSet@{locationSet}}
+\index{locationSet@{locationSet}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{locationSet}{locationSet}}
+{\footnotesize\ttfamily \label{class_urban_map_ae64913c531a3e5e2516277c80adfb747} 
+template$<$class T$>$ \\
+std\+::vector$<$\mbox{\hyperlink{class_vertex}{Vertex}}$<$T$>$ \texorpdfstring{$\ast$}{*}$>$ \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::location\+Set\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Set of locations (vertices) 
+
+\Hypertarget{class_urban_map_a198f44ab78fd4758f96022e5a637a77b}\index{UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}!parkingNodes@{parkingNodes}}
+\index{parkingNodes@{parkingNodes}!UrbanMap$<$ T $>$@{UrbanMap$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{parkingNodes}{parkingNodes}}
+{\footnotesize\ttfamily \label{class_urban_map_a198f44ab78fd4758f96022e5a637a77b} 
+template$<$class T$>$ \\
+std\+::vector$<$int$>$ \mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ T $>$\+::parking\+Nodes\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/joaop/\+Desktop/\+DA\+\_\+proj1/\+Individual-\/\+Route-\/\+Planning-\/\+Tool/classes/data\+\_\+structures/\mbox{\hyperlink{_urban_map_8h}{Urban\+Map.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,279 @@
+\doxysection{Data\+Parser.\+h}
+\hypertarget{_data_parser_8h_source}{}\label{_data_parser_8h_source}\index{C:/Users/joaop/Desktop/DA\_proj1/Individual-\/Route-\/Planning-\/Tool/classes/DataParser.h@{C:/Users/joaop/Desktop/DA\_proj1/Individual-\/Route-\/Planning-\/Tool/classes/DataParser.h}}
+\mbox{\hyperlink{_data_parser_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ joaop\ on\ 04/03/2025.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#ifndef\ DATA\_PARSER\_H}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#define\ DATA\_PARSER\_H}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <fstream>}\ \textcolor{comment}{//\ Read\ files}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <climits>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_urban_map_8h}{data\_structures/UrbanMap.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{cases_8h}{data\_structures/cases.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00016\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_data_parser_8h_a90741f130bd9dc48f22e6f16e732dee0}{createLocations}}(\mbox{\hyperlink{class_urban_map}{UrbanMap<T>}}*\ urban\_map);}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00019\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_data_parser_8h_a57f254afe2c9b797fc9dd5fc8c246703}{createRoads}}(\mbox{\hyperlink{class_urban_map}{UrbanMap<T>}}*\ urban\_map);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00022\ \mbox{\hyperlink{class_urban_map}{UrbanMap<T>}}\ \mbox{\hyperlink{_data_parser_8h_a40034e2a7a455235dd5937208cc350be}{createUrbanMap}}();}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00026\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_data_parser_8h_a90741f130bd9dc48f22e6f16e732dee0}{createLocations}}(\mbox{\hyperlink{class_urban_map}{UrbanMap<T>}}\ *urban\_map)\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ std::ifstream\ is;}
+\DoxyCodeLine{00028\ \ \ \ \ std::string\ name,\ Code,\ line,tmp;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{int}\ ID,\ parking;}
+\DoxyCodeLine{00030\ \ \ \ \ is.open(\textcolor{stringliteral}{"{}../data/LocationsTest\_updated.csv"{}});}
+\DoxyCodeLine{00031\ \ \ \ \ getline(is,\ line);}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{while}\ (getline(is,\ line))\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ std::stringstream\ iss(line);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ std::getline(iss,name,\textcolor{charliteral}{','});}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ std::getline(iss,tmp,\textcolor{charliteral}{','});}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ ID\ =\ std::stoi(tmp);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ std::getline(iss,Code,\textcolor{charliteral}{','});}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ std::getline(iss,tmp,\textcolor{charliteral}{','});}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ parking\ =\ std::stoi(tmp);}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//create\ Location\ using\ unordered\ map}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (parking\ ==\ 1)\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ urban\_map-\/>\mbox{\hyperlink{class_urban_map_adc77f8ac95cd4ae4177fabecc60d10c2}{setParkingNode}}(ID);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ urban\_map-\/>\mbox{\hyperlink{class_urban_map_a58cac4b81659a1dd3a045f8dd5c7d5b8}{addLocation}}(Code,ID,parking);}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_data_parser_8h_a57f254afe2c9b797fc9dd5fc8c246703}{createRoads}}(\mbox{\hyperlink{class_urban_map}{UrbanMap<T>}}*\ urban\_map)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ std::ifstream\ is;}
+\DoxyCodeLine{00052\ \ \ \ \ is.open(\textcolor{stringliteral}{"{}../data/DistancesTest\_updated.csv"{}});}
+\DoxyCodeLine{00053\ \ \ \ \ std::string\ code1,\ code2,\ line,\ tmp;}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{int}\ driving,\ walking;}
+\DoxyCodeLine{00055\ \ \ \ \ getline(is,\ line);}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{while}\ (getline(is,\ line))\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ std::stringstream\ iss(line);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ std::getline(iss,code1,\textcolor{charliteral}{','});}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ std::getline(iss,code2,\textcolor{charliteral}{','});}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ std::getline(iss,tmp,\textcolor{charliteral}{','});}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tmp\ ==\ \textcolor{stringliteral}{"{}X"{}})\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ driving\ =\ INT\_MAX;\ \textcolor{comment}{//meaning\ that\ you\ cannot\ drive\ in\ this\ road}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ driving\ =\ std::stoi(tmp);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ std::getline(iss,tmp,\textcolor{charliteral}{','});}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ walking\ =\ std::stoi(tmp);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ urban\_map-\/>\mbox{\hyperlink{class_urban_map_a2bbec6718a3fa3d4741bbe2eb9e43a45}{addBidirectionalRoad}}(code1,code2,driving,walking);}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00074\ \mbox{\hyperlink{class_urban_map}{UrbanMap<T>}}\ \mbox{\hyperlink{_data_parser_8h_a40034e2a7a455235dd5937208cc350be}{createUrbanMap}}()\ \{}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{class_urban_map}{UrbanMap<T>}}\ urbanMap;}
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{_data_parser_8h_a90741f130bd9dc48f22e6f16e732dee0}{createLocations}}(\&urbanMap);}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{_data_parser_8h_a57f254afe2c9b797fc9dd5fc8c246703}{createRoads}}(\&urbanMap);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ urbanMap;}
+\DoxyCodeLine{00081\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_case1_data}{Case1Data}}\ \mbox{\hyperlink{_data_parser_8h_a861345832648b80622413f1feea6b791}{getCase1}}()\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{comment}{//\ Input:\ mode,\ src,\ dest\ >>\ Data\ structure:\ data1}}
+\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{struct_case1_data}{Case1Data}}\ data1;\ \textcolor{comment}{//\ Create\ structure\ to\ store\ data}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ std::ifstream\ input1(\textcolor{stringliteral}{"{}../input/input1.txt"{}});\ \textcolor{comment}{//\ Open\ file}}
+\DoxyCodeLine{00088\ \ \ \ \ std::string\ line;\ \textcolor{comment}{//\ Line\ to\ be\ read}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{//\ Error\ opening\ file}}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{if}\ (!input1)\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ opening\ file!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{comment}{//\ Reading\ the\ file\ (Case\ 1:\ mode,\ src,\ dest)}}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ 0;}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(input1,\ line))\ \{\ \textcolor{comment}{//\ n\ <\ 3}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ pos\ =\ line.find(\textcolor{charliteral}{':'});}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ std::string\ value\ =\ line.substr(pos\ +\ 1);\ \textcolor{comment}{//\ Read\ ':'\ onwards}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\ ==\ 0)\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ \textcolor{stringliteral}{"{}driving"{}})\ data1.\mbox{\hyperlink{struct_case1_data_a424c04e6ead249f21a4f7641b12f7181}{driving}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data1.\mbox{\hyperlink{struct_case1_data_a424c04e6ead249f21a4f7641b12f7181}{driving}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ ==\ 1)\ data1.\mbox{\hyperlink{struct_case1_data_aa9066bcdb6df2acc7597051fa3ee501c}{src}}\ =\ stoi(value);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ ==\ 2)\ data1.\mbox{\hyperlink{struct_case1_data_a52d3cf1a3d7cc5d32dfa5d2dfa5f3f19}{dest}}\ =\ stoi(value);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ n++;}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ input1.close();\ \textcolor{comment}{//\ Close\ file}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{return}\ data1;}
+\DoxyCodeLine{00115\ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_case2_data}{Case2Data}}\ \mbox{\hyperlink{_data_parser_8h_afd17afc0b2bd9ee0dd62e752faef1a76}{getCase2}}()\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{struct_case2_data}{Case2Data}}\ data2;\ \ \textcolor{comment}{//\ Criar\ estrutura\ para\ armazenar\ os\ dados}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ std::ifstream\ input2(\textcolor{stringliteral}{"{}../input/input1.txt"{}});}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{if}\ (!input2)\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ opening\ file!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data2;\ \ \textcolor{comment}{//\ Retorna\ estrutura\ vazia\ se\ não\ conseguir\ abrir\ o\ ficheiro}}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ 0;}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(input2,\ line))\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ pos\ =\ line.find(\textcolor{charliteral}{':'});}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ ==\ std::string::npos)\ \textcolor{keywordflow}{continue};\ \ \textcolor{comment}{//\ Ignorar\ linhas\ inválidas}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ std::string\ value\ =\ line.substr(pos\ +\ 1);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!value.empty()\ \&\&\ (value.front()\ ==\ \textcolor{charliteral}{'\ '}\ ||\ value.front()\ ==\ \textcolor{charliteral}{'\(\backslash\)t'}))\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ value.erase(value.begin());\ \ \textcolor{comment}{//\ Remover\ espaços\ no\ início}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\ ==\ 0)\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ data2.\mbox{\hyperlink{struct_case2_data_ab4c6ea18f9b7e773792ff9618dc52ea3}{driving}}\ =\ (value\ ==\ \textcolor{stringliteral}{"{}driving"{}});}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ ==\ 1)\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ data2.\mbox{\hyperlink{struct_case2_data_af821086463d3445898f4746dc201d7d9}{src}}\ =\ std::stoi(value);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ ==\ 2)\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ data2.\mbox{\hyperlink{struct_case2_data_a934f38ea790536bb818940c1ac189b1e}{dest}}\ =\ std::stoi(value);}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ ==\ 3)\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ std::stringstream\ ss(value);}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ token;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(ss,\ token,\ \textcolor{charliteral}{','}))\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data2.\mbox{\hyperlink{struct_case2_data_a297fc552d045019228d7193afc0e9559}{avoid\_nodes}}.push\_back(std::stoi(token));}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ ==\ 4)\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ std::stringstream\ ss(value);}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ token;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(ss,\ token,\ \textcolor{charliteral}{')'}))\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ start\ =\ token.find(\textcolor{charliteral}{'('});}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ !=\ std::string::npos)\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ pair\ =\ token.substr(start\ +\ 1);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::stringstream\ pairStream(pair);}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ n1,\ n2;}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::getline(pairStream,\ n1,\ \textcolor{charliteral}{','})\ \&\&\ std::getline(pairStream,\ n2,\ \textcolor{charliteral}{','}))\ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data2.\mbox{\hyperlink{struct_case2_data_aaa7273cfeef8d2ae8d88421b243e22a9}{avoid\_edges}}.emplace\_back(std::stoi(n1),\ std::stoi(n2));}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ ==\ 5)\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!value.empty())\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data2.\mbox{\hyperlink{struct_case2_data_a8bc210c1b55f007f273d9b8240b2dedd}{include\_node}}\ =\ std::stoi(value);}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data2.\mbox{\hyperlink{struct_case2_data_a8bc210c1b55f007f273d9b8240b2dedd}{include\_node}}\ =\ -\/1;\ \ \textcolor{comment}{//\ Definir\ um\ valor\ padrão\ caso\ esteja\ vazio}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ n++;}
+\DoxyCodeLine{00182\ \ \ \ \ \}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ input2.close();}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{return}\ data2;}
+\DoxyCodeLine{00186\ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_case3_data}{Case3Data}}\ \mbox{\hyperlink{_data_parser_8h_a9fd5273a91792fb1c41b3909c2ca7e01}{getCase3}}()\ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \mbox{\hyperlink{struct_case3_data}{Case3Data}}\ data3;\ \ \textcolor{comment}{//\ Criar\ estrutura\ para\ armazenar\ os\ dados}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ std::ifstream\ input3(\textcolor{stringliteral}{"{}../input/input1.txt"{}});\ \ \textcolor{comment}{//\ Abrir\ ficheiro}}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordflow}{if}\ (!input3)\ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ opening\ file!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data3;\ \ \textcolor{comment}{//\ Retorna\ estrutura\ vazia}}
+\DoxyCodeLine{00195\ \ \ \ \ \}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ 0;}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(input3,\ line))\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ pos\ =\ line.find(\textcolor{charliteral}{':'});}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ ==\ std::string::npos)\ \textcolor{keywordflow}{continue};\ \ \textcolor{comment}{//\ Ignorar\ linhas\ inválidas}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ std::string\ value\ =\ line.substr(pos\ +\ 1);}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!value.empty()\ \&\&\ (value.front()\ ==\ \textcolor{charliteral}{'\ '}\ ||\ value.front()\ ==\ \textcolor{charliteral}{'\(\backslash\)t'}))\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ value.erase(value.begin());\ \ \textcolor{comment}{//\ Remover\ espaços\ extras}}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\ ==\ 0)\ \{\ \ \textcolor{comment}{//\ Mode}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ \textcolor{stringliteral}{"{}driving-\/walking"{}})\ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_a87540852bde795401b5df53331d9c6f8}{drivingwalking}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_ab3bdb31cbb7f720d57a16b5f2b2a667f}{driving}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_ae8aebe514fe8469e9c75aed3325bcccd}{walking}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (value\ ==\ \textcolor{stringliteral}{"{}driving"{}})\ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_a87540852bde795401b5df53331d9c6f8}{drivingwalking}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_ab3bdb31cbb7f720d57a16b5f2b2a667f}{driving}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_ae8aebe514fe8469e9c75aed3325bcccd}{walking}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{\ \ \textcolor{comment}{//\ walking}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_a87540852bde795401b5df53331d9c6f8}{drivingwalking}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_ab3bdb31cbb7f720d57a16b5f2b2a667f}{driving}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_ae8aebe514fe8469e9c75aed3325bcccd}{walking}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ ==\ 1)\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_ab4f5803fd6ce5beea586964d541b2e5a}{src}}\ =\ std::stoi(value);}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ ==\ 2)\ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_aecfd3013567a6d69572694cbdc87f1b8}{dest}}\ =\ std::stoi(value);}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ ==\ 3)\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_a92d32ec90707b259e6af25b4d6abefd3}{maxWalkTime}}\ =\ std::stoi(value);}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ ==\ 4)\ \{\ \ \textcolor{comment}{//\ AvoidNodes}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!value.empty())\ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::stringstream\ ss(value);}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ token;}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(ss,\ token,\ \textcolor{charliteral}{','}))\ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_a9983bd72b2a91d5393c6fc2f79b9e32f}{avoid\_nodes}}.push\_back(std::stoi(token));}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ ==\ 5)\ \{\ \ \textcolor{comment}{//\ AvoidSegments}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!value.empty())\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::stringstream\ ss(value);}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ token;}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(ss,\ token,\ \textcolor{charliteral}{')'}))\ \{}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ start\ =\ token.find(\textcolor{charliteral}{'('});}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ !=\ std::string::npos)\ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ pair\ =\ token.substr(start\ +\ 1);}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::stringstream\ pairStream(pair);}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ n1,\ n2;}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::getline(pairStream,\ n1,\ \textcolor{charliteral}{','})\ \&\&\ std::getline(pairStream,\ n2,\ \textcolor{charliteral}{','}))\ \{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data3.\mbox{\hyperlink{struct_case3_data_a474008ba2d663c758580b137ccb99179}{avoid\_edges}}.emplace\_back(std::stoi(n1),\ std::stoi(n2));}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ n++;}
+\DoxyCodeLine{00267\ \ \ \ \ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ input3.close();}
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keywordflow}{return}\ data3;}
+\DoxyCodeLine{00271\ \}}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DATA\_PARSER\_H}}
+
+\end{DoxyCode}

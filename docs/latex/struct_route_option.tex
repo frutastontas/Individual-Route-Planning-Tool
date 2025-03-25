@@ -1,0 +1,75 @@
+\doxysection{Route\+Option Struct Reference}
+\hypertarget{struct_route_option}{}\label{struct_route_option}\index{RouteOption@{RouteOption}}
+
+
+this sruct will be used for case4, where we estimate other paths, by finding the two other best options and displaying them. This will store the specific parking node that the route includes, and also the routes taken.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{struct_route_option_a1f3f867f9e3b79e19371c919f7642c2d}{operator$<$}} (const \mbox{\hyperlink{struct_route_option}{Route\+Option}} \&other) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{struct_route_option_afb787fa9e37a508d6c146980e67ed961}{parking\+Node\+ID}}
+\item 
+int \mbox{\hyperlink{struct_route_option_a1709021fafc3a3c0cf356a7181aedf55}{driving\+Time}}
+\item 
+int \mbox{\hyperlink{struct_route_option_a32ccbd128d5b5e218e60d59d3baf9340}{walking\+Time}}
+\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{struct_route_option_af2c847c372665656a38cb70d64d14e1e}{driving\+Route}}
+\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{struct_route_option_a35a1179ae32ea67b545dcc87bd51a156}{walking\+Route}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+this sruct will be used for case4, where we estimate other paths, by finding the two other best options and displaying them. This will store the specific parking node that the route includes, and also the routes taken. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_route_option_a1f3f867f9e3b79e19371c919f7642c2d}\index{RouteOption@{RouteOption}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!RouteOption@{RouteOption}}
+\doxysubsubsection{\texorpdfstring{operator$<$()}{operator<()}}
+{\footnotesize\ttfamily \label{struct_route_option_a1f3f867f9e3b79e19371c919f7642c2d} 
+bool Route\+Option\+::operator$<$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_route_option}{Route\+Option}} \&}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_route_option_af2c847c372665656a38cb70d64d14e1e}\index{RouteOption@{RouteOption}!drivingRoute@{drivingRoute}}
+\index{drivingRoute@{drivingRoute}!RouteOption@{RouteOption}}
+\doxysubsubsection{\texorpdfstring{drivingRoute}{drivingRoute}}
+{\footnotesize\ttfamily \label{struct_route_option_af2c847c372665656a38cb70d64d14e1e} 
+std\+::vector$<$int$>$ Route\+Option\+::driving\+Route}
+
+\Hypertarget{struct_route_option_a1709021fafc3a3c0cf356a7181aedf55}\index{RouteOption@{RouteOption}!drivingTime@{drivingTime}}
+\index{drivingTime@{drivingTime}!RouteOption@{RouteOption}}
+\doxysubsubsection{\texorpdfstring{drivingTime}{drivingTime}}
+{\footnotesize\ttfamily \label{struct_route_option_a1709021fafc3a3c0cf356a7181aedf55} 
+int Route\+Option\+::driving\+Time}
+
+\Hypertarget{struct_route_option_afb787fa9e37a508d6c146980e67ed961}\index{RouteOption@{RouteOption}!parkingNodeID@{parkingNodeID}}
+\index{parkingNodeID@{parkingNodeID}!RouteOption@{RouteOption}}
+\doxysubsubsection{\texorpdfstring{parkingNodeID}{parkingNodeID}}
+{\footnotesize\ttfamily \label{struct_route_option_afb787fa9e37a508d6c146980e67ed961} 
+int Route\+Option\+::parking\+Node\+ID}
+
+\Hypertarget{struct_route_option_a35a1179ae32ea67b545dcc87bd51a156}\index{RouteOption@{RouteOption}!walkingRoute@{walkingRoute}}
+\index{walkingRoute@{walkingRoute}!RouteOption@{RouteOption}}
+\doxysubsubsection{\texorpdfstring{walkingRoute}{walkingRoute}}
+{\footnotesize\ttfamily \label{struct_route_option_a35a1179ae32ea67b545dcc87bd51a156} 
+std\+::vector$<$int$>$ Route\+Option\+::walking\+Route}
+
+\Hypertarget{struct_route_option_a32ccbd128d5b5e218e60d59d3baf9340}\index{RouteOption@{RouteOption}!walkingTime@{walkingTime}}
+\index{walkingTime@{walkingTime}!RouteOption@{RouteOption}}
+\doxysubsubsection{\texorpdfstring{walkingTime}{walkingTime}}
+{\footnotesize\ttfamily \label{struct_route_option_a32ccbd128d5b5e218e60d59d3baf9340} 
+int Route\+Option\+::walking\+Time}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/joaop/\+Desktop/\+DA\+\_\+proj1/\+Individual-\/\+Route-\/\+Planning-\/\+Tool/classes/\mbox{\hyperlink{_planning_8cpp}{Planning.\+cpp}}\end{DoxyCompactItemize}

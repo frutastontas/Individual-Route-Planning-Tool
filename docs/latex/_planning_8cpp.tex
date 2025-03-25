@@ -1,0 +1,212 @@
+\doxysection{C\+:/\+Users/joaop/\+Desktop/\+DA\+\_\+proj1/\+Individual-\/\+Route-\/\+Planning-\/\+Tool/classes/\+Planning.cpp File Reference}
+\hypertarget{_planning_8cpp}{}\label{_planning_8cpp}\index{C:/Users/joaop/Desktop/DA\_proj1/Individual-\/Route-\/Planning-\/Tool/classes/Planning.cpp@{C:/Users/joaop/Desktop/DA\_proj1/Individual-\/Route-\/Planning-\/Tool/classes/Planning.cpp}}
+{\ttfamily \#include "{}Planning.\+h"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$ostream$>$}\newline
+{\ttfamily \#include $<$cerrno$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$climits$>$}\newline
+{\ttfamily \#include "{}Data\+Parser.\+h"{}}\newline
+{\ttfamily \#include "{}data\+\_\+structures/cases.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_route_option}{Route\+Option}}
+\begin{DoxyCompactList}\small\item\em this sruct will be used for case4, where we estimate other paths, by finding the two other best options and displaying them. This will store the specific parking node that the route includes, and also the routes taken. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_planning_8cpp_ad01e87095b832831d39596ca6e4b8875}{relax}} (\mbox{\hyperlink{class_edge}{Edge}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}edge, bool Drivemode)
+\begin{DoxyCompactList}\small\item\em Performs edge relaxation for a graph algorithm. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_planning_8cpp_ae2e0e759108ef41e869dd46f4742151c}{dijkstra}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}g, const int \&origin)
+\begin{DoxyCompactList}\small\item\em Implements Dijkstra\textquotesingle{}s shortest path algorithm on an \doxylink{class_urban_map}{Urban\+Map}. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5}{get\+Path}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}g, const std\+::string \&origin, const std\+::string \&dest)
+\begin{DoxyCompactList}\small\item\em Retrieves the shortest path from an origin to a destination in an \doxylink{class_urban_map}{Urban\+Map}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_planning_8cpp_a64a02bcebb9a65eec66909ee45245349}{case1}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}urban\+\_\+map)
+\begin{DoxyCompactList}\small\item\em computes the top-\/2 best routes to take from the source node to the destination on a specific mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_planning_8cpp_a2c0333fc34fc57bd91bd6f078843dd2f}{case2}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}urban\+\_\+map)
+\begin{DoxyCompactList}\small\item\em Computes the best route that avoids certain segments, locations(vertex) and may include a certain node in the path. Each node is deactivated using a boolean value {\itshape is\+Visited} and if that value is true the dijkstra won\textquotesingle{}t include that node in the path. Same thing goes for the segments that also use a boolean value {\itshape is\+Selected}. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{_planning_8cpp_acc4216b94b8cbc066ddaeb777e0c4527}{get\+Path\+Economic}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}g, const std\+::string \&origin, const std\+::string \&dest)
+\item 
+void \mbox{\hyperlink{_planning_8cpp_a443a07f251ed28476c26893f8f486674}{estimation}} (std\+::vector$<$ \mbox{\hyperlink{struct_route_option}{Route\+Option}} $>$ \&route\+Options, int src, int dest)
+\begin{DoxyCompactList}\small\item\em This function will select the best two options that combine driving and walking, passing through a parking node. It will sort a vector that houses structs {\bfseries{\doxylink{struct_route_option}{Route\+Option}}} that store previously computed routes of case 3. This estimation will only appear if there is no path from case 3. It selects the best two and puts them in the file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_planning_8cpp_aa7f4a2a19efe9c5718b1fe4164e4fe62}{case3}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}urban\+\_\+map)
+\begin{DoxyCompactList}\small\item\em This function combines both walking and driving. First we do a dijkstra from the source to a node in the parking\+Nodes vector of the graph, wich has all the ids of the nodes that have parking. Then we do a dijkstra from that parking node to the destination using walking distances, making sure that the resulting walking time does not exceed the maximum. We do this for every parking node and we get the best overall time. In case two paths have the same total time, we select the one with more walking time to be more economic. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_planning_8cpp_a64a02bcebb9a65eec66909ee45245349}\index{Planning.cpp@{Planning.cpp}!case1@{case1}}
+\index{case1@{case1}!Planning.cpp@{Planning.cpp}}
+\doxysubsubsection{\texorpdfstring{case1()}{case1()}}
+{\footnotesize\ttfamily \label{_planning_8cpp_a64a02bcebb9a65eec66909ee45245349} 
+void case1 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}}]{urban\+\_\+map}{}\end{DoxyParamCaption})}
+
+
+
+computes the top-\/2 best routes to take from the source node to the destination on a specific mode. 
+
+This function uses two dijkstras, the first one to compute the best route, and the second one executes after the intermediary nodes of the first were labelled, so that it does not include them in the dijkstra.
+
+
+\begin{DoxyParams}{Parameters}
+{\em urban\+\_\+map} & is a pointer to the \doxylink{class_urban_map}{Urban\+Map} graph containing locations and connections.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This function outputs to an output1.\+txt where the results can be seen.
+\end{DoxyNote}
+@complexity Does two dijkstras each one with complexity {\bfseries{O((V+E)logV)}} and also does two \doxylink{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5}{get\+Path()} with complexity {\bfseries{O(\+V)}} This results in a final complexity of {\bfseries{O((V+E)logV)}} \Hypertarget{_planning_8cpp_a2c0333fc34fc57bd91bd6f078843dd2f}\index{Planning.cpp@{Planning.cpp}!case2@{case2}}
+\index{case2@{case2}!Planning.cpp@{Planning.cpp}}
+\doxysubsubsection{\texorpdfstring{case2()}{case2()}}
+{\footnotesize\ttfamily \label{_planning_8cpp_a2c0333fc34fc57bd91bd6f078843dd2f} 
+void case2 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}}]{urban\+\_\+map}{}\end{DoxyParamCaption})}
+
+
+
+Computes the best route that avoids certain segments, locations(vertex) and may include a certain node in the path. Each node is deactivated using a boolean value {\itshape is\+Visited} and if that value is true the dijkstra won\textquotesingle{}t include that node in the path. Same thing goes for the segments that also use a boolean value {\itshape is\+Selected}. 
+
+This function uses one dijkstra if there is no Node to include, or uses two dijkstras, one from the source to compute the distance to the node to include, and another starting from the included node to the destination.
+
+
+\begin{DoxyParams}{Parameters}
+{\em urban\+\_\+map} & is a pointer to the \doxylink{class_urban_map}{Urban\+Map} graph containing locations and connections.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This function outputs to an output1.\+txt where the results can be seen.
+\end{DoxyNote}
+@complexity Does two dijkstras each one with complexity {\bfseries{O((V+E)logV)}} or does only one dijkstra with the same complexity, and also uses function \doxylink{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5}{get\+Path()} with complexity {\bfseries{O(\+V)}} To deactivate the nodes it takes a traversal on a vector with ids {\bfseries{O(n)}} To deactivate the segments it takes a traversal on a vector with pairs of ids and for the origin and destination it finds in the adjacency list the other node of the segment, so the complexity is {\bfseries{O(n\texorpdfstring{$\ast$}{*}\texorpdfstring{$\vert$}{|}\+E\texorpdfstring{$\vert$}{|})}} This results in a final complexity of {\bfseries{O((V+E)logV), because the dijkstra dominates the complexity}} \Hypertarget{_planning_8cpp_aa7f4a2a19efe9c5718b1fe4164e4fe62}\index{Planning.cpp@{Planning.cpp}!case3@{case3}}
+\index{case3@{case3}!Planning.cpp@{Planning.cpp}}
+\doxysubsubsection{\texorpdfstring{case3()}{case3()}}
+{\footnotesize\ttfamily \label{_planning_8cpp_aa7f4a2a19efe9c5718b1fe4164e4fe62} 
+void case3 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}}]{urban\+\_\+map}{}\end{DoxyParamCaption})}
+
+
+
+This function combines both walking and driving. First we do a dijkstra from the source to a node in the parking\+Nodes vector of the graph, wich has all the ids of the nodes that have parking. Then we do a dijkstra from that parking node to the destination using walking distances, making sure that the resulting walking time does not exceed the maximum. We do this for every parking node and we get the best overall time. In case two paths have the same total time, we select the one with more walking time to be more economic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em urban\+\_\+map} & is a pointer to the \doxylink{class_urban_map}{Urban\+Map} graph containing locations and connections.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This function outputs to an output1.\+txt where the results can be seen.
+\end{DoxyNote}
+@complexity Does two dijkstras each one with complexity {\bfseries{O((V+E)logV)}} for each node in the parking\+Nodes vector of the graph, this results in {\bfseries{O(V(V+E)logV)}}, and also uses function \doxylink{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5}{get\+Path()} with complexity {\bfseries{O(\+V)}} To deactivate the nodes it takes a traversal on a vector with ids {\bfseries{O(n)}} To deactivate the segments it takes a traversal on a vector with pairs of ids and for the origin and destination it finds in the adjacency list the other node of the segment, so the complexity is {\bfseries{O(n\texorpdfstring{$\ast$}{*}\texorpdfstring{$\vert$}{|}\+E\texorpdfstring{$\vert$}{|})}} This results in a final complexity of {\bfseries{O(V(V+E)logV)}}
+
+When it comes to spacial complexity, since we compute each route to the parking node and then to the destination and we compute the path and save it on a vector, this results in @complexity {\bfseries{O(n)}}. \Hypertarget{_planning_8cpp_ae2e0e759108ef41e869dd46f4742151c}\index{Planning.cpp@{Planning.cpp}!dijkstra@{dijkstra}}
+\index{dijkstra@{dijkstra}!Planning.cpp@{Planning.cpp}}
+\doxysubsubsection{\texorpdfstring{dijkstra()}{dijkstra()}}
+{\footnotesize\ttfamily \label{_planning_8cpp_ae2e0e759108ef41e869dd46f4742151c} 
+void dijkstra (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}}]{g}{, }\item[{const int \&}]{origin}{}\end{DoxyParamCaption})}
+
+
+
+Implements Dijkstra\textquotesingle{}s shortest path algorithm on an \doxylink{class_urban_map}{Urban\+Map}. 
+
+This function initializes all locations with a maximum distance and then applies Dijkstra\textquotesingle{}s algorithm using a priority queue to find the shortest paths from the given origin.
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & Pointer to the \doxylink{class_urban_map}{Urban\+Map} graph containing locations and connections. \\
+\hline
+{\em origin} & The index (1-\/based) of the starting location for Dijkstra\textquotesingle{}s algorithm.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+The algorithm uses a mutable priority queue to efficiently retrieve the vertex with the minimum distance, ensuring an optimal performance.
+\end{DoxyNote}
+@complexity The time complexity is {\bfseries{O((V + E) log V)}}, where\+:
+\begin{DoxyItemize}
+\item V is the number of locations (vertices) in the \doxylink{class_urban_map}{Urban\+Map}.
+\item E is the number of connections (edges) between locations.
+\item The {\ttfamily extract\+Min()} operation runs in {\bfseries{O(log V)}}.
+\item The relaxation step is performed {\bfseries{O(\+E)}} times, each taking {\bfseries{O(log V)}} in the worst case. 
+\end{DoxyItemize}\Hypertarget{_planning_8cpp_a443a07f251ed28476c26893f8f486674}\index{Planning.cpp@{Planning.cpp}!estimation@{estimation}}
+\index{estimation@{estimation}!Planning.cpp@{Planning.cpp}}
+\doxysubsubsection{\texorpdfstring{estimation()}{estimation()}}
+{\footnotesize\ttfamily \label{_planning_8cpp_a443a07f251ed28476c26893f8f486674} 
+void estimation (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{struct_route_option}{Route\+Option}} $>$ \&}]{route\+Options}{, }\item[{int}]{src}{, }\item[{int}]{dest}{}\end{DoxyParamCaption})}
+
+
+
+This function will select the best two options that combine driving and walking, passing through a parking node. It will sort a vector that houses structs {\bfseries{\doxylink{struct_route_option}{Route\+Option}}} that store previously computed routes of case 3. This estimation will only appear if there is no path from case 3. It selects the best two and puts them in the file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em route\+Options} & vector of struct that houses information of a specific route to the destination.\\
+\hline
+\end{DoxyParams}
+@complexity The complexity is dominated by the sorting step since everything else is a constant time operation. This results in complexity {\bfseries{O(nlog(n))}}. \Hypertarget{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5}\index{Planning.cpp@{Planning.cpp}!getPath@{getPath}}
+\index{getPath@{getPath}!Planning.cpp@{Planning.cpp}}
+\doxysubsubsection{\texorpdfstring{getPath()}{getPath()}}
+{\footnotesize\ttfamily \label{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5} 
+std\+::vector$<$ int $>$ get\+Path (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}}]{g}{, }\item[{const std\+::string \&}]{origin}{, }\item[{const std\+::string \&}]{dest}{}\end{DoxyParamCaption})}
+
+
+
+Retrieves the shortest path from an origin to a destination in an \doxylink{class_urban_map}{Urban\+Map}. 
+
+This function reconstructs the shortest path by backtracking from the destination to the origin using the {\ttfamily \doxylink{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5}{get\+Path()}} pointers stored during the execution of Dijkstra’s algorithm.
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & Pointer to the \doxylink{class_urban_map}{Urban\+Map} graph containing locations and connections. \\
+\hline
+{\em origin} & The name of the starting location. \\
+\hline
+{\em dest} & The name of the destination location. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of integers representing the sequence of location IDs along the shortest path.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The function assumes that Dijkstra\textquotesingle{}s algorithm has already been executed, and the {\ttfamily \doxylink{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5}{get\+Path()}} pointers are correctly set for each location.
+\end{DoxyNote}
+@complexity The time complexity is {\bfseries{O(\+V)}} in the worst case, where\+:
+\begin{DoxyItemize}
+\item Finding the destination vertex\+: {\bfseries{O(1)}} (assuming efficient hashing or indexing).
+\item Backtracking through the path\+: {\bfseries{O(\+V)}} (in the worst case of a long path).
+\item Reversing the result vector\+: {\bfseries{O(\+V)}}.
+\item Overall complexity\+: {\bfseries{O(\+V)}}. 
+\end{DoxyItemize}\Hypertarget{_planning_8cpp_acc4216b94b8cbc066ddaeb777e0c4527}\index{Planning.cpp@{Planning.cpp}!getPathEconomic@{getPathEconomic}}
+\index{getPathEconomic@{getPathEconomic}!Planning.cpp@{Planning.cpp}}
+\doxysubsubsection{\texorpdfstring{getPathEconomic()}{getPathEconomic()}}
+{\footnotesize\ttfamily \label{_planning_8cpp_acc4216b94b8cbc066ddaeb777e0c4527} 
+std\+::vector$<$ int $>$ get\+Path\+Economic (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}}]{g}{, }\item[{const std\+::string \&}]{origin}{, }\item[{const std\+::string \&}]{dest}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_planning_8cpp_ad01e87095b832831d39596ca6e4b8875}\index{Planning.cpp@{Planning.cpp}!relax@{relax}}
+\index{relax@{relax}!Planning.cpp@{Planning.cpp}}
+\doxysubsubsection{\texorpdfstring{relax()}{relax()}}
+{\footnotesize\ttfamily \label{_planning_8cpp_ad01e87095b832831d39596ca6e4b8875} 
+bool relax (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_edge}{Edge}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}}]{edge}{, }\item[{bool}]{Drivemode}{}\end{DoxyParamCaption})}
+
+
+
+Performs edge relaxation for a graph algorithm. 
+
+This function updates the distance of the destination node of the given edge if a shorter path is found using either driving or walking mode.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of the data stored in the graph nodes (e.\+g., std\+::string). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em edge} & A pointer to the edge that is being relaxed. \\
+\hline
+{\em Drivemode} & A boolean flag indicating the mode of transportation.
+\begin{DoxyItemize}
+\item If true, driving time is used.
+\item If false, walking time is used.
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the relaxation was successful (i.\+e., the distance was updated), false otherwise. 
+\end{DoxyReturn}

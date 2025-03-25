@@ -1,0 +1,119 @@
+\doxysection{Menu Class Reference}
+\hypertarget{class_menu}{}\label{class_menu}\index{Menu@{Menu}}
+
+
+{\ttfamily \#include $<$Menu.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_menu_ad466dd83355124a6ed958430450bfe94}{Menu}} ()
+\item 
+void \mbox{\hyperlink{class_menu_a342d2a526a850dbf2d1aecd830b91287}{init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the menu with a dynamic welcome effect. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_menu_a9acf232329a62572f502406b2abadb09}{read\+Output\+File}} ()
+\begin{DoxyCompactList}\small\item\em Reads and displays the contents of "{}output1.\+txt"{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_menu_a8794208a61bf826bf6915237ccc05eb9}{end}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_menu_a384a979a70af6647eb538b8995c47f82}{choose\+Option}} ()
+\begin{DoxyCompactList}\small\item\em Displays a menu and prompts the user to choose an option. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_menu_aa2e0a2961e310c9181ad6ebf99680345}{handle\+Option1}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}urban\+\_\+map)
+\item 
+void \mbox{\hyperlink{class_menu_a952561b1c14249c78ee92db81ef4aa57}{handle\+Option2}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}urban\+\_\+map)
+\item 
+void \mbox{\hyperlink{class_menu_aa14cbb4f8ca18005d6d884485a9eaa1b}{handle\+Option3}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}urban\+\_\+map)
+\item 
+void \mbox{\hyperlink{class_menu_ab6001cd0b70e1833e67bbd6f6960572e}{write\+To\+File}} (const std\+::string \&filename, const std\+::string \&content)
+\item 
+void \mbox{\hyperlink{class_menu_a4d6f5456699e915f5e0318d5827e22d0}{reset\+Graph}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_menu_ad466dd83355124a6ed958430450bfe94}\index{Menu@{Menu}!Menu@{Menu}}
+\index{Menu@{Menu}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{Menu()}{Menu()}}
+{\footnotesize\ttfamily \label{class_menu_ad466dd83355124a6ed958430450bfe94} 
+Menu\+::\+Menu (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_menu_a384a979a70af6647eb538b8995c47f82}\index{Menu@{Menu}!chooseOption@{chooseOption}}
+\index{chooseOption@{chooseOption}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{chooseOption()}{chooseOption()}}
+{\footnotesize\ttfamily \label{class_menu_a384a979a70af6647eb538b8995c47f82} 
+void Menu\+::choose\+Option (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Displays a menu and prompts the user to choose an option. 
+
+This function displays a list of options for the user to choose from, handles the user input, and invokes the appropriate functions based on the selected option. It validates the user\textquotesingle{}s input, ensuring that only valid numbers (1, 2, 3, or 0) are accepted. The menu continues to loop until the user selects the exit option (0). \Hypertarget{class_menu_a8794208a61bf826bf6915237ccc05eb9}\index{Menu@{Menu}!end@{end}}
+\index{end@{end}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily \label{class_menu_a8794208a61bf826bf6915237ccc05eb9} 
+void Menu\+::end (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_menu_aa2e0a2961e310c9181ad6ebf99680345}\index{Menu@{Menu}!handleOption1@{handleOption1}}
+\index{handleOption1@{handleOption1}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{handleOption1()}{handleOption1()}}
+{\footnotesize\ttfamily \label{class_menu_aa2e0a2961e310c9181ad6ebf99680345} 
+void Menu\+::handle\+Option1 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}}]{urban\+\_\+map}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_menu_a952561b1c14249c78ee92db81ef4aa57}\index{Menu@{Menu}!handleOption2@{handleOption2}}
+\index{handleOption2@{handleOption2}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{handleOption2()}{handleOption2()}}
+{\footnotesize\ttfamily \label{class_menu_a952561b1c14249c78ee92db81ef4aa57} 
+void Menu\+::handle\+Option2 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}}]{urban\+\_\+map}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_menu_aa14cbb4f8ca18005d6d884485a9eaa1b}\index{Menu@{Menu}!handleOption3@{handleOption3}}
+\index{handleOption3@{handleOption3}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{handleOption3()}{handleOption3()}}
+{\footnotesize\ttfamily \label{class_menu_aa14cbb4f8ca18005d6d884485a9eaa1b} 
+void Menu\+::handle\+Option3 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}}]{urban\+\_\+map}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_menu_a342d2a526a850dbf2d1aecd830b91287}\index{Menu@{Menu}!init@{init}}
+\index{init@{init}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily \label{class_menu_a342d2a526a850dbf2d1aecd830b91287} 
+void Menu\+::init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the menu with a dynamic welcome effect. 
+
+Displays a welcome message with a loading animation before proceeding to the menu options. \Hypertarget{class_menu_a9acf232329a62572f502406b2abadb09}\index{Menu@{Menu}!readOutputFile@{readOutputFile}}
+\index{readOutputFile@{readOutputFile}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{readOutputFile()}{readOutputFile()}}
+{\footnotesize\ttfamily \label{class_menu_a9acf232329a62572f502406b2abadb09} 
+void Menu\+::read\+Output\+File (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Reads and displays the contents of "{}output1.\+txt"{}. 
+
+This function opens "{}output.\+txt"{}, reads its contents line by line, and prints them to the console. If the file cannot be opened, an error message is displayed. \Hypertarget{class_menu_a4d6f5456699e915f5e0318d5827e22d0}\index{Menu@{Menu}!resetGraph@{resetGraph}}
+\index{resetGraph@{resetGraph}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{resetGraph()}{resetGraph()}}
+{\footnotesize\ttfamily \label{class_menu_a4d6f5456699e915f5e0318d5827e22d0} 
+void Menu\+::reset\+Graph (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_menu_ab6001cd0b70e1833e67bbd6f6960572e}\index{Menu@{Menu}!writeToFile@{writeToFile}}
+\index{writeToFile@{writeToFile}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{writeToFile()}{writeToFile()}}
+{\footnotesize\ttfamily \label{class_menu_ab6001cd0b70e1833e67bbd6f6960572e} 
+void Menu\+::write\+To\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{, }\item[{const std\+::string \&}]{content}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/joaop/\+Desktop/\+DA\+\_\+proj1/\+Individual-\/\+Route-\/\+Planning-\/\+Tool/classes/\mbox{\hyperlink{_menu_8h}{Menu.\+h}}\item 
+C\+:/\+Users/joaop/\+Desktop/\+DA\+\_\+proj1/\+Individual-\/\+Route-\/\+Planning-\/\+Tool/classes/\mbox{\hyperlink{_menu_8cpp}{Menu.\+cpp}}\end{DoxyCompactItemize}
