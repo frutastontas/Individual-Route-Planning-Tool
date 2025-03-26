@@ -222,6 +222,8 @@ void case2(UrbanMap<std::string>* urban_map) {
     auto Lsrc = urban_map->getLocationSet()[src-1];
     auto Ldest = urban_map->getLocationSet()[dest-1];
 
+    urban_map->setDrivingMode(case2_data.driving);
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     std::vector<int> avoid_nodes = case2_data.avoid_nodes;
     for (auto a : avoid_nodes) {    //this loop will avoid certain nodes
