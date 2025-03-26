@@ -20,8 +20,7 @@ class Menu {
         void handleOption1(UrbanMap<std::string>* urban_map);
         void handleOption2(UrbanMap<std::string>* urban_map);
         void handleOption3(UrbanMap<std::string>* urban_map);
-        void writeToFile(const std::string& filename, const std::string& content);
-        void resetGraph();
+
 };
 
 #endif //MENU_H

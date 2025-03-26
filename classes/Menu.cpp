@@ -90,62 +90,89 @@ void Menu::chooseOption() {
 
 
 void Menu::handleOption1(UrbanMap<std::string>* urban_map) {
-    std::string source, destination;
-    std::cout << "Enter source ID: ";
-    std::cin >> source;
 
-    std::cout << "Enter destination ID: ";
-    std::cin >> destination;
-
-    std::cout <<"Enter the mode that you want the route to be\n"<<"1.Driving\n"<<"0.Walking" <<std::endl;
-    bool mode;
-    std::cin >> mode;
-
-
-    std::ofstream outFile("../input/input1.txt");
-    if (outFile.is_open()) {
-        outFile << "Mode:";
-        if (mode == 1) {
-            outFile << "driving";
-        }else{
-            outFile << "walking";
+    std::cout << "Would you like to to set the input yourself\n";
+    std::cout << "1. Input yourself\n";
+    std::cout << "0. Ignore\n";
+    int option ;
+    std::cin >> option;
+    if (option == 0) {
+        case1(urban_map);
+        urban_map->resetGraph();
+        int option2;
+        std::cout<< "Would you like to read the output file?:\n"<<"1.Yes\n"<<"0.No\n";
+        std::cin >> option2;
+        if (option2 == 1) {
+            readOutputFile();
         }
-        outFile<<std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }else {
+        std::string source, destination;
+        std::cout << "Enter source ID: ";
+        std::cin >> source;
 
-        outFile << "Source:" << source << "\n";
-        outFile << "Destination:" << destination << "\n";
-        outFile.close();
-        std::cout << "Data written to input1.txt\n";
-    } else {
-        std::cerr << "Error opening file.\n";
+        std::cout << "Enter destination ID: ";
+        std::cin >> destination;
+
+        std::cout <<"Enter the mode that you want the route to be\n"<<"1.Driving\n"<<"0.Walking" <<std::endl;
+        bool mode;
+        std::cin >> mode;
+
+
+        std::ofstream outFile("../input/input1.txt");
+        if (outFile.is_open()) {
+            outFile << "Mode:";
+            if (mode == 1) {
+                outFile << "driving";
+            }else{
+                outFile << "walking";
+            }
+            outFile<<std::endl;
+
+            outFile << "Source:" << source << "\n";
+            outFile << "Destination:" << destination << "\n";
+            outFile.close();
+            std::cout << "Data written to input1.txt\n";
+        } else {
+            std::cerr << "Error opening file.\n";
+        }
+
+        case1(urban_map);
+        urban_map->resetGraph();
+        int option2;
+        std::cout<< "Would you like to read the output file?:\n"<<"1.Yes\n"<<"0.No\n";
+        std::cin >> option2;
+        if (option2 == 1) {
+            readOutputFile();
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 
-    case1(urban_map);
+}
+
+
+void Menu::handleOption2(UrbanMap<std::string>* urban_map) {
+    case2(urban_map);
     urban_map->resetGraph();
-    int option;
+    int option2;
     std::cout<< "Would you like to read the output file?:\n"<<"1.Yes\n"<<"0.No\n";
-    std::cin >> option;
-    if (option == 1) {
+    std::cin >> option2;
+    if (option2 == 1) {
         readOutputFile();
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
-
-void Menu::handleOption2(UrbanMap<std::string>* urban_map) {
-    std::string source;
-    std::cout << "Enter source ID: ";
-    std::cin >> source;
-    writeToFile("input2.txt", source);
-    resetGraph();
-}
-
 void Menu::handleOption3(UrbanMap<std::string>* urban_map) {
-    std::string source;
-    std::cout << "Enter source ID: ";
-    std::cin >> source;
-    writeToFile("input3.txt", source);
-    resetGraph();
+    case3(urban_map);
+    urban_map->resetGraph();
+    int option2;
+    std::cout<< "Would you like to read the output file?:\n"<<"1.Yes\n"<<"0.No\n";
+    std::cin >> option2;
+    if (option2 == 1) {
+        readOutputFile();
+    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
 /**
@@ -170,10 +197,4 @@ void Menu::readOutputFile() {
     inFile.close();  // Close the file
 }
 
-void Menu::writeToFile(const std::string& filename, const std::string& content) {
 
-}
-
-void Menu::resetGraph() {
-
-}
