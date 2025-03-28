@@ -59,31 +59,43 @@ void Menu::chooseOption() {
     UrbanMap<std::string> urban_map = createUrbanMap<std::string>();
     int option = -1;  // Initialize with an invalid value to enter the loop
 
-    while (option != 0) {  // Loop until the user chooses to exit (option 0)
-        std::cout << "\nChoose an option:\n";
-        std::cout << "1. Option 1\n";
-        std::cout << "2. Option 2\n";
-        std::cout << "3. Option 3\n";
-        std::cout << "0. Exit\n";
-        std::cout << "Enter your choice: ";
-        std::cin >> option;
+    while (option != 0) {
+        try {
+            std::cout << "\nChoose an option:\n";
+            std::cout << "1. Option 1\n";
+            std::cout << "2. Option 2\n";
+            std::cout << "3. Option 3\n";
+            std::cout << "0. Exit\n";
+            std::cout << "Enter your choice: ";
 
-        switch (option) {
-            case 1:
-                handleOption1(&urban_map);
-            break;
-            case 2:
-                handleOption2(&urban_map);
-            break;
-            case 3:
-                handleOption3(&urban_map);
-            break;
-            case 0:
-                std::cout << "Exiting the program. Goodbye!\n";
-            break;
-            default:
-                std::cout << "Invalid option. Please try again.\n";
-            break;
+            if (!(std::cin >> option)) {  // Handle invalid input
+                std::cin.clear();  // Clear error state
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard bad input
+                std::cout << "Invalid input. Please enter a number.\n";
+                continue;
+            }
+
+            switch (option) {
+                case 1:
+                    handleOption1(&urban_map);
+                break;
+                case 2:
+                    handleOption2(&urban_map);
+                break;
+                case 3:
+                    handleOption3(&urban_map);
+                break;
+                case 0:
+                    std::cout << "Exiting the program. Goodbye!\n";
+                break;
+                default:
+                    std::cout << "Invalid option. Please try again.\n";
+                break;
+            }
+        } catch (const std::exception &e) {  // Catch standard exceptions
+            std::cerr << "An error occurred: " << e.what() << "\n";
+        } catch (...) {  // Catch unknown exceptions
+            std::cerr << "Please make sure the input.txt has the right configuration\n";
         }
     }
 }
@@ -119,7 +131,7 @@ void Menu::handleOption1(UrbanMap<std::string>* urban_map) {
         std::cin >> mode;
 
 
-        std::ofstream outFile("../input/input1.txt");
+        std::ofstream outFile("../input/input.txt");
         if (outFile.is_open()) {
             outFile << "Mode:";
             if (mode == 1) {
@@ -132,7 +144,7 @@ void Menu::handleOption1(UrbanMap<std::string>* urban_map) {
             outFile << "Source:" << source << "\n";
             outFile << "Destination:" << destination << "\n";
             outFile.close();
-            std::cout << "Data written to input1.txt\n";
+            std::cout << "Data written to input.txt\n";
         } else {
             std::cerr << "Error opening file.\n";
         }
@@ -176,14 +188,14 @@ void Menu::handleOption3(UrbanMap<std::string>* urban_map) {
 }
 
 /**
- * @brief Reads and displays the contents of "output1.txt".
+ * @brief Reads and displays the contents of "output.txt".
  *
  * This function opens "output.txt", reads its contents line by line,
  * and prints them to the console. If the file cannot be opened,
  * an error message is displayed.
  */
 void Menu::readOutputFile() {
-    std::ifstream inFile("../output/output1.txt");  // Open the file for reading
+    std::ifstream inFile("../output/output.txt");  // Open the file for reading
 
     if (!inFile) {
         std::cerr << "Error: Could not open output.txt\n";

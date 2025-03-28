@@ -132,14 +132,14 @@ std::vector<int> getPath(UrbanMap<std::string> * g, const std::string &origin, c
  *
  * @param urban_map is a pointer to the UrbanMap graph containing locations and connections.
  *
- * @note This function outputs to an output1.txt where the results can be seen.
+ * @note This function outputs to an output.txt where the results can be seen.
  *
  * @complexity Does two dijkstras each one with complexity **O((V+E)logV)**
  * and also does two getPath() with complexity **O(V)**
  * This results in a final complexity of **O((V+E)logV)**
 */
 void case1(UrbanMap<std::string>* urban_map) {
-    std::ofstream out( "../output/output1.txt");
+    std::ofstream out( "../output/output.txt");
     if (!out) {
         std::cerr << "Error: Could not open output file!"<<" "<< strerror(errno) << ")" << std::endl;
         return;
@@ -196,7 +196,7 @@ void case1(UrbanMap<std::string>* urban_map) {
  *
  * @param urban_map is a pointer to the UrbanMap graph containing locations and connections.
  *
- * @note This function outputs to an output1.txt where the results can be seen.
+ * @note This function outputs to an output.txt where the results can be seen.
  *
  * @complexity Does two dijkstras each one with complexity **O((V+E)logV)**
  * or does only one dijkstra with the same complexity,
@@ -208,12 +208,17 @@ void case1(UrbanMap<std::string>* urban_map) {
  * This results in a final complexity of **O((V+E)logV), because the dijkstra dominates the complexity**
 */
 void case2(UrbanMap<std::string>* urban_map) {
-    std::ofstream out( "../output/output1.txt");
+    std::ofstream out( "../output/output.txt");
     if (!out) {
         std::cerr << "Error: Could not open output file!"<<" "<< strerror(errno) << ")" << std::endl;
         return;
     }
-    Case2Data case2_data = getCase2();
+    Case2Data case2_data;
+    try {
+        case2_data = getCase2();
+    }catch (...) {
+        std::cerr << "Error: Check the input file format" << std::endl;
+    }
 
     int src = case2_data.src;
     int dest = case2_data.dest;
@@ -354,7 +359,7 @@ void estimation(std::vector<RouteOption> &routeOptions,int src, int dest);
  *
  * @param urban_map is a pointer to the UrbanMap graph containing locations and connections.
  *
- * @note This function outputs to an output1.txt where the results can be seen.
+ * @note This function outputs to an output.txt where the results can be seen.
  *
  * @complexity Does two dijkstras each one with complexity **O((V+E)logV)**
  * for each node in the parkingNodes vector of the graph, this results in **O(V(V+E)logV)**,
@@ -370,7 +375,7 @@ void estimation(std::vector<RouteOption> &routeOptions,int src, int dest);
  * **O(n)**.
 */
 void case3(UrbanMap<std::string>* urban_map) {
-    std::ofstream out( "../output/output1.txt");
+    std::ofstream out( "../output/output.txt");
     if (!out) {
         std::cerr << "Error: Could not open output file!"<<" "<< strerror(errno) << ")" << std::endl;
         return;
