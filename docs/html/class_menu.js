@@ -6,7 +6,5 @@ var class_menu =
     [ "handleOption2", "class_menu.html#a952561b1c14249c78ee92db81ef4aa57", null ],
     [ "handleOption3", "class_menu.html#aa14cbb4f8ca18005d6d884485a9eaa1b", null ],
     [ "init", "class_menu.html#a342d2a526a850dbf2d1aecd830b91287", null ],
-    [ "readOutputFile", "class_menu.html#a9acf232329a62572f502406b2abadb09", null ],
-    [ "resetGraph", "class_menu.html#a4d6f5456699e915f5e0318d5827e22d0", null ],
-    [ "writeToFile", "class_menu.html#ab6001cd0b70e1833e67bbd6f6960572e", null ]
+    [ "readOutputFile", "class_menu.html#a9acf232329a62572f502406b2abadb09", null ]
 ];

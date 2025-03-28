@@ -27,7 +27,7 @@ void createLocations(UrbanMap<T> *urban_map) {
     std::ifstream is;
     std::string name, Code, line,tmp;
     int ID, parking;
-    is.open("../data/LocationsTest_updated.csv");
+    is.open("../data/LocationsTest.csv");
     getline(is, line);
     while (getline(is, line)) {
         std::stringstream iss(line);
@@ -49,7 +49,7 @@ void createLocations(UrbanMap<T> *urban_map) {
 template <typename T>
 void createRoads(UrbanMap<T>* urban_map) {
     std::ifstream is;
-    is.open("../data/DistancesTest_updated.csv");
+    is.open("../data/DistancesTest.csv");
     std::string code1, code2, line, tmp;
     int driving, walking;
     getline(is, line);
@@ -84,7 +84,7 @@ inline Case1Data getCase1() {
     // Input: mode, src, dest >> Data structure: data1
     Case1Data data1; // Create structure to store data
 
-    std::ifstream input1("../input/input1.txt"); // Open file
+    std::ifstream input1("../input/input.txt"); // Open file
     std::string line; // Line to be read
 
     // Error opening file
@@ -117,7 +117,7 @@ inline Case1Data getCase1() {
 inline Case2Data getCase2() {
     Case2Data data2;  // Criar estrutura para armazenar os dados
 
-    std::ifstream input2("../input/input1.txt");
+    std::ifstream input2("../input/input.txt");
     if (!input2) {
         std::cerr << "Error opening file!" << std::endl;
         return data2;  // Retorna estrutura vazia se não conseguir abrir o ficheiro
@@ -188,7 +188,7 @@ inline Case2Data getCase2() {
 inline Case3Data getCase3() {
     Case3Data data3;  // Criar estrutura para armazenar os dados
 
-    std::ifstream input3("../input/input1.txt");  // Abrir ficheiro
+    std::ifstream input3("../input/input.txt");  // Abrir ficheiro
     if (!input3) {
         std::cerr << "Error opening file!" << std::endl;
         return data3;  // Retorna estrutura vazia
