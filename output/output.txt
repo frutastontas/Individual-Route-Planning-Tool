@@ -1,3 +1,7 @@
-Source:5
-Destination:4
-RestrictedDrivingRoute:5,3,7,8,4(52)
+Source: 8
+Destination: 5
+DrivingRoute:
+ParkingNode:
+WalkingRoute:
+TotalTime:
+Message:No possible route with max. walking time of 5 minutes.

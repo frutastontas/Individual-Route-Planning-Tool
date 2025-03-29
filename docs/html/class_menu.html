@@ -121,8 +121,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a342d2a526a850dbf2d1aecd830b91287"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the menu with a dynamic welcome effect.  <br /></td></tr>
 <tr class="separator:a342d2a526a850dbf2d1aecd830b91287"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9acf232329a62572f502406b2abadb09" id="r_a9acf232329a62572f502406b2abadb09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9acf232329a62572f502406b2abadb09">readOutputFile</a> ()</td></tr>
-<tr class="memdesc:a9acf232329a62572f502406b2abadb09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads and displays the contents of "output1.txt".  <br /></td></tr>
+<tr class="memdesc:a9acf232329a62572f502406b2abadb09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads and displays the contents of "output.txt".  <br /></td></tr>
 <tr class="separator:a9acf232329a62572f502406b2abadb09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8a5fd22c284c80ee7517d32a6b7f896" id="r_af8a5fd22c284c80ee7517d32a6b7f896"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8a5fd22c284c80ee7517d32a6b7f896">readEstimationFile</a> ()</td></tr>
+<tr class="separator:af8a5fd22c284c80ee7517d32a6b7f896"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35f02a98e8004cb22918484daae0bdb7" id="r_a35f02a98e8004cb22918484daae0bdb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35f02a98e8004cb22918484daae0bdb7">help</a> ()</td></tr>
+<tr class="memdesc:a35f02a98e8004cb22918484daae0bdb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the help menu with available commands and their descriptions.  <br /></td></tr>
+<tr class="separator:a35f02a98e8004cb22918484daae0bdb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -288,6 +293,28 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a35f02a98e8004cb22918484daae0bdb7" name="a35f02a98e8004cb22918484daae0bdb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35f02a98e8004cb22918484daae0bdb7">&#9670;&#160;</a></span>help()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Menu::help </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays the help menu with available commands and their descriptions. </p>
+<p>This function prints a list of available options in the application, providing users with information on how to use the menu system. It includes options for route selection, avoidance preferences, and eco-friendly travel options.</p>
+<p>The function pauses for 4 seconds after displaying the menu to allow users to read the information.</p>
+<dl class="section note"><dt>Note</dt><dd>This function is part of the <a class="el" href="class_menu.html">Menu</a> class. </dd></dl>
+
+</div>
+</div>
 <a id="a342d2a526a850dbf2d1aecd830b91287" name="a342d2a526a850dbf2d1aecd830b91287"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a342d2a526a850dbf2d1aecd830b91287">&#9670;&#160;</a></span>init()</h2>
 
@@ -308,6 +335,23 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="af8a5fd22c284c80ee7517d32a6b7f896" name="af8a5fd22c284c80ee7517d32a6b7f896"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8a5fd22c284c80ee7517d32a6b7f896">&#9670;&#160;</a></span>readEstimationFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Menu::readEstimationFile </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9acf232329a62572f502406b2abadb09" name="a9acf232329a62572f502406b2abadb09"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9acf232329a62572f502406b2abadb09">&#9670;&#160;</a></span>readOutputFile()</h2>
 
@@ -323,7 +367,7 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Reads and displays the contents of "output1.txt". </p>
+<p>Reads and displays the contents of "output.txt". </p>
 <p>This function opens "output.txt", reads its contents line by line, and prints them to the console. If the file cannot be opened, an error message is displayed. </p>
 
 </div>

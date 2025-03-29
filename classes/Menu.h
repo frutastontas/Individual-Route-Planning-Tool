@@ -14,6 +14,8 @@ class Menu {
         void init();
         static void end();
         void readOutputFile();
+        void readEstimationFile();
+        void help();
 
     private:
         void chooseOption();

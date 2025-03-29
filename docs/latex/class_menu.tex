@@ -12,7 +12,11 @@
 void \mbox{\hyperlink{class_menu_a342d2a526a850dbf2d1aecd830b91287}{init}} ()
 \begin{DoxyCompactList}\small\item\em Initializes the menu with a dynamic welcome effect. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_menu_a9acf232329a62572f502406b2abadb09}{read\+Output\+File}} ()
-\begin{DoxyCompactList}\small\item\em Reads and displays the contents of "{}output1.\+txt"{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Reads and displays the contents of "{}output.\+txt"{}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_menu_af8a5fd22c284c80ee7517d32a6b7f896}{read\+Estimation\+File}} ()
+\item 
+void \mbox{\hyperlink{class_menu_a35f02a98e8004cb22918484daae0bdb7}{help}} ()
+\begin{DoxyCompactList}\small\item\em Displays the help menu with available commands and their descriptions. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -75,6 +79,23 @@ void Menu\+::handle\+Option2 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cl
 {\footnotesize\ttfamily \label{class_menu_aa14cbb4f8ca18005d6d884485a9eaa1b} 
 void Menu\+::handle\+Option3 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}}]{urban\+\_\+map}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+\Hypertarget{class_menu_a35f02a98e8004cb22918484daae0bdb7}\index{Menu@{Menu}!help@{help}}
+\index{help@{help}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{help()}{help()}}
+{\footnotesize\ttfamily \label{class_menu_a35f02a98e8004cb22918484daae0bdb7} 
+void Menu\+::help (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Displays the help menu with available commands and their descriptions. 
+
+This function prints a list of available options in the application, providing users with information on how to use the menu system. It includes options for route selection, avoidance preferences, and eco-\/friendly travel options.
+
+The function pauses for 4 seconds after displaying the menu to allow users to read the information.
+
+\begin{DoxyNote}{Note}
+This function is part of the \doxylink{class_menu}{Menu} class. 
+\end{DoxyNote}
 \Hypertarget{class_menu_a342d2a526a850dbf2d1aecd830b91287}\index{Menu@{Menu}!init@{init}}
 \index{init@{init}!Menu@{Menu}}
 \doxysubsubsection{\texorpdfstring{init()}{init()}}
@@ -85,7 +106,13 @@ void Menu\+::init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 Initializes the menu with a dynamic welcome effect. 
 
-Displays a welcome message with a loading animation before proceeding to the menu options. \Hypertarget{class_menu_a9acf232329a62572f502406b2abadb09}\index{Menu@{Menu}!readOutputFile@{readOutputFile}}
+Displays a welcome message with a loading animation before proceeding to the menu options. \Hypertarget{class_menu_af8a5fd22c284c80ee7517d32a6b7f896}\index{Menu@{Menu}!readEstimationFile@{readEstimationFile}}
+\index{readEstimationFile@{readEstimationFile}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{readEstimationFile()}{readEstimationFile()}}
+{\footnotesize\ttfamily \label{class_menu_af8a5fd22c284c80ee7517d32a6b7f896} 
+void Menu\+::read\+Estimation\+File (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_menu_a9acf232329a62572f502406b2abadb09}\index{Menu@{Menu}!readOutputFile@{readOutputFile}}
 \index{readOutputFile@{readOutputFile}!Menu@{Menu}}
 \doxysubsubsection{\texorpdfstring{readOutputFile()}{readOutputFile()}}
 {\footnotesize\ttfamily \label{class_menu_a9acf232329a62572f502406b2abadb09} 
@@ -93,7 +120,7 @@ void Menu\+::read\+Output\+File (\begin{DoxyParamCaption}{}{}\end{DoxyParamCapti
 
 
 
-Reads and displays the contents of "{}output1.\+txt"{}. 
+Reads and displays the contents of "{}output.\+txt"{}. 
 
 This function opens "{}output.\+txt"{}, reads its contents line by line, and prints them to the console. If the file cannot be opened, an error message is displayed. 
 

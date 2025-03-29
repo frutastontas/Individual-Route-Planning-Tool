@@ -147,9 +147,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a443a07f251ed28476c26893f8f486674" id="r_a443a07f251ed28476c26893f8f486674"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a443a07f251ed28476c26893f8f486674">estimation</a> (std::vector&lt; <a class="el" href="struct_route_option.html">RouteOption</a> &gt; &amp;routeOptions, int src, int dest)</td></tr>
 <tr class="memdesc:a443a07f251ed28476c26893f8f486674"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will select the best two options that combine driving and walking, passing through a parking node. It will sort a vector that houses structs <b><a class="el" href="struct_route_option.html" title="this sruct will be used for case4, where we estimate other paths, by finding the two other best optio...">RouteOption</a></b> that store previously computed routes of case 3. This estimation will only appear if there is no path from case 3. It selects the best two and puts them in the file.  <br /></td></tr>
 <tr class="separator:a443a07f251ed28476c26893f8f486674"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7f4a2a19efe9c5718b1fe4164e4fe62" id="r_aa7f4a2a19efe9c5718b1fe4164e4fe62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa7f4a2a19efe9c5718b1fe4164e4fe62">case3</a> (<a class="el" href="class_urban_map.html">UrbanMap</a>&lt; std::string &gt; *urban_map)</td></tr>
-<tr class="memdesc:aa7f4a2a19efe9c5718b1fe4164e4fe62"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function combines both walking and driving. First we do a dijkstra from the source to a node in the parkingNodes vector of the graph, wich has all the ids of the nodes that have parking. Then we do a dijkstra from that parking node to the destination using walking distances, making sure that the resulting walking time does not exceed the maximum. We do this for every parking node and we get the best overall time. In case two paths have the same total time, we select the one with more walking time to be more economic.  <br /></td></tr>
-<tr class="separator:aa7f4a2a19efe9c5718b1fe4164e4fe62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e865f70ecbad186ba194965b43f5147" id="r_a1e865f70ecbad186ba194965b43f5147"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e865f70ecbad186ba194965b43f5147">case3</a> (<a class="el" href="class_urban_map.html">UrbanMap</a>&lt; std::string &gt; *urban_map)</td></tr>
+<tr class="memdesc:a1e865f70ecbad186ba194965b43f5147"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function combines both walking and driving. First we do a dijkstra from the source to a node in the parkingNodes vector of the graph, wich has all the ids of the nodes that have parking. Then we do a dijkstra from that parking node to the destination using walking distances, making sure that the resulting walking time does not exceed the maximum. We do this for every parking node and we get the best overall time. In case two paths have the same total time, we select the one with more walking time to be more economic.  <br /></td></tr>
+<tr class="separator:a1e865f70ecbad186ba194965b43f5147"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a64a02bcebb9a65eec66909ee45245349" name="a64a02bcebb9a65eec66909ee45245349"></a>
@@ -175,7 +175,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function outputs to an output1.txt where the results can be seen.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function outputs to an output.txt where the results can be seen.</dd></dl>
 <p>@complexity Does two dijkstras each one with complexity <b>O((V+E)logV)</b> and also does two <a class="el" href="#a2d0b80f4eddcbcf2ab5534fa29bba6d5" title="Retrieves the shortest path from an origin to a destination in an UrbanMap.">getPath()</a> with complexity <b>O(V)</b> This results in a final complexity of <b>O((V+E)logV)</b> </p>
 
 </div>
@@ -203,19 +203,19 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function outputs to an output1.txt where the results can be seen.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function outputs to an output.txt where the results can be seen.</dd></dl>
 <p>@complexity Does two dijkstras each one with complexity <b>O((V+E)logV)</b> or does only one dijkstra with the same complexity, and also uses function <a class="el" href="#a2d0b80f4eddcbcf2ab5534fa29bba6d5" title="Retrieves the shortest path from an origin to a destination in an UrbanMap.">getPath()</a> with complexity <b>O(V)</b> To deactivate the nodes it takes a traversal on a vector with ids <b>O(n)</b> To deactivate the segments it takes a traversal on a vector with pairs of ids and for the origin and destination it finds in the adjacency list the other node of the segment, so the complexity is <b>O(n*|E|)</b> This results in a final complexity of <b>O((V+E)logV), because the dijkstra dominates the complexity</b> </p>
 
 </div>
 </div>
-<a id="aa7f4a2a19efe9c5718b1fe4164e4fe62" name="aa7f4a2a19efe9c5718b1fe4164e4fe62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7f4a2a19efe9c5718b1fe4164e4fe62">&#9670;&#160;</a></span>case3()</h2>
+<a id="a1e865f70ecbad186ba194965b43f5147" name="a1e865f70ecbad186ba194965b43f5147"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e865f70ecbad186ba194965b43f5147">&#9670;&#160;</a></span>case3()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void case3 </td>
+          <td class="memname">int case3 </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_urban_map.html">UrbanMap</a>&lt; std::string &gt; *</td>          <td class="paramname"><span class="paramname"><em>urban_map</em></span></td><td>)</td>
           <td></td>
@@ -230,7 +230,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function outputs to an output1.txt where the results can be seen.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function outputs to an output.txt where the results can be seen.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>returns an integer that acts as a flag to check if estimation function was called (0 means yes, 1 means no)</dd></dl>
 <p>@complexity Does two dijkstras each one with complexity <b>O((V+E)logV)</b> for each node in the parkingNodes vector of the graph, this results in <b>O(V(V+E)logV)</b>, and also uses function <a class="el" href="#a2d0b80f4eddcbcf2ab5534fa29bba6d5" title="Retrieves the shortest path from an origin to a destination in an UrbanMap.">getPath()</a> with complexity <b>O(V)</b> To deactivate the nodes it takes a traversal on a vector with ids <b>O(n)</b> To deactivate the segments it takes a traversal on a vector with pairs of ids and for the origin and destination it finds in the adjacency list the other node of the segment, so the complexity is <b>O(n*|E|)</b> This results in a final complexity of <b>O(V(V+E)logV)</b></p>
 <p>When it comes to spacial complexity, since we compute each route to the parking node and then to the destination and we compute the path and save it on a vector, this results in @complexity <b>O(n)</b>. </p>
 

@@ -16,6 +16,32 @@ Menu::Menu() {
 #include <thread>
 #include <chrono>
 
+
+/**
+ * @brief Displays the help menu with available commands and their descriptions.
+ *
+ * This function prints a list of available options in the application, providing
+ * users with information on how to use the menu system. It includes options
+ * for route selection, avoidance preferences, and eco-friendly travel options.
+ *
+ * The function pauses for 4 seconds after displaying the menu to allow users
+ * to read the information.
+ *
+ * @note This function is part of the Menu class.
+ */
+void Menu::help() {
+    std::cout << "================ Help Menu =================\n";
+    std::cout << "Available Commands:\n";
+    std::cout << "  1. option1 - Get the best two routes from your source to the destination\n";
+    std::cout << "  2. option2 - Select specific locations and roads that you would like to avoid, and also include a location you would like to pass through\n";
+    std::cout << "  3. option3 - See the best option to reach your destination in a economic and environment-friendly way by parking your car and then walking to the destination.\n";
+    std::cout << "  4. exit    - Exit the application\n";
+    std::cout << "===========================================\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(4000));
+}
+
+
+
 /**
  * @brief Initializes the menu with a dynamic welcome effect.
  *
@@ -24,7 +50,7 @@ Menu::Menu() {
  */
 void Menu::init() {
     std::cout << "=====================================\n";
-    std::cout << "🚀 Welcome to the Navigation System! 🚀\n";
+    std::cout << "  Welcome to the Navigation System! \n";
     std::cout << "=====================================\n";
 
     std::cout << "Loading menu";
@@ -35,7 +61,7 @@ void Menu::init() {
         std::cout << "." << std::flush;
     }
 
-    std::cout << "\n\n🎯 Wich type of route would you like to do today?\n";
+    std::cout << "\n\n Wich type of route would you like to do today?\n";
 
     chooseOption();
 }
@@ -65,6 +91,7 @@ void Menu::chooseOption() {
             std::cout << "1. Option 1\n";
             std::cout << "2. Option 2\n";
             std::cout << "3. Option 3\n";
+            std::cout << "4. Help\n";
             std::cout << "0. Exit\n";
             std::cout << "Enter your choice: ";
 
@@ -78,19 +105,22 @@ void Menu::chooseOption() {
             switch (option) {
                 case 1:
                     handleOption1(&urban_map);
-                break;
+                    break;
                 case 2:
                     handleOption2(&urban_map);
-                break;
+                    break;
                 case 3:
                     handleOption3(&urban_map);
-                break;
+                    break;
+                case 4:
+                    help();
+                    break;
                 case 0:
                     std::cout << "Exiting the program. Goodbye!\n";
-                break;
+                    break;
                 default:
                     std::cout << "Invalid option. Please try again.\n";
-                break;
+                    break;
             }
         } catch (const std::exception &e) {  // Catch standard exceptions
             std::cerr << "An error occurred: " << e.what() << "\n";
@@ -164,6 +194,9 @@ void Menu::handleOption1(UrbanMap<std::string>* urban_map) {
 
 
 void Menu::handleOption2(UrbanMap<std::string>* urban_map) {
+    std::cout << "Please make sure the input file has the correct format\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
     case2(urban_map);
     urban_map->resetGraph();
     int option2;
@@ -176,14 +209,23 @@ void Menu::handleOption2(UrbanMap<std::string>* urban_map) {
 }
 
 void Menu::handleOption3(UrbanMap<std::string>* urban_map) {
-    case3(urban_map);
+    std::cout << "Please make sure the input file has the correct format\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+    int flag = case3(urban_map);
     urban_map->resetGraph();
     int option2;
     std::cout<< "Would you like to read the output file?:\n"<<"1.Yes\n"<<"0.No\n";
     std::cin >> option2;
     if (option2 == 1) {
         readOutputFile();
+        if (flag == 0) {
+            std::cout<< "/////////////// Estimation File ////////////////////\n";
+            std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+            readEstimationFile();
+        }
     }
+
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
@@ -196,6 +238,21 @@ void Menu::handleOption3(UrbanMap<std::string>* urban_map) {
  */
 void Menu::readOutputFile() {
     std::ifstream inFile("../output/output.txt");  // Open the file for reading
+
+    if (!inFile) {
+        std::cerr << "Error: Could not open output.txt\n";
+        return;
+    }
+
+    std::string line;
+    while (std::getline(inFile, line)) {  // Read file line by line
+        std::cout << line << std::endl;
+    }
+    inFile.close();  // Close the file
+}
+
+void Menu::readEstimationFile() {
+    std::ifstream inFile("../output/estimation.txt");  // Open the file for reading
 
     if (!inFile) {
         std::cerr << "Error: Could not open output.txt\n";
