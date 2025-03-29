@@ -32,7 +32,7 @@ std\+::vector$<$ int $>$ \mbox{\hyperlink{_planning_8cpp_acc4216b94b8cbc066ddaeb
 \item 
 void \mbox{\hyperlink{_planning_8cpp_a443a07f251ed28476c26893f8f486674}{estimation}} (std\+::vector$<$ \mbox{\hyperlink{struct_route_option}{Route\+Option}} $>$ \&route\+Options, int src, int dest)
 \begin{DoxyCompactList}\small\item\em This function will select the best two options that combine driving and walking, passing through a parking node. It will sort a vector that houses structs {\bfseries{\doxylink{struct_route_option}{Route\+Option}}} that store previously computed routes of case 3. This estimation will only appear if there is no path from case 3. It selects the best two and puts them in the file. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{_planning_8cpp_aa7f4a2a19efe9c5718b1fe4164e4fe62}{case3}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}urban\+\_\+map)
+int \mbox{\hyperlink{_planning_8cpp_a1e865f70ecbad186ba194965b43f5147}{case3}} (\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}urban\+\_\+map)
 \begin{DoxyCompactList}\small\item\em This function combines both walking and driving. First we do a dijkstra from the source to a node in the parking\+Nodes vector of the graph, wich has all the ids of the nodes that have parking. Then we do a dijkstra from that parking node to the destination using walking distances, making sure that the resulting walking time does not exceed the maximum. We do this for every parking node and we get the best overall time. In case two paths have the same total time, we select the one with more walking time to be more economic. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -55,7 +55,7 @@ This function uses two dijkstras, the first one to compute the best route, and t
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
-This function outputs to an output1.\+txt where the results can be seen.
+This function outputs to an output.\+txt where the results can be seen.
 \end{DoxyNote}
 @complexity Does two dijkstras each one with complexity {\bfseries{O((V+E)logV)}} and also does two \doxylink{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5}{get\+Path()} with complexity {\bfseries{O(\+V)}} This results in a final complexity of {\bfseries{O((V+E)logV)}} \Hypertarget{_planning_8cpp_a2c0333fc34fc57bd91bd6f078843dd2f}\index{Planning.cpp@{Planning.cpp}!case2@{case2}}
 \index{case2@{case2}!Planning.cpp@{Planning.cpp}}
@@ -75,13 +75,13 @@ This function uses one dijkstra if there is no Node to include, or uses two dijk
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
-This function outputs to an output1.\+txt where the results can be seen.
+This function outputs to an output.\+txt where the results can be seen.
 \end{DoxyNote}
-@complexity Does two dijkstras each one with complexity {\bfseries{O((V+E)logV)}} or does only one dijkstra with the same complexity, and also uses function \doxylink{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5}{get\+Path()} with complexity {\bfseries{O(\+V)}} To deactivate the nodes it takes a traversal on a vector with ids {\bfseries{O(n)}} To deactivate the segments it takes a traversal on a vector with pairs of ids and for the origin and destination it finds in the adjacency list the other node of the segment, so the complexity is {\bfseries{O(n\texorpdfstring{$\ast$}{*}\texorpdfstring{$\vert$}{|}\+E\texorpdfstring{$\vert$}{|})}} This results in a final complexity of {\bfseries{O((V+E)logV), because the dijkstra dominates the complexity}} \Hypertarget{_planning_8cpp_aa7f4a2a19efe9c5718b1fe4164e4fe62}\index{Planning.cpp@{Planning.cpp}!case3@{case3}}
+@complexity Does two dijkstras each one with complexity {\bfseries{O((V+E)logV)}} or does only one dijkstra with the same complexity, and also uses function \doxylink{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5}{get\+Path()} with complexity {\bfseries{O(\+V)}} To deactivate the nodes it takes a traversal on a vector with ids {\bfseries{O(n)}} To deactivate the segments it takes a traversal on a vector with pairs of ids and for the origin and destination it finds in the adjacency list the other node of the segment, so the complexity is {\bfseries{O(n\texorpdfstring{$\ast$}{*}\texorpdfstring{$\vert$}{|}\+E\texorpdfstring{$\vert$}{|})}} This results in a final complexity of {\bfseries{O((V+E)logV), because the dijkstra dominates the complexity}} \Hypertarget{_planning_8cpp_a1e865f70ecbad186ba194965b43f5147}\index{Planning.cpp@{Planning.cpp}!case3@{case3}}
 \index{case3@{case3}!Planning.cpp@{Planning.cpp}}
 \doxysubsubsection{\texorpdfstring{case3()}{case3()}}
-{\footnotesize\ttfamily \label{_planning_8cpp_aa7f4a2a19efe9c5718b1fe4164e4fe62} 
-void case3 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}}]{urban\+\_\+map}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{_planning_8cpp_a1e865f70ecbad186ba194965b43f5147} 
+int case3 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_urban_map}{Urban\+Map}}$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*}}]{urban\+\_\+map}{}\end{DoxyParamCaption})}
 
 
 
@@ -93,8 +93,11 @@ This function combines both walking and driving. First we do a dijkstra from the
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
-This function outputs to an output1.\+txt where the results can be seen.
+This function outputs to an output.\+txt where the results can be seen.
 \end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+returns an integer that acts as a flag to check if estimation function was called (0 means yes, 1 means no)
+\end{DoxyReturn}
 @complexity Does two dijkstras each one with complexity {\bfseries{O((V+E)logV)}} for each node in the parking\+Nodes vector of the graph, this results in {\bfseries{O(V(V+E)logV)}}, and also uses function \doxylink{_planning_8cpp_a2d0b80f4eddcbcf2ab5534fa29bba6d5}{get\+Path()} with complexity {\bfseries{O(\+V)}} To deactivate the nodes it takes a traversal on a vector with ids {\bfseries{O(n)}} To deactivate the segments it takes a traversal on a vector with pairs of ids and for the origin and destination it finds in the adjacency list the other node of the segment, so the complexity is {\bfseries{O(n\texorpdfstring{$\ast$}{*}\texorpdfstring{$\vert$}{|}\+E\texorpdfstring{$\vert$}{|})}} This results in a final complexity of {\bfseries{O(V(V+E)logV)}}
 
 When it comes to spacial complexity, since we compute each route to the parking node and then to the destination and we compute the path and save it on a vector, this results in @complexity {\bfseries{O(n)}}. \Hypertarget{_planning_8cpp_ae2e0e759108ef41e869dd46f4742151c}\index{Planning.cpp@{Planning.cpp}!dijkstra@{dijkstra}}

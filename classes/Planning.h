@@ -16,6 +16,6 @@ void case1(UrbanMap<std::string>* urban_map);
 
 void case2(UrbanMap<std::string>* urban_map);
 
-void case3(UrbanMap<std::string>* urban_map);
+int case3(UrbanMap<std::string>* urban_map);
 
 #endif //ROUTEPLANNING_H

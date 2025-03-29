@@ -5,6 +5,8 @@ var class_menu =
     [ "handleOption1", "class_menu.html#aa2e0a2961e310c9181ad6ebf99680345", null ],
     [ "handleOption2", "class_menu.html#a952561b1c14249c78ee92db81ef4aa57", null ],
     [ "handleOption3", "class_menu.html#aa14cbb4f8ca18005d6d884485a9eaa1b", null ],
+    [ "help", "class_menu.html#a35f02a98e8004cb22918484daae0bdb7", null ],
     [ "init", "class_menu.html#a342d2a526a850dbf2d1aecd830b91287", null ],
+    [ "readEstimationFile", "class_menu.html#af8a5fd22c284c80ee7517d32a6b7f896", null ],
     [ "readOutputFile", "class_menu.html#a9acf232329a62572f502406b2abadb09", null ]
 ];

@@ -361,6 +361,9 @@ void estimation(std::vector<RouteOption> &routeOptions,int src, int dest);
  *
  * @note This function outputs to an output.txt where the results can be seen.
  *
+ * @return returns an integer that acts as a flag to check if estimation function was called
+ * (0 means yes, 1 means no)
+ *
  * @complexity Does two dijkstras each one with complexity **O((V+E)logV)**
  * for each node in the parkingNodes vector of the graph, this results in **O(V(V+E)logV)**,
  * and also uses function getPath() with complexity **O(V)**
@@ -374,11 +377,11 @@ void estimation(std::vector<RouteOption> &routeOptions,int src, int dest);
  * to the destination and we compute the path and save it on a vector, this results in @complexity
  * **O(n)**.
 */
-void case3(UrbanMap<std::string>* urban_map) {
+int case3(UrbanMap<std::string>* urban_map) {
     std::ofstream out( "../output/output.txt");
     if (!out) {
         std::cerr << "Error: Could not open output file!"<<" "<< strerror(errno) << ")" << std::endl;
-        return;
+        return 1;
     }
     Case3Data case3_data = getCase3();
     int src = case3_data.src;
@@ -475,7 +478,7 @@ void case3(UrbanMap<std::string>* urban_map) {
         out << "Message:No possible route with max. walking time of " << maxWalkingtime << " minutes." << std::endl;
         out.close();
         estimation(routeOptions, src,dest);
-        return;
+        return 0;
     }
     // Driving Route
     out << "DrivingRoute:";
@@ -499,6 +502,7 @@ void case3(UrbanMap<std::string>* urban_map) {
     // Total Time
     out << "TotalTime:" << (bestDrivingTime + bestWalkingTime) << std::endl;
     out.close();
+    return 1;
 }
 
 /**
