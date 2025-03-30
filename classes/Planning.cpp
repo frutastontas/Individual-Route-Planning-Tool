@@ -389,8 +389,8 @@ int case3(UrbanMap<std::string>* urban_map) {
     Case3Data case3_data = getCase3();
     int src = case3_data.src;
     int dest = case3_data.dest;
-    out<<"Source: "<<src<<std::endl;
-    out<<"Destination: "<<dest<<std::endl;
+    out<<"Source:"<<src<<std::endl;
+    out<<"Destination:"<<dest<<std::endl;
     auto Lsrc = urban_map->getLocationSet()[src-1];
     auto Ldest = urban_map->getLocationSet()[dest-1];
 
