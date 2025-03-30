@@ -1,3 +1,2 @@
-Mode:walking
-Source:2
-Destination:8
+
+

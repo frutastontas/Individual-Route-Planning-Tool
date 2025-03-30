@@ -279,6 +279,8 @@ void case2(UrbanMap<std::string>* urban_map) {
         int totaldistance = 0;
         if (VertexInclude->getPath() == nullptr) {
             out<<"none"<<std::endl;
+            out.close();
+            return;
         }else {
             for (int i = 0; i < Lset.size(); i++) {
                 out<<Lset[i];
@@ -292,6 +294,7 @@ void case2(UrbanMap<std::string>* urban_map) {
         if (Ldest->getPath() == nullptr) {
             out<<"none"<<std::endl;
         }else {
+            out<<",";
             for (int i = 1; i < Lset.size(); i++) { //needs to start from zero to not repeat the included
                 out<<Lset[i];
                 if (i<Lset.size()-1) out<<",";
@@ -386,8 +389,8 @@ int case3(UrbanMap<std::string>* urban_map) {
     Case3Data case3_data = getCase3();
     int src = case3_data.src;
     int dest = case3_data.dest;
-    out<<"Source: "<<src<<std::endl;
-    out<<"Destination: "<<dest<<std::endl;
+    out<<"Source:"<<src<<std::endl;
+    out<<"Destination:"<<dest<<std::endl;
     auto Lsrc = urban_map->getLocationSet()[src-1];
     auto Ldest = urban_map->getLocationSet()[dest-1];
 
